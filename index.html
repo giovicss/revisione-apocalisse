@@ -1,570 +1,404 @@
 <!DOCTYPE html>
-<html lang="it">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ultima Revisione</title>
+<html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Revisione Apocalittica</title>
 <style>
-  :root {
-    --bg: #f4f1ec;
-    --paper: #ffffff;
-    --ink: #1d1b19;
-    --muted: #77716a;
-    --line: #e2ddd5;
-    --accent: #3b5bdb;
-    --good: #2f9e5f;
-    --warn: #e08a1e;
-    --bad: #d6402f;
-  }
-  * { box-sizing: border-box; }
-  html, body { margin: 0; }
-  body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    padding: 16px;
-  }
-  main { width: 100%; max-width: 760px; }
-  header { margin-bottom: 14px; }
-  h1 { margin: 0; font-size: clamp(1.6rem, 5vw, 2.3rem); letter-spacing: -0.02em; }
-  h1 span { color: var(--accent); }
-  .sub { color: var(--muted); margin: 4px 0 0; }
+:root{--ink:#0b0e15;--st1:#2c3850;--st2:#121926;--sil:#e6ebf3;--sil2:#a3aebf;--red:#e8372c;--cy:#2bb8ee;--yel:#ffd23f;--lil:#cdbcf2;--grn:#35c777;--blu:#3a7bd5;
+--ff:"Segoe UI","Helvetica Neue",Arial,sans-serif;--fd:"Arial Black","Segoe UI Black","Helvetica Neue",Arial,sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{font-family:var(--ff);font-weight:600;color:#eef2f8;background:#1a2030;overflow-x:hidden}
+button{font-family:inherit}
+:focus-visible{outline:3px solid var(--cy);outline-offset:3px}
 
-  .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 14px 0; }
-  .stat { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 10px 8px; text-align: center; }
-  .stat .lbl { font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
-  .stat .val { font-size: 1.25rem; font-weight: 700; margin-top: 2px; font-variant-numeric: tabular-nums; }
-  .stat.earn .val { color: var(--good); }
+/* ---------- sfondo officina ---------- */
+#stage{position:fixed;inset:0;z-index:0;overflow:hidden;background:#2a3140}
+#stage>svg{width:100%;height:100%;display:block}
+#stage .veil{position:absolute;inset:0;background:rgba(10,14,22,0);transition:background .55s,backdrop-filter .55s}
+body[data-v=panel] #stage .veil{background:rgba(10,14,22,.66);backdrop-filter:blur(5px)}
+body[data-v=title] #stage .veil{background:rgba(10,14,22,.38)}
 
-  .brief { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-bottom: 12px; }
-  .brief-head { display: flex; align-items: center; gap: 12px; }
-  .avatar { width: 48px; height: 48px; border-radius: 12px; display: grid; place-items: center; font-size: 1.6rem; background: var(--bg); flex-shrink: 0; }
-  .client { font-weight: 700; font-size: 1.1rem; }
-  .job { color: var(--muted); font-size: .9rem; }
-  .temper { margin-left: auto; font-size: .75rem; padding: 4px 10px; border-radius: 99px; background: var(--bg); color: var(--muted); white-space: nowrap; }
+/* ---------- pannelli (GT4 vetro/argento + contorno fumetto) ---------- */
+.pn{position:relative;background:linear-gradient(180deg,rgba(48,63,88,.94),rgba(16,22,33,.96) 62%);border:3px solid var(--ink);border-radius:6px 22px 6px 22px;
+box-shadow:0 0 0 1px rgba(255,255,255,.28),inset 0 1px 0 rgba(255,255,255,.4),6px 6px 0 rgba(0,0,0,.5);overflow:hidden}
+.pn::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(rgba(255,255,255,.07) 1.2px,transparent 1.6px) 0 0/8px 8px}
+.pn>*{position:relative}
+.ph{display:flex;align-items:center;gap:10px;padding:8px 16px 8px 12px;background:linear-gradient(#f6f8fc,#b5bfcf 55%,#8f9bae);color:var(--ink);border-bottom:3px solid var(--ink);font:italic 800 17px var(--ff)}
+.ph span{flex:1}.ph em{font-style:normal;font-weight:800;font-size:14px;background:var(--ink);color:#fff;padding:2px 10px;border-radius:10px}
+.chip{width:26px;height:20px;background:var(--c,var(--red));border:3px solid var(--ink);transform:skewX(-14deg);flex:none}
+.chip.cy{--c:var(--cy)}.chip.yl{--c:var(--yel)}.chip.li{--c:var(--lil)}
 
-  .meters { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
-  .meter .top { display: flex; justify-content: space-between; font-size: .85rem; margin-bottom: 6px; }
-  .meter .top b { font-variant-numeric: tabular-nums; }
-  .bar { height: 12px; background: var(--bg); border-radius: 99px; overflow: hidden; }
-  .bar i { display: block; height: 100%; width: 0; border-radius: 99px; transition: width .4s ease, background-color .4s; }
-  #qBar { background: var(--accent); }
-  .fee-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
-  .fee { font-size: .95rem; color: var(--muted); padding: 10px 12px; border-radius: 10px; background: var(--bg); }
-  .fee b { display: block; font-size: 1.15rem; font-variant-numeric: tabular-nums; margin-top: 2px; }
-  .fee.win b { color: var(--good); }
-  .fee.lose b { color: var(--bad); }
+/* ---------- navigazione ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:6;display:flex;justify-content:space-between;gap:8px;padding:14px 20px;pointer-events:none}
+.nav>div{display:flex;gap:8px;flex-wrap:wrap;pointer-events:auto}
+.tk{--c:var(--red);position:relative;font:italic 800 15px var(--ff);color:var(--ink);padding:9px 22px 8px;cursor:pointer;
+background:linear-gradient(rgba(255,255,255,.42),rgba(255,255,255,0) 55%),var(--c);border:3px solid var(--ink);transform:skewX(-12deg);
+box-shadow:4px 4px 0 rgba(0,0,0,.45);transition:transform .15s,filter .15s,box-shadow .15s}
+.tk span{display:inline-block;transform:skewX(12deg)}
+.tk.cy{--c:var(--cy)}.tk.yl{--c:var(--yel)}.tk.li{--c:var(--lil)}
+.tk.red{color:#fff}.tk.red span{-webkit-text-stroke:.6px var(--ink);paint-order:stroke fill}
+.nav .tk:not(.on){filter:saturate(.75) brightness(.86)}
+.tk.on{transform:skewX(-12deg) translateY(-3px);box-shadow:0 0 0 2px #fff,5px 7px 0 rgba(0,0,0,.5)}
+.tk:hover{filter:none;transform:skewX(-12deg) translateY(-2px)}
+.dot{position:absolute;top:-9px;right:-7px;width:17px;height:17px;border-radius:50%;background:var(--red);border:3px solid var(--ink);transform:skewX(12deg)}
+.menub{position:fixed;left:20px;bottom:18px;z-index:6}
+.hud{position:fixed;right:20px;bottom:16px;z-index:6;width:min(330px,calc(100vw - 160px));padding:9px 14px 10px}
+.hr{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:var(--sil2)}
+.hr b{color:#fff;font-weight:800}.hr span:first-child{color:#fff;font-weight:800}
+.gauge{height:16px;margin:6px 0;background:#070a10;border:2px solid var(--ink);box-shadow:0 0 0 1px rgba(255,255,255,.25);overflow:hidden}
+.gauge i{display:block;height:100%;transition:width .5s;-webkit-mask:repeating-linear-gradient(90deg,#000 0 9px,transparent 9px 12px);mask:repeating-linear-gradient(90deg,#000 0 9px,transparent 9px 12px)}
 
-  .log { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 12px; height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
-  .bubble { max-width: 85%; padding: 8px 12px; border-radius: 12px; font-size: .92rem; line-height: 1.4; animation: pop .25s ease both; }
-  .bubble.client { background: var(--bg); align-self: flex-start; border-bottom-left-radius: 4px; }
-  .bubble.me { background: var(--accent); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
-  .bubble.sys { align-self: center; background: none; color: var(--muted); font-size: .8rem; font-style: italic; }
-  .bubble.fail { background: #fbe4e1; color: var(--bad); align-self: stretch; max-width: 100%; text-align: center; font-weight: 600; }
-  .bubble .gain { font-weight: 700; }
-  @keyframes pop { from { transform: translateY(6px); opacity: 0; } to { transform: none; opacity: 1; } }
-  .shake { animation: shake .4s; }
-  @keyframes shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+/* ---------- home: garage ---------- */
+.home{position:fixed;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:90px 16px 22px;cursor:pointer}
+.hero{position:relative;display:flex;align-items:flex-end;justify-content:center;width:max(320px,min(94vw,1060px,calc((100vh - 270px)*2.7)))}
+.hero .cw{width:74%;flex:none}
+.hero .own{width:15%;margin:0 2% 3% 0;flex:none}
+.hero svg{width:100%;height:auto;display:block;overflow:visible}
+.bubble{position:absolute;left:0;bottom:calc(100% - 30px);max-width:min(300px,58%);padding:12px 18px;background:#fff;color:var(--ink);border:4px solid var(--ink);
+border-radius:50% 50% 50% 50%/62% 62% 38% 38%;font:italic 800 clamp(13px,1.6vw,17px)/1.2 var(--ff);text-align:center;box-shadow:5px 5px 0 rgba(0,0,0,.45)}
+.bubble::after{content:"";position:absolute;left:62%;bottom:-24px;width:26px;height:26px;background:#fff;border-right:4px solid var(--ink);border-bottom:4px solid var(--ink);transform:skewX(32deg) rotate(8deg) scaleY(.9);border-radius:0 0 8px 0}
+.plate{margin-top:6px;padding:6px 26px;font:italic 800 16px var(--ff);color:#fff;background:linear-gradient(rgba(255,255,255,.18),rgba(0,0,0,.25)),var(--st2);border:3px solid var(--ink);box-shadow:0 0 0 1px rgba(255,255,255,.3),4px 4px 0 rgba(0,0,0,.45);transform:skewX(-12deg)}
+.plate span{display:inline-block;transform:skewX(12deg)}.plate em{font-style:normal;color:var(--cy);margin-left:10px}
+.scroll{margin-top:16px;display:flex;flex-direction:column;align-items:center}
+.sc-pl{padding:8px 24px;font:900 clamp(15px,2vw,20px) var(--fd);color:var(--ink);letter-spacing:.02em;background:
+linear-gradient(rgba(11,14,21,.16) 1px,transparent 1px) 0 0/12px 12px,linear-gradient(90deg,rgba(11,14,21,.16) 1px,transparent 1px) 0 0/12px 12px,var(--cy);
+border:4px solid var(--ink);box-shadow:5px 5px 0 rgba(0,0,0,.5);transform:rotate(-2deg)}
+.chev{display:block;margin-top:2px;width:28px;height:14px;animation:nudge 1.3s ease-in-out infinite}
+.chev+.chev{margin-top:-6px;animation-delay:.15s}
+@keyframes nudge{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(6px);opacity:1}}
 
-  .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
-  button { font: inherit; font-weight: 700; font-size: 1.02rem; padding: 14px; border-radius: 12px; border: none; cursor: pointer; transition: transform .08s, filter .15s, opacity .15s; }
-  button:active { transform: scale(.97); }
-  button:disabled { opacity: .4; cursor: not-allowed; }
-  button:not(:disabled):hover { filter: brightness(1.08); }
-  .rev { background: var(--accent); color: #fff; }
-  .ship { background: var(--good); color: #fff; }
-  .keys { text-align: center; color: var(--muted); font-size: .78rem; margin-top: 8px; }
+/* ---------- schermate con pannelli ---------- */
+.main{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:88px 20px 130px;display:grid;grid-template-columns:1.08fr 1fr;gap:18px;align-items:start}
+@media(max-width:900px){.main{grid-template-columns:1fr}}
+.col{display:grid;gap:18px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:560px){.two{grid-template-columns:1fr}}
+.show{padding:10px 12px 0;background:radial-gradient(ellipse at 50% 92%,rgba(170,195,235,.5),transparent 62%)}
+.show svg{width:100%;height:auto;display:block}
+.show.lock .mk{pointer-events:none}
+.mk{cursor:pointer}.mk:hover circle{stroke-width:6}
+.spec{display:grid;grid-template-columns:1fr 1fr;gap:0 22px;padding:4px 16px 12px}
+.spec div{display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.15);font-size:14px}
+.spec span{color:var(--sil2)}.spec b{font-weight:800}
+.own{display:flex;gap:12px;padding:14px;align-items:center}
+.av{width:56px;height:56px;flex:none;background:var(--cy);border:3px solid var(--ink);display:flex;align-items:flex-end;justify-content:center;overflow:hidden}
+.av::before{content:"";width:26px;height:26px;border-radius:50%;background:var(--ink);box-shadow:0 22px 0 8px var(--ink);margin-bottom:-4px;transform:translateY(-6px)}
+.own b{font-size:17px;display:block}.own small{display:block;color:var(--sil2);font-size:13px}
+.est{padding:12px 16px 14px}.est .big{font:italic 900 34px var(--fd);color:var(--yel);-webkit-text-stroke:2px var(--ink);paint-order:stroke fill;text-shadow:3px 3px 0 var(--ink);line-height:1.1}
+.est small{display:block;color:var(--sil2);font-size:13px;margin-top:4px}
+.row{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid rgba(255,255,255,.12);background:linear-gradient(90deg,rgba(255,255,255,.06),transparent 60%);transition:background .15s}
+.row:hover{background:linear-gradient(90deg,rgba(43,184,238,.3),transparent 85%)}
+.n{width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font:900 14px var(--fd);background:var(--yel);color:var(--ink);border:3px solid var(--ink);border-radius:50%}
+.cb{width:28px;height:28px;flex:none;display:flex;align-items:center;justify-content:center;font:900 18px var(--fd);background:#fff;color:var(--grn);border:3px solid var(--ink);-webkit-text-stroke:1px var(--ink)}
+.t{flex:1;font-size:16px;font-weight:800}.t small{display:block;font-size:13px;color:var(--sil2);font-weight:600}
+.empty{padding:22px 18px;color:var(--sil2);font-size:15px;line-height:1.4}
+.tot{display:flex;justify-content:space-between;padding:12px 16px;font-size:15px;background:rgba(0,0,0,.22)}.tot b{color:var(--yel);font-weight:800}
+.foot{display:flex;gap:12px;justify-content:flex-end;flex-wrap:wrap;padding:12px 16px;background:rgba(0,0,0,.3);border-top:1px solid rgba(255,255,255,.18)}
+.st{font:italic 800 12.5px var(--ff);padding:3px 12px;border:2px solid var(--ink);background:#fff;color:var(--ink);transform:skewX(-12deg)}
+.st.bad{background:var(--red);color:#fff}.st.good{background:var(--grn)}.st.fix{background:var(--blu);color:#fff}
+.btn{--c:var(--red);font:italic 800 15px var(--ff);padding:9px 22px;border:3px solid var(--ink);cursor:pointer;color:#fff;
+background:linear-gradient(rgba(255,255,255,.4),rgba(255,255,255,0) 52%),var(--c);box-shadow:4px 4px 0 rgba(0,0,0,.5);transform:skewX(-10deg);
+-webkit-text-stroke:.7px var(--ink);paint-order:stroke fill;transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:skewX(-10deg) translate(2px,2px);box-shadow:2px 2px 0 rgba(0,0,0,.5)}
+.btn.cy{--c:var(--cy)}.btn.ok{--c:var(--grn)}.btn.sm{font-size:13px;padding:6px 14px}.btn.big{font-size:21px;padding:12px 34px}
+.btn:disabled{--c:#7b8494;cursor:not-allowed;box-shadow:none;opacity:.7;transform:skewX(-10deg)}
+.msg{padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.12)}
+.msg h4{margin:0 0 4px;font:italic 800 13px var(--ff);display:inline-block;padding:2px 12px;background:var(--lil);color:var(--ink);border:2px solid var(--ink);transform:skewX(-12deg)}
+.msg.sys h4{background:var(--yel)}.msg p{margin:4px 0 0;font-size:15px;line-height:1.35}
 
-  details { margin-top: 16px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; }
-  summary { cursor: pointer; font-weight: 600; }
-  details li { color: var(--muted); font-size: .9rem; line-height: 1.5; }
+/* ---------- titolo / risultati ---------- */
+.ttl{position:relative;z-index:2;max-width:700px;margin:0 auto;padding:8vh 18px 40px;text-align:center}
+.ttl .pn{padding:26px 26px 30px}
+.logo{margin:0 0 14px;font:italic 900 clamp(34px,7vw,56px)/1 var(--fd);color:var(--yel);-webkit-text-stroke:3px var(--ink);paint-order:stroke fill;text-shadow:5px 5px 0 var(--ink);transform:skewX(-6deg)}
+.ttl p{font-size:16px;line-height:1.45;margin:10px auto;max-width:56ch}
+.steps{text-align:left;max-width:52ch;margin:14px auto;padding:0;list-style:none;counter-reset:s}
+.steps li{counter-increment:s;display:flex;gap:12px;align-items:flex-start;padding:8px 0;font-size:15px;line-height:1.35}
+.steps li::before{content:counter(s);flex:none;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font:900 14px var(--fd);background:var(--yel);color:var(--ink);border:3px solid var(--ink);border-radius:50%}
+.keys{font-size:12.5px;color:var(--sil2);margin-top:12px;line-height:1.4}
+table{width:100%;border-collapse:collapse;font-size:15px;margin:14px 0}
+th,td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.2);text-align:left}th{color:var(--sil2);font-weight:700}td:last-child,th:last-child{text-align:right}
+.stamp{display:inline-flex;flex-direction:column;align-items:flex-start;margin:8px 0 14px;transform:rotate(-3deg);animation:stamp .45s cubic-bezier(.2,1.5,.4,1) both}
+.stamp .s1{margin-left:-10px;padding:4px 18px;font:italic 800 20px var(--ff);color:#fff;background:var(--red);border:3px solid var(--ink);letter-spacing:.04em}
+.stamp .s2{padding:2px 24px;font:italic 900 clamp(38px,9vw,60px)/1.1 var(--fd);color:var(--ink);background:var(--cy);border:4px solid var(--ink);box-shadow:5px 5px 0 rgba(0,0,0,.5);transform:skewX(-8deg)}
+.stamp.bad .s1{background:var(--ink)}.stamp.bad .s2{background:var(--red);color:#fff;-webkit-text-stroke:2px var(--ink);paint-order:stroke fill}
+@keyframes stamp{from{transform:rotate(-3deg) scale(2.3);opacity:0}to{transform:rotate(-3deg) scale(1);opacity:1}}
 
-  .overlay { position: fixed; inset: 0; background: rgba(29,27,25,.55); display: none; align-items: center; justify-content: center; padding: 16px; z-index: 10; }
-  .overlay.show { display: flex; }
-  .modal { background: var(--paper); border-radius: 16px; padding: 24px; max-width: 420px; width: 100%; text-align: center; animation: pop .25s ease both; }
-  .modal h2 { margin: 0 0 6px; }
-  .modal p { color: var(--muted); line-height: 1.5; }
-  .modal .big { font-size: 2.3rem; font-weight: 800; margin: 6px 0; font-variant-numeric: tabular-nums; }
-  .modal button { width: 100%; margin-top: 10px; }
-  .summary { text-align: left; margin: 12px 0; font-size: .88rem; border-top: 1px solid var(--line); }
-  .summary div { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--line); }
+/* ---------- modali (dado, menu) ---------- */
+.ov{position:fixed;inset:0;background:rgba(6,9,14,.72);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;z-index:20;padding:12px}
+.md{text-align:center;width:min(460px,94vw);padding:0 0 20px}
+.md .bd{padding:18px 20px 0}
+.blob{display:inline-block;margin:0 0 14px;padding:16px 30px;background:var(--red);color:#fff;border:4px solid var(--ink);border-radius:58% 42% 55% 45%/48% 56% 44% 52%;box-shadow:5px 5px 0 rgba(0,0,0,.5);-webkit-text-stroke:.8px var(--ink);paint-order:stroke fill;transform:rotate(-2deg)}
+.blob.rep{background:var(--cy);color:var(--ink);-webkit-text-stroke:0}
+.blob b{display:block;font:italic 900 24px var(--fd)}.blob small{display:block;font-size:14px;font-weight:800}
+.die{width:92px;height:92px;margin:0 auto;background:#fff;border:5px solid var(--ink);border-radius:16px;box-shadow:inset -9px -9px 0 #d4cdb8,6px 6px 0 rgba(0,0,0,.5);display:grid;grid-template:repeat(3,1fr)/repeat(3,1fr);padding:10px}
+.die i{margin:3px}.die i.on{background:var(--ink);border-radius:50%}
+.res{min-height:52px;font-size:16px;margin:14px 0;line-height:1.35}
+.menulist{display:grid;gap:12px;padding:6px 24px 0;justify-items:center}
+.help{font-size:13.5px;color:var(--sil2);line-height:1.5;padding:12px 24px 0;text-align:left}
 
-  @media (max-width: 520px) {
-    .stats { grid-template-columns: repeat(2, 1fr); }
-    .stats .stat:last-child { grid-column: span 2; }
-    .meters { grid-template-columns: 1fr; }
-    .temper { display: none; }
-  }
-
-  header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
-  .menuBtn { padding: 7px 12px; font-size: .82rem; background: var(--paper); color: var(--ink); border: 1px solid var(--line); white-space: nowrap; }
-  .xp-bar, .taskbar { display: none; }
-  .modal { max-height: 92vh; overflow-y: auto; }
-  .modal h3 { margin: 14px 0 0; font-size: .85rem; text-align: left; color: var(--muted); }
-  .modal button.ghost { background: none; color: var(--muted); border: 1px solid var(--line); }
-  .modal .choice { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 8px 0 4px; }
-  .modal .choice button { width: auto; margin: 0; background: var(--bg); color: var(--ink); border: 2px solid var(--line); font-size: .95rem; padding: 10px; text-align: left; }
-  .modal .choice button small { display: block; font-weight: 400; color: var(--muted); font-size: .75rem; margin-top: 3px; line-height: 1.3; }
-  .modal .choice button.on { border-color: var(--accent); background: #e8edff; }
-
-  /* ===== Modalità anni 2000 · Windows XP ===== */
-  body.xp { --bg: #ece9d8; --paper: #fff; --ink: #000; --muted: #5f5a50; --line: #aca899; --accent: #245edb; --good: #2e8b1f; --warn: #d98a00; --bad: #c01818;
-    font-family: Tahoma, "Segoe UI", Verdana, sans-serif; font-size: 14px; padding: 20px 16px 56px;
-    background: linear-gradient(#2b6fd6 0, #7db7f4 50%, #58ab36 50%, #37821f 100%) fixed; }
-  body.xp main { background: var(--bg); border: 3px solid #0a3fd0; border-top: 0; border-radius: 9px 9px 3px 3px; box-shadow: 3px 3px 12px rgba(0,0,0,.45); padding-bottom: 12px; }
-  body.xp main > :not(.xp-bar) { margin-left: 12px; margin-right: 12px; }
-  body.xp .xp-bar { display: flex; align-items: center; justify-content: space-between; margin: 0 -3px 12px; padding: 6px 8px; border-radius: 7px 7px 0 0;
-    background: linear-gradient(#3a8cf6 0, #0a5bd8 12%, #0a4fd0 60%, #0846bf 100%); color: #fff; font-weight: 700; font-size: .85rem; text-shadow: 1px 1px #0a246a; }
-  body.xp .modal .xp-bar { margin: 0 -27px 16px; }
-  .xp-ctl i { display: inline-grid; place-items: center; width: 20px; height: 20px; margin-left: 3px; border: 1px solid #fff; border-radius: 3px; font-style: normal; font-size: .75rem; text-shadow: none; background: linear-gradient(#5b9bf8, #2863d8); }
-  .xp-ctl i.x { background: linear-gradient(#e9987f, #c8401f); }
-  body.xp h1 { font-family: "Trebuchet MS", Tahoma, sans-serif; font-style: italic; color: #0a246a; }
-  body.xp .stat, body.xp .brief, body.xp .log, body.xp details, body.xp .fee, body.xp .avatar { border-radius: 3px; border: 1px solid var(--line); box-shadow: inset 1px 1px 0 #fff; }
-  body.xp .temper, body.xp .bubble { border-radius: 2px; }
-  body.xp .bubble.client { background: #eaf1fc; border: 1px solid #b7c9ea; }
-  body.xp .bubble.me { background: #fffbe0; color: #000; border: 1px solid #e2cf7a; }
-  body.xp .bubble.fail { background: #fff0f0; border: 1px solid #d99; }
-  body.xp .bar { height: 16px; border-radius: 2px; border: 1px solid #686868; background: #fff; padding: 1px; }
-  body.xp .bar i { border-radius: 0; background-image: repeating-linear-gradient(90deg, transparent 0 8px, #fff 8px 10px); }
-  body.xp #qBar { background-color: #2fc12f; }
-  body.xp button { border-radius: 3px; border: 1px solid #003c74; background: linear-gradient(#fff, #f0eee4 80%, #d6d0c0); color: #000; font-size: .95rem; padding: 11px; box-shadow: inset 0 0 0 1px #fff; }
-  body.xp button:not(:disabled):hover { filter: none; box-shadow: inset 0 0 0 2px #f8b636; }
-  body.xp .ship { color: #0b5a0b; }
-  body.xp .menuBtn { font-size: .8rem; padding: 6px 10px; }
-  body.xp .modal { padding: 0 24px 24px; border: 3px solid #0a3fd0; border-top: 0; border-radius: 9px 9px 3px 3px; background: var(--bg); }
-  body.xp .modal .choice button { padding: 9px; }
-  body.xp .modal .choice button.on { background: #fff; border-color: #0a3fd0; box-shadow: inset 0 0 0 1px #0a3fd0; }
-  body.xp .overlay { background: rgba(0, 30, 90, .35); }
-  body.xp .taskbar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; height: 36px; z-index: 20; align-items: stretch; color: #fff; font-size: .82rem;
-    background: linear-gradient(#3d86f2 0, #245edb 10%, #245edb 85%, #1a45a8 100%); }
-  .start { display: flex; align-items: center; padding: 0 22px 0 14px; background: linear-gradient(#5fbe55, #3a9a31 55%, #2e8a27); border-radius: 0 14px 14px 0; font-weight: 700; font-style: italic; font-size: 1.05rem; text-shadow: 1px 1px 2px #1b4d17; box-shadow: inset -2px 0 4px rgba(0,0,0,.25); }
-  .task { display: flex; align-items: center; margin: 3px 0 3px 10px; padding: 0 14px; background: #1e4fc2; border: 1px solid #0a2f8a; border-radius: 3px; box-shadow: inset 1px 1px 3px rgba(0,0,0,.4); }
-  .tray { margin-left: auto; display: flex; align-items: center; padding: 0 14px; background: linear-gradient(#0f8be8, #1290e4 50%, #0b77d0); border-left: 1px solid #0a4fa8; }
-</style>
-</head>
-<body>
-<main>
-  <div class="xp-bar"><span>🖥️ <span id="xpTitle">Ultima Revisione.exe</span></span><span class="xp-ctl"><i>_</i><i>□</i><i class="x">×</i></span></div>
-  <header>
-    <div>
-      <h1 id="h1">Ultima <span>Revisione</span></h1>
-      <p class="sub" id="sub">La bozza è consegnata. Ancora un ritocco… o incassi adesso?</p>
-    </div>
-    <button class="menuBtn" id="menuBtn">⚙️ Menu</button>
-  </header>
-
-  <section class="stats">
-    <div class="stat"><div class="lbl">Progetto</div><div class="val" id="round">1/5</div></div>
-    <div class="stat"><div class="lbl">Revisioni</div><div class="val" id="revs">0</div></div>
-    <div class="stat earn"><div class="lbl">Incassato</div><div class="val" id="bank">0 €</div></div>
-    <div class="stat"><div class="lbl">Spese fisse</div><div class="val" id="costs">5.000 €</div></div>
-    <div class="stat"><div class="lbl">Record</div><div class="val" id="best">0 €</div></div>
-  </section>
-
-  <section class="brief" id="brief">
-    <div class="brief-head">
-      <div class="avatar" id="avatar">🍕</div>
-      <div>
-        <div class="client" id="client"></div>
-        <div class="job" id="job"></div>
-      </div>
-      <div class="temper" id="temper"></div>
-    </div>
-    <div class="meters">
-      <div class="meter">
-        <div class="top"><span>Qualità del progetto</span><b id="qTxt">0</b></div>
-        <div class="bar"><i id="qBar"></i></div>
-      </div>
-      <div class="meter">
-        <div class="top"><span>Rischio che il cliente molli</span><b id="rTxt">0%</b></div>
-        <div class="bar"><i id="rBar"></i></div>
-      </div>
-    </div>
-    <div class="fee-row">
-      <div class="fee win">Se consegni ora incassi <b id="fee">0 €</b></div>
-      <div class="fee lose">Se il cliente molla perdi <b id="loss">0 €</b></div>
-    </div>
-  </section>
-
-  <section class="log" id="log"></section>
-
-  <section class="actions">
-    <button class="rev" id="revBtn">✏️ Un'altra revisione</button>
-    <button class="ship" id="shipBtn">📦 Consegna e fattura</button>
-  </section>
-  <div class="keys">Tastiera: Spazio = revisione · C = consegna</div>
-
-  <details>
-    <summary>Come si gioca</summary>
-    <ul>
-      <li>Cinque clienti, un progetto ciascuno. Parti sempre da una bozza già consegnata.</li>
-      <li>Ogni revisione alza la qualità di un valore casuale e quindi il compenso.</li>
-      <li>Ma ogni revisione consuma la pazienza del cliente: prima di ogni ritocco c'è la probabilità mostrata che si stufi e butti via tutto. In quel caso il progetto vale zero.</li>
-      <li>Ogni cliente ha un carattere diverso: alcuni sopportano molte revisioni, altri esplodono presto.</li>
-      <li>Consegna quando vuoi per incassare. Alla fine devi coprire le spese fisse: più alta è la difficoltà, più alte sono le spese e più nervosi i clienti.</li>
-      <li>Dal Menu scegli la modalità (Classica o Anni 2000 con Windows XP) e il livello di difficoltà. Il record è separato per ogni combinazione.</li>
-    </ul>
-  </details>
-</main>
-
-<div class="overlay" id="overlay">
-  <div class="modal">
-    <div class="xp-bar"><span>Ultima Revisione</span><span class="xp-ctl"><i class="x">×</i></span></div>
-    <h2 id="mTitle"></h2>
-    <div class="big" id="mBig"></div>
-    <p id="mText"></p>
-    <div id="mExtra"></div>
-    <button class="rev" id="mBtn"></button>
-    <button class="ghost" id="mBtn2" style="display:none"></button>
-  </div>
-</div>
-
-<div class="overlay" id="menu">
-  <div class="modal">
-    <div class="xp-bar"><span>Nuova partita</span><span class="xp-ctl"><i class="x">×</i></span></div>
-    <h2>Nuova partita</h2>
-    <h3>Modalità</h3>
-    <div class="choice" id="modeChoice"></div>
-    <h3>Difficoltà</h3>
-    <div class="choice" id="diffChoice"></div>
-    <button class="rev" id="menuStart">Inizia la partita</button>
-    <button class="ghost" id="menuCancel">Torna al gioco</button>
-  </div>
-</div>
-
-<div class="taskbar"><div class="start">⊞ start</div><div class="task">🖥️&nbsp;Ultima Revisione.exe</div><div class="tray" id="clock"></div></div>
-
+@media(max-width:600px){.nav{padding:10px}.tk{padding:8px 13px 7px;font-size:13px}.menub{left:10px;bottom:12px}.hud{right:10px;bottom:10px}.main{padding-top:84px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body data-v="title">
+<div id="stage"></div>
+<div id="app"></div><div id="menu"></div><div id="modal"></div>
 <script>
-(() => {
-  const ROUNDS = 5;
-  const RATE = 100; // € per punto qualità
+const $=s=>document.querySelector(s),rnd=n=>Math.floor(Math.random()*n);
 
-  const DIFFS = {
-    facile:    { name: "Facile",    risk: 0.65, costs: 3500, gain: 1.15, luck: 0.14, blind: false, desc: "Clienti pazienti" },
-    normale:   { name: "Normale",   risk: 1,    costs: 5000, gain: 1,    luck: 0.10, blind: false, desc: "L'esperienza originale" },
-    difficile: { name: "Difficile", risk: 1.3,  costs: 6500, gain: 0.9,  luck: 0.08, blind: false, desc: "Clienti nervosi" },
-    incubo:    { name: "Incubo",    risk: 1.6,  costs: 8000, gain: 0.8,  luck: 0.06, blind: true,  desc: "Rischio solo stimato" }
-  };
+/* ======================= DATI ======================= */
+const PARTS=[{n:'Motore',h:2,x:490,y:150},{n:'Batteria',h:1,x:415,y:160},{n:'Fari',h:1,x:548,y:170},{n:'Freni',h:1,x:470,y:208},{n:'Gomme',h:1,x:140,y:208},{n:'Sospensioni',h:2,x:305,y:216},{n:'Marmitta',h:1,x:62,y:186}];
+const CARS=[
+{m:'Fiat Panda',y:1998,km:212430,f:'Benzina',c:'#ffd23f',lim:13,n:3,own:{nome:'Paolo Muro',eta:33,job:'Tecnico',dest:'Città del Capo'},
+ say:'Ripara la mia auto, che devo scappare!!!',note:'Il proprietario ha due gatti sul sedile e nessuna voglia di aspettare.'},
+{m:'Alfa Romeo 147',y:2004,km:187900,f:'Diesel',c:'#e8372c',lim:15,n:4,own:{nome:'Giulia Ferrante',eta:41,job:'Infermiera',dest:'Durban'},
+ say:'I cancelli chiudono all\'alba! Sbrigati!',note:'«I cancelli della città chiudono all\'alba. Fai in fretta.»'},
+{m:'Land Rover Defender',y:2001,km:305120,f:'Diesel',c:'#43b86a',lim:17,n:5,own:{nome:'Marco Benedetti',eta:52,job:'Guida alpina',dest:'Windhoek'},
+ say:'Il bagagliaio è pieno di scatolette. Muoviti!',note:'Bagagliaio pieno di scatolette. Il tizio guarda fuori dalla finestra ogni minuto.'}];
+const FACES=[[],[4],[0,8],[0,4,8],[0,2,6,8],[0,2,4,6,8],[0,2,3,5,6,8]];
+let G={screen:'menu'};
+const cur=()=>G.cars[G.i];
+const fmt=x=>(+x).toFixed(1).replace('.0','').replace('.',',');
 
-  const MODES = {
-    classic: {
-      icon: "🎨", label: "Classica", blurb: "Lo studio di oggi",
-      title: "Ultima Revisione", h1: "Ultima <span>Revisione</span>",
-      sub: "La bozza è consegnata. Ancora un ritocco… o incassi adesso?",
-      draft: q => `Ecco la bozza! (qualità ${q})`, greet: "Grazie, la guardo. Intanto… qualche ritocco?",
-      done: "Fatto, nuova versione.", lucky: " 💡 Intuizione!", boom: "💥 ",
-      clients: [
-        { ico: "🍕", name: "Pizzeria Da Totò", job: "Nuovo menù e insegna", base: 0.06, step: 0.07, temper: "Alla mano" },
-        { ico: "⚖️", name: "Studio Legale Rossi & Figli", job: "Restyling del logo", base: 0.08, step: 0.09, temper: "Formale" },
-        { ico: "🚀", name: "Startup GreenChain", job: "Pitch deck per investitori", base: 0.04, step: 0.12, temper: "Frenetico" },
-        { ico: "🏛️", name: "Assessorato alla Cultura", job: "Identità di un festival", base: 0.03, step: 0.05, temper: "Paziente (e lento)" },
-        { ico: "🍷", name: "Cantina Etna Rosso", job: "Etichetta della nuova annata", base: 0.05, step: 0.08, temper: "Esigente" },
-        { ico: "🏠", name: "Immobiliare Prestige", job: "Sito vetrina", base: 0.10, step: 0.10, temper: "Impaziente" },
-        { ico: "💪", name: "Palestra IronFit", job: "Campagna social di settembre", base: 0.07, step: 0.08, temper: "Energico" },
-        { ico: "🖼️", name: "Museo Civico", job: "Allestimento e segnaletica", base: 0.04, step: 0.06, temper: "Riflessivo" }
-      ],
-      req: [
-        ["Possiamo fare il logo più grande?", "Mi piace, ma proviamo in blu?", "Mia nipote dice che il font è vecchio.", "Si può rendere più… moderno?", "Togliamo lo spazio bianco, sembra vuoto.", "Deve 'spaccare' di più.", "Proviamo con una foto di stock sorridente.", "Ottimo! Solo una piccola cosa…", "Il capo ha visto e vuole più colore."],
-        ["Il concorrente ha fatto una cosa simile, ma meglio.", "Rimettiamo la versione di prima, ma diversa.", "Aggiungiamo anche il numero di telefono. E il fax.", "Si può fare tutto ma più piccolo?", "Mia moglie dice che le ricorda un cimitero.", "Può farlo più 'italiano'? Non so spiegarle come.", "Ho mostrato la bozza al barista: non lo convince.", "Il verde non mi parla. Provi un altro colore."],
-        ["Ci serve per domani, ma senza fretta.", "Ho riletto le mail: la prima versione era la migliore.", "Ho avuto un'illuminazione stanotte. Ricominci da capo?", "Non so cosa voglio, ma questo non è.", "Mio cognato ha un'idea: gliela inoltro, si prepari.", "Ne parlo col commercialista, intanto cambi tutto."]
-      ],
-      warn: ["Guardi, la mia pazienza ha un limite.", "Siamo all'ennesima versione, eh…", "Mi sa che stiamo girando in tondo.", "Ancora? Il tempo stringe, sa.", "Lo dico con affetto: mi sta venendo il mal di testa."],
-      small: ["Mmh, non vedo grande differenza.", "Ha cambiato qualcosa? Perché io no.", "Un filo meglio. Un filo.", "Ok, ma resto perplesso."],
-      big: ["Ecco, così sì! Mi piace.", "Wow, adesso ci siamo quasi.", "Questa sì che è un'altra cosa!", "Bravo, finalmente si vede la mano."],
-      happy: {
-        low: ["Beh, accontentiamoci. Mandi la fattura.", "Non è il massimo, ma va bene.", "Ok, basta così. Grazie lo stesso."],
-        mid: ["Perfetto, lo mandiamo in stampa!", "Bellissimo, grazie. Mandi pure la fattura.", "Esattamente quello che avevo in mente.", "Ci piace. Pubblichiamo."],
-        high: ["Fantastico, mai visto di meglio! Pubblichiamo subito.", "Un capolavoro. La consiglierò a tutti.", "Esattamente quello che avevo in mente, anzi meglio."],
-        zero: ["Già finito? Va bene, la prendo così.", "Senza ritocchi? Sospetto, ma ok.", "Mi fido, è pronta. Mandi la fattura."]
-      },
-      angry: ["Sa cosa? Lasciamo perdere. Lo fa mio cugino.", "Basta, ci ho ripensato: niente progetto.", "Abbiamo deciso di usare un template online.", "Troppe versioni, non ci capiamo più. Chiudiamo qui.", "Il budget è stato spostato su altro. Mi spiace.", "Ho trovato un'altra agenzia, più veloce di lei.", "Il socio ha detto basta: tutto annullato.", "Io non ci capisco più niente: arrivederci."]
-    },
-    xp: {
-      icon: "🖥️", label: "Anni 2000", blurb: "Windows XP, MSN e modem 56k",
-      title: "Ultima Revisione 2003", h1: "Ultima <span>Revisione</span> 2003",
-      sub: "La bozza è su floppy. Ancora un ritocco… o fatturi adesso?",
-      draft: q => `Bozza salvata su floppy! (qualità ${q})`, greet: "Grazie, la apro con Internet Explorer. Intanto… qualche ritocco?",
-      done: "Fatto, versione inviata via e-mail.", lucky: " ✨ Illuminazione!", boom: "⚠️ Errore: ",
-      clients: [
-        { ico: "🌐", name: "Cyber Caffè Planet", job: "Volantino per la serata chat", base: 0.06, step: 0.07, temper: "Alla mano" },
-        { ico: "📱", name: "Telefonia Nokia Point", job: "Banner con le suonerie polifoniche", base: 0.04, step: 0.12, temper: "Frenetico" },
-        { ico: "📼", name: "Videonoleggio Star", job: "Sito con il contatore di visite", base: 0.08, step: 0.09, temper: "Nostalgico" },
-        { ico: "🎓", name: "Facoltà di Informatica", job: "Pagina del corso in FrontPage", base: 0.03, step: 0.05, temper: "Paziente (e lento)" },
-        { ico: "🏦", name: "Banca Popolare del Corso", job: "Homepage 'ottimizzata per 800x600'", base: 0.08, step: 0.09, temper: "Formale" },
-        { ico: "📻", name: "Radio Onda Libera FM", job: "Sito con player e guestbook", base: 0.07, step: 0.08, temper: "Energico" },
-        { ico: "🏨", name: "Hotel Vista Mare", job: "Intro in Flash con 'Skip intro'", base: 0.05, step: 0.08, temper: "Esigente" },
-        { ico: "💽", name: "Computer Shop Pentium 4", job: "Catalogo su CD-ROM", base: 0.10, step: 0.10, temper: "Impaziente" }
-      ],
-      req: [
-        ["Possiamo mettere un'intro in Flash?", "Il logo deve girare. Tipo GIF animata.", "Mio nipote dice che serve il contatore di visite.", "Mettiamo lo sfondo con le stelline.", "Lo vorrei col WordArt, quello arcobaleno.", "Si legge male con Internet Explorer 6.", "Aggiungiamo un'ombra: in Photoshop si fa in un clic, no?", "Mi mandi tutto anche su MSN, grazie."],
-        ["Il guestbook non funziona. E la musichetta MIDI?", "Ho stampato tutto e l'ho passato via fax: controlli.", "Sul mio monitor da 14 pollici è tagliato.", "Mia cugina ha Word XP e dice che è diverso.", "Lo salvi su floppy, il CD-R mi si è rovinato.", "Ci vuole il banner 'Sito in costruzione' con l'omino col casco.", "Il mio Pentium fatica: si può alleggerire?", "Mio cognato ha Dreamweaver e dice che lo farebbe meglio."],
-        ["Col mio modem 56k ci mette un'ora a caricare.", "Ho cambiato idea: tutto trasparente, come Windows XP.", "Il computer in ufficio si è bloccato e ho perso la versione buona. Rifaccia.", "Ho letto su una rivista che oggi si usano i frame.", "Non so cosa voglio, ma questo no.", "Ricominci da zero, ma tenga il contatore."]
-      ],
-      warn: ["Ho il telefono che squilla… e la pazienza pure.", "Un'altra versione e stacco il modem.", "Mi sta venendo la schermata blu.", "Siamo alla versione 7… 'definitiva_finale_ok.doc'.", "Il tempo stringe, devo scaricare i nuovi driver."],
-      small: ["Sul mio CRT non cambia niente.", "Ho ricaricato la pagina ma sembra uguale.", "Un filo meglio. Un filo.", "Mmh, anche l'anteprima dice la stessa cosa."],
-      big: ["Wow, sembra fatto con Dreamweaver MX!", "Ecco, così sì! Lo stampo e lo appendo.", "Mamma mia, fa quasi 3D!", "Adesso sì che sembra professionale."],
-      happy: {
-        low: ["Va bene, accontentiamoci. Mandi la fattura.", "Non è il massimo, ma il browser lo apre.", "Ok, basta così. Salvo su floppy."],
-        mid: ["Perfetto, lo masterizzo e lo mando in stampa!", "Bellissimo, grazie. Mi mandi la fattura per e-mail.", "Esattamente quello che avevo in mente.", "Ci piace. Lo carico sul server via FTP."],
-        high: ["Fantastico! Lo mostro a tutti su MSN.", "Un capolavoro: lo metto come sfondo del desktop.", "Meglio di così solo con Flash!"],
-        zero: ["Già finito? Va bene, la prendo così.", "Senza ritocchi? Boh, mi fido.", "Perfetto subito, che strano. Fatturi pure."]
-      },
-      angry: ["Basta, lo faccio fare a mio nipote che 'sa fare i siti'.", "Ho scaricato un template gratuito da Tripod.", "Si è bloccato tutto: schermata blu. Chiudiamo qui.", "Abbiamo passato tutto a un'agenzia che fa Flash.", "Troppe versioni, non ci capiamo più. Chiudiamo.", "Faccio una pagina con Word e la salvo come HTML.", "Il budget è finito in ricariche telefoniche. Mi spiace.", "Il socio ha detto basta: tutto annullato."]
-    }
-  };
+/* ======================= LOGICA ======================= */
+function newGame(){
+ G={screen:'game',i:0,phase:0,tab:'home',menuOpen:false,log:[],logN:0,seenN:0,roll:null,timeout:false,res:[],
+ cars:CARS.map(c=>{const ids=[0,1,2,3,4,5,6].sort(()=>Math.random()-.5).slice(0,c.n);
+  return{...c,left:c.lim,st:PARTS.map((p,k)=>({insp:false,fault:ids.includes(k),has:false,fixed:false}))}})};
+ log('Entra la prima auto. Il proprietario è nervoso.');closeMenu();render();
+}
+function log(t){G.log.unshift(t);G.log=G.log.slice(0,8);G.logN++}
+function spend(h){const c=cur();c.left=Math.max(0,+(c.left-h).toFixed(1));if(c.left<=0)G.timeout=true}
+function lose(why){G.screen='end';G.win=false;G.why=why;render()}
+function setTab(t){if(G.screen!=='game'||G.roll)return;G.tab=t;if(typeof t==='number')G.phase=t;if(t==='msg')G.seenN=G.logN;render();scrollTo(0,0)}
+function act(k){
+ if(G.screen!=='game'||G.roll||G.tab!==G.phase)return;const c=cur(),s=c.st[k],p=PARTS[k];
+ if(G.phase===0){if(s.insp)return;s.insp=true; /* l'ispezione non consuma più tempo */
+  log(s.fault?`${p.n}: GUASTO! Riparazione stimata ${p.h}h.`:`${p.n}: tutto a posto.`);render()}
+ else if(G.phase===1){if(s.insp&&s.fault&&!s.has&&!s.fixed)openRoll('buy',k)}
+ else if(s.has&&!s.fixed)openRoll('rep',k);
+}
+function openRoll(kind,k){G.roll={kind,k,v:0,done:false,rolling:false,txt:''};showRoll()}
+function dieHTML(n){return'<div class="die">'+[...Array(9)].map((_,i)=>`<i class="${FACES[n].includes(i)?'on':''}"></i>`).join('')+'</div>'}
+function showRoll(){const r=G.roll;if(!r){$('#modal').innerHTML='';return}
+ const p=PARTS[r.k],buy=r.kind==='buy';
+ $('#modal').innerHTML=`<div class="ov"><div class="pn md"><div class="ph"><i class="chip ${buy?'':'yl'}"></i><span>${p.n}</span></div><div class="bd">
+ <div class="blob ${buy?'':'rep'}"><b>${buy?'TEST PREDONI':'RIPARA'}</b><small>${buy?'Tira il dado (d6)':'Tira il dado e ripara'}</small></div>
+ <div id="dz">${dieHTML(r.v||6)}</div><div class="res">${r.txt||(buy?'Riuscirai a passare tra i predoni?':'Le mani sporche di olio. Si monta!')}</div>
+ <button class="btn big" onclick="rollKey()">${r.done?'Continua':'Tira il d6'}</button>
+ <div class="keys">${buy?'1-2: i predoni rubano il pezzo (-1h) · 3-6: acquisto riuscito (-1h)':'1-2: imprevisto, +1h e ricambio perso · 3-5: riparato · 6: colpo di genio, -1h'}<br>Spazio o Invio per tirare</div></div></div></div>`}
+function rollKey(){const r=G.roll;if(!r||r.rolling)return;
+ if(r.done){G.roll=null;showRoll();if(G.timeout)return lose('Il tempo è finito: il proprietario è scappato a piedi.');return render()}
+ r.rolling=true;let t=0;const iv=setInterval(()=>{$('#dz').innerHTML=dieHTML(1+rnd(6));
+  if(++t>10){clearInterval(iv);r.rolling=false;r.v=1+rnd(6);resolve();showRoll()}},70)}
+function resolve(){const r=G.roll,c=cur(),s=c.st[r.k],p=PARTS[r.k],d=r.v;r.done=true;
+ if(r.kind==='buy'){spend(1);
+  if(d<=2){r.txt=`Hai fatto ${d}: i predoni ti rubano il ${p.n.toLowerCase()}! Perdi 1h, dovrai riprovare.`}
+  else{s.has=true;r.txt=`Hai fatto ${d}: ricambio in tasca! (-1h)`}}
+ else{
+  if(d<=2){spend(p.h+1);s.has=false;r.txt=`Hai fatto ${d}: imprevisto! +1h di malus e ricambio perso (${fmt(p.h+1)}h totali).`}
+  else if(d<=5){spend(p.h);s.fixed=true;r.txt=`Hai fatto ${d}: riparazione riuscita in ${fmt(p.h)}h.`}
+  else{const h=Math.max(0,p.h-1);spend(h);s.fixed=true;r.txt=`Hai fatto 6: colpo di genio! Finito in ${fmt(h)}h.`}}
+ log(r.txt);}
+function deliver(){const c=cur();if(G.screen!=='game'||G.roll)return;
+ const allFixed=c.st.every(s=>!s.fault||s.fixed);
+ if(!allFixed)return lose('Revisione bocciata: avevi lasciato guasti non trovati. Il proprietario è partito comunque… e non è arrivato lontano.');
+ G.res.push({m:c.m,left:c.left});G.screen='inter';render()}
+function next(){if(G.i+1>=G.cars.length){G.screen='end';G.win=true;return render()}
+ G.i++;G.phase=0;G.tab='home';G.timeout=false;log(`Entra: ${cur().m}.`);G.screen='game';render()}
 
-  const $ = id => document.getElementById(id);
-  const el = {
-    round: $("round"), revs: $("revs"), bank: $("bank"), best: $("best"),
-    avatar: $("avatar"), client: $("client"), job: $("job"), temper: $("temper"),
-    qTxt: $("qTxt"), qBar: $("qBar"), rTxt: $("rTxt"), rBar: $("rBar"), fee: $("fee"), loss: $("loss"),
-    log: $("log"), rev: $("revBtn"), ship: $("shipBtn"), brief: $("brief"),
-    overlay: $("overlay"), mTitle: $("mTitle"), mBtn2: $("mBtn2"), mBig: $("mBig"), mText: $("mText"), mExtra: $("mExtra"), mBtn: $("mBtn")
-  };
+/* ======================= MENU ======================= */
+function openMenu(){if(G.roll||G.screen==='menu')return;G.menuOpen=true;
+ $('#menu').innerHTML=`<div class="ov" onclick="if(event.target===this)closeMenu()"><div class="pn md"><div class="ph"><i class="chip"></i><span>Menu</span></div>
+ <div class="menulist" style="padding-top:18px"><button class="btn cy" onclick="closeMenu()">Riprendi</button>
+ ${G.screen==='game'?`<button class="btn" style="--c:var(--yel);color:var(--ink);-webkit-text-stroke:0" onclick="closeMenu();setTab('home')">Torna al garage</button>`:''}
+ <button class="btn" onclick="newGame()">Ricomincia partita</button></div>
+ <div class="help"><b style="color:#fff">Tasti</b><br>C, M, O: scheda veicolo, ricambi, officina · 1-7: scegli il pezzo · D: consegna l'auto · Spazio: tira il dado · H: garage · Esc: menu</div></div></div>`}
+function closeMenu(){G.menuOpen=false;$('#menu').innerHTML=''}
 
-  const eur = n => n.toLocaleString("it-IT") + " €";
-  const pick = a => a[Math.floor(Math.random() * a.length)];
-  const rand = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
+/* ======================= GRAFICA ======================= */
+const INK='#0b0e15';
+function mini(x,y,s,col){const w=(4/s).toFixed(1);
+ return`<g transform="translate(${x} ${y}) scale(${s})" stroke="${INK}" stroke-width="${w}" stroke-linejoin="round"><path d="M0 0V-16Q3-26 18-28L36-30L50-48H92Q100-48 106-40L116-30L140-27Q152-24 154-14V0Z" fill="${col}"/><path d="M54-44H90L104-32H42Z" fill="#8fd6ea"/><circle cx="34" cy="0" r="12" fill="#23262d"/><circle cx="122" cy="0" r="12" fill="#23262d"/></g>`}
+function plume(x,y,k){return`<g fill="#3d3b47" stroke="${INK}" stroke-width="4" opacity=".92"><circle cx="${x}" cy="${y}" r="${26*k}"/><circle cx="${x+26*k}" cy="${y-18*k}" r="${32*k}"/><circle cx="${x-24*k}" cy="${y-30*k}" r="${24*k}"/><circle cx="${x+4*k}" cy="${y-52*k}" r="${28*k}"/></g>`}
+function bgSVG(){
+ let slats='';for(let i=0;i<10;i++)slats+=`<path d="M1290 ${217+i*17}H1530" stroke="${INK}" stroke-width="3" opacity=".7"/>`;
+ let bars='';for(let i=1;i<6;i++)bars+=`<path d="M${80+i*38.3} 210V400" stroke="${INK}" stroke-width="6"/>`;
+ let floorL='';for(let i=-6;i<=6;i++){const x=800+i*260;floorL+=`<path d="M${800+i*70} 600L${x} 900" stroke="#000" stroke-width="3" opacity=".2"/>`}
+ let tires='';for(let i=0;i<4;i++){const y=730-i*52,dx=(i%2)*8;tires+=`<g><rect x="${64+dx}" y="${y}" width="226" height="50" rx="24" fill="#23262d" stroke="${INK}" stroke-width="6"/>`+
+  [...Array(9)].map((_,j)=>`<path d="M${96+dx+j*20} ${y+10}v30" stroke="#0b0e15" stroke-width="5" opacity=".7"/>`).join('')+`<path d="M${88+dx} ${y+14}Q${120+dx} ${y+8} ${150+dx} ${y+10}" stroke="#fff" stroke-width="4" fill="none" opacity=".25" stroke-linecap="round"/></g>`}
+ const cans=[[104,'#e8372c'],[160,'#ffd23f'],[216,'#2bb8ee'],[268,'#e8372c']].map(([x,c])=>`<g stroke="${INK}" stroke-width="4"><rect x="${x-18}" y="388" width="36" height="42" fill="${c}"/><ellipse cx="${x}" cy="388" rx="18" ry="6" fill="#dfe5ee"/><rect x="${x-18}" y="400" width="36" height="12" fill="#fff" opacity=".8" stroke="none"/></g>`).join('');
+ return`<svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+<defs>
+<pattern id="hf" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="2.5" cy="2.5" r="1.8" fill="${INK}" opacity=".4"/></pattern>
+<pattern id="hz" width="44" height="44" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="22" height="44" fill="#ffd23f"/><rect x="22" width="22" height="44" fill="${INK}"/></pattern>
+<linearGradient id="gl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".6"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<linearGradient id="fl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<linearGradient id="dk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b0e15"/><stop offset="1" stop-color="#2c3850"/></linearGradient>
+<radialGradient id="vg" cx=".5" cy=".55" r=".78"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".6"/></radialGradient>
+<clipPath id="op"><rect x="400" y="176" width="800" height="424"/></clipPath></defs>
+<!-- parete -->
+<rect width="1600" height="620" fill="#5b6a82"/><rect width="1600" height="120" fill="#3a4558"/>
+<path d="M0 470H1600V620H0Z" fill="#8393ab"/><path d="M0 470H1600" stroke="${INK}" stroke-width="6"/>
+${[...Array(20)].map((_,i)=>`<path d="M${i*80} 120V470" stroke="#000" stroke-width="3" opacity=".14"/>`).join('')}
+<rect x="0" y="120" width="360" height="500" fill="url(#hf)" opacity=".3"/><rect x="1240" y="120" width="360" height="500" fill="url(#hf)" opacity=".3"/>
+<!-- apertura sul piazzale -->
+<g clip-path="url(#op)">
+<rect x="400" y="176" width="800" height="120" fill="#ffd98a"/><rect x="400" y="296" width="800" height="100" fill="#ffb347"/><rect x="400" y="396" width="800" height="110" fill="#f4813c"/>
+<circle cx="820" cy="420" r="84" fill="#fff3cf"/>
+<g fill="#3a3f4f" stroke="${INK}" stroke-width="4"><rect x="420" y="330" width="80" height="190"/><rect x="510" y="280" width="64" height="240"/><rect x="590" y="372" width="90" height="150"/><rect x="900" y="300" width="74" height="220"/><rect x="984" y="352" width="96" height="170"/><rect x="1090" y="262" width="80" height="260"/></g>
+<g fill="#ffd23f" opacity=".9"><rect x="530" y="310" width="14" height="18"/><rect x="530" y="350" width="14" height="18"/><rect x="920" y="330" width="14" height="18"/><rect x="1110" y="300" width="14" height="18"/><rect x="1110" y="350" width="14" height="18"/><rect x="1004" y="392" width="14" height="18"/></g>
+<g stroke="${INK}" stroke-width="7" fill="none" stroke-linecap="round"><path d="M728 520V410L706 372M728 440L760 396M728 470L700 440"/></g>
+${plume(640,300,1.1)}${plume(1030,250,1.3)}
+<path d="M400 500H1200V600H400Z" fill="#4b505c"/><path d="M400 500H1200" stroke="${INK}" stroke-width="5"/>
+<path d="M420 560H1180" stroke="#ffd23f" stroke-width="5" stroke-dasharray="46 30" opacity=".8"/>
+${mini(430,556,.95,'#e8372c')}${mini(660,536,.66,'#43b86a')}${mini(800,527,.5,'#3a7bd5')}${mini(900,522,.42,'#ffd23f')}${mini(990,518,.36,'#cfd6e2')}${mini(1070,514,.3,'#e0572b')}
+</g>
+<rect x="400" y="176" width="800" height="424" fill="none" stroke="${INK}" stroke-width="8"/>
+<!-- pilastri e trave -->
+<g fill="#44506a" stroke="${INK}" stroke-width="7"><rect x="356" y="0" width="46" height="610"/><rect x="1198" y="0" width="46" height="610"/></g>
+<rect x="356" y="0" width="46" height="610" fill="url(#hf)" opacity=".35"/>
+<rect x="352" y="112" width="896" height="64" fill="#9aa6b8" stroke="${INK}" stroke-width="7"/><rect x="352" y="112" width="896" height="30" fill="url(#gl)" opacity=".5"/>
+<rect x="352" y="160" width="896" height="16" fill="url(#hz)" stroke="${INK}" stroke-width="4"/>
+<rect x="650" y="122" width="300" height="32" rx="4" fill="#2bb8ee" stroke="${INK}" stroke-width="5"/><text x="800" y="146" text-anchor="middle" font-family="Arial Black,Segoe UI Black,sans-serif" font-style="italic" font-size="22" fill="${INK}">OFFICINA REVISIONI</text>
+<!-- finestra con inferriata -->
+<rect x="80" y="210" width="230" height="190" fill="#8fd6ea"/><path d="M80 210H310L250 400H80Z" fill="#fff" opacity=".28"/>${bars}
+<path d="M195 210V400M80 305H310" stroke="${INK}" stroke-width="5"/><rect x="80" y="210" width="230" height="190" fill="none" stroke="${INK}" stroke-width="8"/>
+<!-- mensola e lattine -->
+<rect x="64" y="430" width="262" height="16" fill="#9a6a3c" stroke="${INK}" stroke-width="5"/>${cans}
+<!-- saracinesca -->
+<rect x="1290" y="200" width="240" height="400" fill="url(#dk)" stroke="${INK}" stroke-width="7"/>
+<rect x="1290" y="200" width="240" height="170" fill="#9aa6b8"/>${slats}<rect x="1290" y="200" width="240" height="170" fill="url(#hf)" opacity=".35"/>
+<rect x="1282" y="364" width="256" height="16" fill="#dfe5ee" stroke="${INK}" stroke-width="5"/><rect x="1290" y="200" width="240" height="400" fill="none" stroke="${INK}" stroke-width="7"/>
+<!-- lampade -->
+<g><path d="M560 0V74M1040 0V74" stroke="${INK}" stroke-width="5"/>
+<rect x="450" y="72" width="220" height="16" rx="6" fill="#fff" stroke="${INK}" stroke-width="5"/><rect x="930" y="72" width="220" height="16" rx="6" fill="#fff" stroke="${INK}" stroke-width="5"/>
+<path d="M470 90H650L760 600H360Z" fill="url(#gl)" opacity=".14"/><path d="M950 90H1130L1240 600H840Z" fill="url(#gl)" opacity=".14"/></g>
+<!-- pavimento -->
+<rect y="600" width="1600" height="300" fill="#727a88"/>${floorL}
+<path d="M0 640H1600M0 700H1600M0 790H1600" stroke="#000" stroke-width="3" opacity=".18"/>
+<rect y="600" width="1600" height="300" fill="url(#fl)"/>
+<path d="M520 620L360 900M1080 620L1240 900" stroke="#ffd23f" stroke-width="9" opacity=".9"/>
+<rect x="400" y="600" width="800" height="14" fill="url(#hz)" stroke="${INK}" stroke-width="4"/>
+<path d="M0 600H1600" stroke="${INK}" stroke-width="6"/>
+<ellipse cx="760" cy="780" rx="110" ry="18" fill="${INK}" opacity=".35"/><ellipse cx="1010" cy="690" rx="70" ry="11" fill="${INK}" opacity=".3"/>
+<rect y="600" width="1600" height="300" fill="url(#hf)" opacity=".18"/>
+<!-- pneumatici -->
+${tires}
+<g><circle cx="330" cy="722" r="62" fill="#23262d" stroke="${INK}" stroke-width="6"/><circle cx="330" cy="722" r="34" fill="#cfd6e2" stroke="${INK}" stroke-width="5"/><circle cx="330" cy="722" r="9" fill="${INK}"/><path d="M290 690a52 52 0 0 1 36-24" stroke="#fff" stroke-width="5" fill="none" opacity=".35" stroke-linecap="round"/></g>
+<!-- banco da lavoro -->
+<g stroke="${INK}" stroke-width="6"><rect x="1262" y="612" width="16" height="130" fill="#6d4c2b"/><rect x="1546" y="612" width="16" height="130" fill="#6d4c2b"/><rect x="1262" y="690" width="300" height="12" fill="#6d4c2b"/>
+<rect x="1240" y="590" width="340" height="24" fill="#b08a5a"/><rect x="1296" y="540" width="118" height="50" fill="#e8372c"/><path d="M1330 540v-14h50v14" fill="none"/>
+<rect x="1470" y="566" width="64" height="24" fill="#9aa6b8"/><rect x="1500" y="548" width="14" height="20" fill="#9aa6b8"/>
+<path d="M1425 580h40" stroke="#dfe5ee" stroke-width="10" stroke-linecap="round"/></g>
+<rect width="1600" height="900" fill="url(#vg)"/>
+</svg>`}
 
-  let cfg = { mode: "classic", diff: "normale" };
-  let M, D, draft;
-  let best = 0;
-  const bestKey = () => `revisione-best-${cfg.mode}-${cfg.diff}`;
-  function loadBest() {
-    best = 0;
-    try {
-      const old = cfg.mode === "classic" && cfg.diff === "normale" ? localStorage.getItem("revisione-best") : null;
-      best = parseInt(localStorage.getItem(bestKey()) || old || "0", 10) || 0;
-    } catch (e) {}
-  }
-  function applyCfg() {
-    M = MODES[cfg.mode]; D = DIFFS[cfg.diff];
-    document.body.classList.toggle("xp", cfg.mode === "xp");
-    document.title = M.title;
-    $("h1").innerHTML = M.h1;
-    $("sub").textContent = M.sub;
-    $("xpTitle").textContent = M.title + ".exe";
-    loadBest();
-  }
-  const happyPool = () => s.revs === 0 ? M.happy.zero : s.quality >= 45 ? M.happy.high : s.quality < 25 ? M.happy.low : M.happy.mid;
+function figSVG(){
+ return`<svg viewBox="0 0 130 300" aria-hidden="true"><g stroke="${INK}" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
+<ellipse cx="65" cy="292" rx="52" ry="8" fill="#000" opacity=".35" stroke="none"/>
+<rect x="84" y="82" width="30" height="76" rx="8" fill="#35c777"/>
+<path d="M48 172L44 276H66L68 190L84 276H106L88 172Z" fill="#2c3850"/><path d="M38 276H70V288H34Z M80 276H110V288H82Z" fill="#14110f"/>
+<path d="M34 90Q34 76 52 76H80Q96 76 98 92L100 178H32Z" fill="#e0572b"/><path d="M64 78V178" stroke-width="3"/>
+<path d="M38 94L14 52" stroke="${INK}" stroke-width="22"/><path d="M38 94L14 52" stroke="#e0572b" stroke-width="12"/><circle cx="12" cy="46" r="10" fill="#f2c9a0"/>
+<path d="M96 96L106 160" stroke="${INK}" stroke-width="22"/><path d="M96 96L106 160" stroke="#e0572b" stroke-width="12"/><circle cx="107" cy="166" r="10" fill="#f2c9a0"/>
+<rect x="56" y="62" width="16" height="18" fill="#f2c9a0"/>
+<circle cx="64" cy="42" r="26" fill="#f2c9a0"/><path d="M38 40Q40 14 66 14Q92 14 90 42Q80 28 64 30Q48 30 38 40Z" fill="#14110f"/>
+<path d="M52 44v6M76 44v6" stroke-width="5"/><path d="M54 58Q64 52 74 58" stroke-width="4" fill="none"/></g></svg>`}
 
-  const menuEl = $("menu");
-  function buildMenu() {
-    document.body.classList.toggle("xp", draft.mode === "xp");
-    $("modeChoice").innerHTML = Object.entries(MODES).map(([k, m]) =>
-      `<button data-mode="${k}" class="${k === draft.mode ? "on" : ""}">${m.icon} ${m.label}<small>${m.blurb}</small></button>`).join("");
-    $("diffChoice").innerHTML = Object.entries(DIFFS).map(([k, d]) =>
-      `<button data-diff="${k}" class="${k === draft.diff ? "on" : ""}">${d.name}<small>${d.desc} · spese ${eur(d.costs)}</small></button>`).join("");
-  }
-  function openMenu(cancelable) {
-    draft = { ...cfg };
-    $("menuCancel").style.display = cancelable ? "block" : "none";
-    buildMenu();
-    menuEl.classList.add("show");
-  }
-  menuEl.addEventListener("click", e => {
-    const b = e.target.closest("button");
-    if (!b) return;
-    if (b.dataset.mode) { draft.mode = b.dataset.mode; buildMenu(); }
-    else if (b.dataset.diff) { draft.diff = b.dataset.diff; buildMenu(); }
-  });
-  $("menuStart").onclick = () => {
-    cfg = { ...draft }; applyCfg(); menuEl.classList.remove("show");
-    if (document.activeElement) document.activeElement.blur();
-    newGame();
-  };
-  $("menuCancel").onclick = () => { document.body.classList.toggle("xp", cfg.mode === "xp"); menuEl.classList.remove("show"); };
-  $("menuBtn").onclick = () => openMenu(true);
-  const tick = () => { $("clock").textContent = new Date().toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" }); };
-  tick(); setInterval(tick, 20000);
+function carSVG(c,mode){
+ const mk=mode==='home'?'':PARTS.map((p,k)=>{const s=c.st[k],col=!s.insp?'#ffd23f':s.fixed?'#3a7bd5':s.fault?'#e8372c':'#35c777';
+  return`<g class="mk" onclick="act(${k})"><title>${p.n}</title><circle cx="${p.x}" cy="${p.y}" r="15" fill="${col}" stroke="${INK}" stroke-width="4"/><text x="${p.x}" y="${p.y+6}" text-anchor="middle" font-size="17" fill="${s.fixed||(s.insp&&s.fault)?'#fff':INK}" font-family="Arial Black">${k+1}</text></g>`}).join('');
+ const smoke=mode==='home'?`<g fill="#4a4a55" stroke="${INK}" stroke-width="4" opacity=".9"><circle cx="500" cy="52" r="12"/><circle cx="520" cy="30" r="16"/><circle cx="502" cy="4" r="12"/></g>`:'';
+ const wheel=x=>`<g><circle cx="${x}" cy="205" r="44" fill="#2b2622" stroke="${INK}" stroke-width="6"/><path d="M${x-44} 205a44 44 0 0 0 88 0z" fill="#000" opacity=".35"/><circle cx="${x}" cy="205" r="22" fill="#cfcfcf" stroke="${INK}" stroke-width="5"/><circle cx="${x}" cy="205" r="7" fill="${INK}"/><path d="M${x-30} 188a34 34 0 0 1 22-14" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" opacity=".6"/></g>`;
+ return`<svg viewBox="0 0 620 270"><defs><path id="bd" d="M38 205V165Q42 142 80 138L150 132L198 82Q208 72 232 72H372Q392 72 406 86L442 130L522 140Q566 148 570 175V205Z"/><clipPath id="cp"><use href="#bd"/></clipPath><pattern id="ht" width="8" height="8" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.7" fill="${INK}" opacity=".4"/></pattern>
+ <linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".5"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>
+ <ellipse cx="310" cy="250" rx="290" ry="12" fill="${INK}" opacity=".45"/>
+ <use href="#bd" fill="${c.c}" stroke="${INK}" stroke-width="7" stroke-linejoin="round"/>
+ <g clip-path="url(#cp)"><rect x="0" y="168" width="620" height="60" fill="#000" opacity=".26"/><rect x="0" y="168" width="620" height="60" fill="url(#ht)"/><path d="M205 80H395L380 90H200Z" fill="#fff" opacity=".55"/><rect x="0" y="70" width="620" height="70" fill="url(#cg)"/><path d="M60 152H540" stroke="#fff" stroke-width="3" opacity=".4"/></g>
+ <path d="M224 94H368L404 130H210Z" fill="#8fd6ea" stroke="${INK}" stroke-width="5" stroke-linejoin="round"/><path d="M236 98H262L238 128H218Z M276 98H292L268 128H252Z" fill="#fff" opacity=".6"/><path d="M296 94V130" stroke="${INK}" stroke-width="5"/>
+ <rect x="552" y="158" width="20" height="24" rx="5" fill="#fff6a8" stroke="${INK}" stroke-width="4"/><path d="M38 192h532" stroke="${INK}" stroke-width="3" opacity=".4"/>
+ ${wheel(140)}${wheel(470)}${smoke}${mk}</svg>`}
 
-  let s;
+/* ======================= RENDER ======================= */
+function nav(){
+ const T=(id,label,cls)=>{const a=typeof id==='number'?id:`'${id}'`;
+  return`<button class="tk ${cls} ${G.tab===id?'on':''}" onclick="setTab(${a})"><span>${label}</span>${id==='msg'&&G.logN>G.seenN&&G.tab!=='msg'?'<i class="dot"></i>':''}</button>`};
+ return`<nav class="nav"><div>${T(0,'Scheda veicolo','')}${T(1,'Ricambi','cy')}${T(2,'Officina','yl')}</div><div>${T('msg','Messaggi','li')}</div></nav>`}
+function hud(c){const pct=c.left/c.lim*100,col=pct>50?'#35c777':pct>25?'#ffd23f':'#e8372c';
+ return`<div class="hud pn"><div class="hr"><span>Auto ${G.i+1}/${G.cars.length}</span><span>${c.m}</span></div><div class="gauge"><i style="width:${pct}%;background:${col}"></i></div><div class="hr"><span style="color:var(--sil2);font-weight:600">Tempo residuo</span><b>${fmt(c.left)}h / ${c.lim}h</b></div></div>`}
+const menuBtn='<button class="tk red menub" onclick="openMenu()"><span>Menù</span></button>';
+const pill=(s)=>`<span class="st ${s.fixed?'fix':s.fault?'bad':'good'}">${s.fixed?'RIPARATO':s.fault?'GUASTO':'OK'}</span>`;
 
-  function newGame() {
-    const pool = M.clients.slice();
-    for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [pool[i], pool[j]] = [pool[j], pool[i]]; }
-    s = { round: 1, bank: 0, clients: pool.slice(0, ROUNDS), history: [] };
-    startProject();
-  }
+function render(){
+ const A=$('#app');
+ document.body.dataset.v=G.screen==='game'?(G.tab==='home'?'home':'panel'):(G.screen==='menu'?'title':'title');
 
-  function startProject() {
-    s.c = s.clients[s.round - 1];
-    s.quality = rand(8, 14);
-    s.revs = 0;
-    s.over = false;
-    el.log.innerHTML = "";
-    say("sys", `Nuovo incarico: ${s.c.job}`);
-    say("me", M.draft(s.quality));
-    say("client", M.greet);
-    render();
-  }
+ if(G.screen==='menu'){A.innerHTML=`<div class="ttl"><div class="pn"><h1 class="logo">REVISIONE<br>APOCALITTICA</h1>
+ <p>Una pandemia sta facendo crollare tutto. Sei l'ultimo meccanico ancora aperto e la fila di chi scappa si allunga.</p>
+ <ol class="steps"><li>Apri la scheda veicolo e ispeziona i pezzi: il controllo non costa tempo.</li><li>Compra i ricambi senza farteli rubare dai predoni.</li><li>Ripara ogni guasto in officina: i dadi decidono tra colpo di genio e disastro.</li></ol>
+ <p>Finisci prima che il proprietario scappi. Tre auto in coda.</p><button class="btn big" onclick="newGame()">Inizia</button><div class="keys">Premi Invio per iniziare</div></div></div>`+menuBtn;return}
 
-  // Probability the client gives up on the NEXT revision (revision n = s.revs + 1).
-  // Quadratic growth: base + step' × (n−1)², with step rescaled affinely so every
-  // client lands at 45–60% on the 5th revision and above 75% on the 7th.
-  const risk = () => {
-    const stepQ = 0.027 + 0.06 * (s.c.step - 0.05);
-    return Math.min(0.95, D.risk * (s.c.base + stepQ * s.revs * s.revs));
-  };
+ if(G.screen==='inter'){const r=G.res[G.res.length-1];A.innerHTML=`<div class="ttl"><div class="pn"><div class="stamp"><span class="s1">REVISIONE</span><span class="s2">PASSATA</span></div>
+ <p>Hai riparato la macchina in tempo. ${r.m}: timbro sul libretto con ${fmt(r.left)}h di anticipo. Il proprietario parte sgommando.</p><button class="btn big ok" onclick="next()">Prossima auto</button><div class="keys">Premi Invio per continuare</div></div></div>`+menuBtn;return}
 
-  function revise() {
-    if (s.over) return;
-    const p = risk();
-    s.revs++;
-    say("client", pick(M.req[s.revs <= 2 ? 0 : s.revs <= 4 ? 1 : 2]));
-    if (p >= 0.35 && Math.random() < 0.5) say("client", pick(M.warn));
-    if (Math.random() < p) {
-      s.over = true;
-      const lost = s.quality;
-      say("fail", M.boom + pick(M.angry));
-      el.brief.classList.remove("shake"); void el.brief.offsetWidth; el.brief.classList.add("shake");
-      s.quality = 0;
-      s.history.push({ c: s.c, got: 0, revs: s.revs, fail: true });
-      render();
-      setTimeout(() => endProject(false, lost), 1100);
-      return;
-    }
-    // Diminishing returns: revision n is worth 1 / (1 + 0.25·(n−1)) of the roll, scaled by difficulty
-    let gain = Math.max(1, Math.round(rand(2, 12) / (1 + 0.25 * (s.revs - 1)) * D.gain));
-    let note = "";
-    const lucky = Math.random() < D.luck;
-    if (lucky) { gain += rand(8, 14); note = M.lucky; }
-    s.quality += gain;
-    say("me", `${M.done}<span class="gain"> +${gain} qualità${note}</span>`);
-    if (lucky || gain >= 10) say("client", pick(M.big));
-    else if (gain <= 3 && Math.random() < 0.7) say("client", pick(M.small));
-    render();
-  }
+ if(G.screen==='end'){A.innerHTML=(G.win?`<div class="ttl"><div class="pn"><h1 class="logo">FATTO!</h1><p>Tutte le auto in coda hanno passato la revisione. Poi spegni le luci e chiudi l'officina.</p>
+ <table><tr><th>Auto</th><th>Ore avanzate</th></tr>${G.res.map(r=>`<tr><td>${r.m}</td><td>${fmt(r.left)}h</td></tr>`).join('')}</table><button class="btn big" onclick="newGame()">Rigioca</button><div class="keys">Premi Invio per rigiocare</div></div></div>`
+ :`<div class="ttl"><div class="pn"><div class="stamp bad"><span class="s1">REVISIONE</span><span class="s2">FALLITA</span></div><p>${G.why}</p><p>Il cliente è scappato a piedi. Auto superate: ${G.res.length} su ${CARS.length}.</p><button class="btn big" onclick="newGame()">Rigioca</button><div class="keys">Premi Invio per rigiocare</div></div></div>`)+menuBtn;return}
 
-    function deliver() {
-    if (s.over) return;
-    s.over = true;
-    const got = s.quality * RATE;
-    s.bank += got;
-    s.history.push({ c: s.c, got, revs: s.revs, fail: false });
-    say("client", pick(happyPool()));
-    render();
-    setTimeout(() => endProject(true, got), 600);
-  }
+ const c=cur(),o=c.own;
+ /* ---------- garage (home) ---------- */
+ if(G.tab==='home'){
+  A.innerHTML=nav()+`<div class="home" onclick="setTab(0)"><div class="hero"><div class="bubble">${c.say}</div><div class="own">${figSVG()}</div><div class="cw">${carSVG(c,'home')}</div></div>
+  <div class="plate"><span>${c.m}<em>${c.y}</em></span></div>
+  <div class="scroll"><div class="sc-pl">SCORRI PER INIZIARE</div><svg class="chev" viewBox="0 0 28 14"><path d="M2 2l12 10L26 2" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="chev" viewBox="0 0 28 14"><path d="M2 2l12 10L26 2" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>`+menuBtn+hud(c);return}
 
-  function endProject(ok, value) {
-    const last = s.round >= ROUNDS;
-    el.mExtra.innerHTML = ""; el.mBtn2.style.display = "none";
-    if (ok) {
-      el.mTitle.textContent = "Progetto consegnato ✅";
-      el.mBig.style.color = "var(--good)";
-      el.mBig.textContent = "+" + eur(value);
-      el.mText.textContent = s.revs
-        ? `${s.c.name} ha approvato dopo ${s.revs} ${s.revs === 1 ? "revisione" : "revisioni"}.`
-        : `${s.c.name} ha preso la bozza così com'era.`;
-    } else {
-      el.mTitle.textContent = "Progetto cestinato 🗑️";
-      el.mBig.style.color = "var(--bad)";
-      el.mBig.textContent = "0 €";
-      el.mText.textContent = `${s.c.name} si è stufato alla revisione ${s.revs}. Avevi un progetto da ${eur(value * RATE)}.`;
-    }
-    el.mBtn.textContent = last ? "Chiudi l'anno fiscale" : `Prossimo cliente (${s.round + 1}/${ROUNDS}) →`;
-    el.mBtn.onclick = () => {
-      if (last) return finalScreen();
-      s.round++;
-      hide();
-      startProject();
-    };
-    show();
-  }
+ /* ---------- schede ---------- */
+ const done=c.st.filter(s=>s.insp).length,allFixed=c.st.every(s=>!s.fault||s.fixed),anyFix=c.st.some(s=>s.fixed);
+ const known=PARTS.map((p,k)=>({p,k,s:c.st[k]})).filter(x=>x.s.insp&&x.s.fault);
+ const todo=known.filter(x=>!x.s.fixed);
+ const estH=todo.reduce((a,x)=>a+x.p.h+(x.s.has?0:1),0),toBuy=todo.filter(x=>!x.s.has).length,workH=todo.reduce((a,x)=>a+x.p.h,0);
 
-  function finalScreen() {
-    const record = s.bank > best;
-    if (record) { best = s.bank; try { localStorage.setItem(bestKey(), String(best)); } catch (e) {} }
-    if (s.bank < D.costs) {
-      el.mTitle.textContent = "📉 Studio in rosso";
-      el.mBig.style.color = "var(--bad)";
-      el.mBig.textContent = eur(s.bank);
-      el.mText.textContent = `Le spese fisse erano ${eur(D.costs)}: mancano ${eur(D.costs - s.bank)}. Lo studio chiude. Partita persa.`;
-    } else {
-      el.mTitle.textContent = record ? "🏆 Anno record!" : "Bilancio dell'anno";
-      el.mBig.style.color = "var(--ink)";
-      el.mBig.textContent = eur(s.bank);
-      el.mText.textContent = verdict(s.bank) + (record ? "" : ` Il tuo record è ${eur(best)}.`);
-    }
-    el.mExtra.innerHTML = '<div class="summary">' + s.history.map(h =>
-      `<div><span>${h.c.ico} ${h.c.name} · ${h.revs} rev.</span><b style="color:${h.fail ? "var(--bad)" : "var(--good)"}">${h.fail ? "cestinato" : eur(h.got)}</b></div>`
-    ).join("") + "</div>";
-    el.mBtn.textContent = "Riapri lo studio";
-    el.mBtn.onclick = () => { hide(); newGame(); };
-    el.mBtn2.textContent = "Cambia modalità o difficoltà";
-    el.mBtn2.style.display = "block";
-    el.mBtn2.onclick = () => { hide(); openMenu(true); };
-    render();
-    show();
-  }
+ const left=`<div class="col"><section class="pn"><header class="ph"><i class="chip"></i><span>${c.m}</span><em>${c.y}</em></header>
+ <div class="show ${G.tab==='msg'?'lock':''}">${carSVG(c,'tab')}</div>
+ <div class="spec"><div><span>Km</span><b>${c.km.toLocaleString('it-IT')}</b></div><div><span>Carburante</span><b>${c.f}</b></div><div><span>Ispezionati</span><b>${done}/7</b></div><div><span>Guasti noti</span><b>${known.length}</b></div></div></section>
+ <div class="two"><section class="pn"><header class="ph"><i class="chip cy"></i><span>Proprietario</span></header><div class="own"><div class="av"></div><div><b>${o.nome}</b><small>${o.eta} anni · ${o.job}</small><small>Destinazione: ${o.dest}</small></div></div></section>
+ <section class="pn"><header class="ph"><i class="chip yl"></i><span>Stima lavori</span></header><div class="est"><div class="big">${known.length?fmt(estH)+'h':'—'}</div><small>${known.length?`${toBuy} ricambi da comprare`:'Ispeziona i pezzi per la stima'}${done<7&&known.length?` · ${7-done} pezzi da controllare`:''}</small></div></section></div></div>`;
 
-  function verdict(n) {
-    const r = n / D.costs;
-    if (r >= 4) return "Agenzia di grido: i clienti fanno la fila.";
-    if (r >= 2.8) return "Ottimo anno, lo studio cresce.";
-    if (r >= 1.8) return "Anno solido, bollette pagate.";
-    if (r >= 1) return "Si tira avanti. Magari meno revisioni?";
-    return "Forse era meglio il posto fisso.";
-  }
+ let title,chip,body,foot='';
+ if(G.tab===0){title='Scheda veicolo · Resoconto check';chip='';
+  body=PARTS.map((p,k)=>{const s=c.st[k];const sub=s.insp?(s.fault?`Guasto · riparazione ${fmt(p.h)}h`:'Nessun problema'):'Non ispezionato';
+   return`<div class="row"><div class="n">${k+1}</div><div class="t">${p.n}<small>${sub}</small></div>${s.insp?pill(s):`<button class="btn sm" onclick="act(${k})">Ispeziona</button>`}</div>`}).join('');
+  foot=`<button class="btn cy" onclick="setTab(1)">Vai ai ricambi</button><button class="btn" onclick="setTab(2)">Ripara</button>`}
+ else if(G.tab===1){title='Mercato ricambi';chip='cy';
+  body=known.length?known.map(({p,k,s})=>`<div class="row"><div class="n">${k+1}</div><div class="t">${p.n}<small>Montaggio ${fmt(p.h)}h</small></div>${s.fixed?'<span class="st fix">RIPARATO</span>':s.has?'<span class="st good">RICAMBIO OK</span>':`<button class="btn sm" onclick="act(${k})">Compra · 1h</button>`}</div>`).join('')
+   :'<div class="empty">Nessun guasto noto. Torna alla scheda veicolo e ispeziona i pezzi.</div>';
+  foot=`<button class="btn cy" onclick="setTab(0)">Scheda veicolo</button><button class="btn" style="--c:var(--yel);color:var(--ink);-webkit-text-stroke:0" onclick="setTab(2)">Officina</button>`}
+ else if(G.tab===2){title='Officina · Seleziona intervento';chip='yl';
+  body=(known.length?known.map(({p,k,s})=>`<div class="row"><div class="cb">${s.fixed?'✓':''}</div><div class="t">${p.n}<small>Costo ${fmt(p.h)}h</small></div>${s.fixed?'<span class="st fix">RIPARATO</span>':s.has?`<button class="btn sm ok" onclick="act(${k})">Monta · ${fmt(p.h)}h</button>`:'<span class="st bad">SERVE RICAMBIO</span>'}</div>`).join('')
+   :'<div class="empty">Nessun guasto noto. Torna alla scheda veicolo e ispeziona i pezzi.</div>')+
+   (known.length?`<div class="tot"><span>Totale lavori</span><b>${fmt(workH)}h / ${fmt(c.left)}h</b></div>`:'');
+  foot=`<button class="btn cy" onclick="setTab(1)">Ricambi</button><button class="btn ok" ${anyFix&&allFixed?'':'disabled'} onclick="deliver()">Consegna auto</button>`}
+ else{title='Messaggi';chip='li';
+  body=`<div class="msg"><h4>${o.nome}</h4><p>${c.note}</p></div>`+G.log.map(l=>`<div class="msg sys"><h4>Officina</h4><p>${l}</p></div>`).join('')}
 
-  function say(kind, html) {
-    const b = document.createElement("div");
-    b.className = "bubble " + kind;
-    b.innerHTML = html;
-    el.log.appendChild(b);
-    el.log.scrollTop = el.log.scrollHeight;
-  }
+ A.innerHTML=nav()+`<div class="main">${left}<section class="pn"><header class="ph"><i class="chip ${chip}"></i><span>${title}</span></header>${body}${foot?`<div class="foot">${foot}</div>`:''}</section></div>`+menuBtn+hud(c);
+}
 
-  function show() { el.overlay.classList.add("show"); el.mBtn.focus(); }
-  function hide() { el.overlay.classList.remove("show"); }
+/* ======================= INPUT ======================= */
+addEventListener('keydown',e=>{const k=e.key.toLowerCase();
+ if(k==='escape'){if(G.menuOpen)closeMenu();else openMenu();return}
+ if(G.menuOpen)return;
+ if(G.roll){if(k===' '||k==='enter'){e.preventDefault();rollKey()}return}
+ if(G.screen==='menu'||G.screen==='end'){if(k==='enter')newGame();return}
+ if(G.screen==='inter'){if(k==='enter')next();return}
+ if(G.tab==='home'){if(k==='enter'||k===' '||k==='arrowdown'){e.preventDefault();setTab(0)}else if(k==='c'||k==='m'||k==='o')setTab('cmo'.indexOf(k));return}
+ if(k==='c'||k==='m'||k==='o')setTab('cmo'.indexOf(k));
+ else if(k==='h')setTab('home');
+ else if(k==='d')deliver();
+ else if(/^[1-7]$/.test(k))act(+k-1)});
+let wheelLock=0,ty=null;
+addEventListener('wheel',e=>{if(G.screen==='game'&&G.tab==='home'&&!G.roll&&!G.menuOpen&&e.deltaY>10&&Date.now()>wheelLock){wheelLock=Date.now()+600;setTab(0)}},{passive:true});
+addEventListener('touchstart',e=>{ty=e.touches[0].clientY},{passive:true});
+addEventListener('touchend',e=>{if(ty!==null&&G.screen==='game'&&G.tab==='home'&&!G.roll&&!G.menuOpen&&ty-e.changedTouches[0].clientY>40)setTab(0);ty=null},{passive:true});
 
-  function render() {
-    el.round.textContent = `${s.round}/${ROUNDS}`;
-    el.revs.textContent = s.revs;
-    el.bank.textContent = eur(s.bank);
-    el.best.textContent = eur(best);
-    $("costs").textContent = eur(D.costs);
-    el.avatar.textContent = s.c.ico;
-    el.client.textContent = s.c.name;
-    el.job.textContent = s.c.job;
-    el.temper.textContent = "Carattere: " + s.c.temper;
-
-    el.qTxt.textContent = s.quality;
-    el.qBar.style.width = Math.min(100, s.quality / 1.2) + "%";
-
-    const pct = s.over ? 0 : Math.round(risk() * 100);
-    el.rTxt.textContent = s.over ? "—" : (D.blind ? "~" + Math.round(pct / 10) * 10 : pct) + "%";
-    const col = pct >= 40 ? "var(--bad)" : pct >= 20 ? "var(--warn)" : "var(--good)";
-    el.rTxt.style.color = col;
-    el.rBar.style.width = Math.max(pct, 2) + "%";
-    el.rBar.style.backgroundColor = col;
-
-    el.fee.textContent = eur(s.quality * RATE);
-    el.loss.textContent = "−" + eur(s.quality * RATE);
-    el.rev.disabled = s.over;
-    el.ship.disabled = s.over;
-  }
-
-  el.rev.addEventListener("click", revise);
-  el.ship.addEventListener("click", deliver);
-  document.addEventListener("keydown", e => {
-    if (menuEl.classList.contains("show")) return;
-    if (el.overlay.classList.contains("show")) {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); el.mBtn.click(); }
-      return;
-    }
-    if (e.key === " " || e.key === "Enter") { e.preventDefault(); revise(); }
-    else if (e.key.toLowerCase() === "c") { deliver(); }
-  });
-
-  applyCfg();
-  newGame();
-  openMenu(false);
-})();
-</script>
-</body>
-</html>
+$('#stage').innerHTML=bgSVG()+'<div class="veil"></div>';
+render();
+</script></body></html>
