@@ -98,13 +98,62 @@
     .meters { grid-template-columns: 1fr; }
     .temper { display: none; }
   }
+
+  header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .menuBtn { padding: 7px 12px; font-size: .82rem; background: var(--paper); color: var(--ink); border: 1px solid var(--line); white-space: nowrap; }
+  .xp-bar, .taskbar { display: none; }
+  .modal { max-height: 92vh; overflow-y: auto; }
+  .modal h3 { margin: 14px 0 0; font-size: .85rem; text-align: left; color: var(--muted); }
+  .modal button.ghost { background: none; color: var(--muted); border: 1px solid var(--line); }
+  .modal .choice { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 8px 0 4px; }
+  .modal .choice button { width: auto; margin: 0; background: var(--bg); color: var(--ink); border: 2px solid var(--line); font-size: .95rem; padding: 10px; text-align: left; }
+  .modal .choice button small { display: block; font-weight: 400; color: var(--muted); font-size: .75rem; margin-top: 3px; line-height: 1.3; }
+  .modal .choice button.on { border-color: var(--accent); background: #e8edff; }
+
+  /* ===== Modalità anni 2000 · Windows XP ===== */
+  body.xp { --bg: #ece9d8; --paper: #fff; --ink: #000; --muted: #5f5a50; --line: #aca899; --accent: #245edb; --good: #2e8b1f; --warn: #d98a00; --bad: #c01818;
+    font-family: Tahoma, "Segoe UI", Verdana, sans-serif; font-size: 14px; padding: 20px 16px 56px;
+    background: linear-gradient(#2b6fd6 0, #7db7f4 50%, #58ab36 50%, #37821f 100%) fixed; }
+  body.xp main { background: var(--bg); border: 3px solid #0a3fd0; border-top: 0; border-radius: 9px 9px 3px 3px; box-shadow: 3px 3px 12px rgba(0,0,0,.45); padding-bottom: 12px; }
+  body.xp main > :not(.xp-bar) { margin-left: 12px; margin-right: 12px; }
+  body.xp .xp-bar { display: flex; align-items: center; justify-content: space-between; margin: 0 -3px 12px; padding: 6px 8px; border-radius: 7px 7px 0 0;
+    background: linear-gradient(#3a8cf6 0, #0a5bd8 12%, #0a4fd0 60%, #0846bf 100%); color: #fff; font-weight: 700; font-size: .85rem; text-shadow: 1px 1px #0a246a; }
+  body.xp .modal .xp-bar { margin: 0 -27px 16px; }
+  .xp-ctl i { display: inline-grid; place-items: center; width: 20px; height: 20px; margin-left: 3px; border: 1px solid #fff; border-radius: 3px; font-style: normal; font-size: .75rem; text-shadow: none; background: linear-gradient(#5b9bf8, #2863d8); }
+  .xp-ctl i.x { background: linear-gradient(#e9987f, #c8401f); }
+  body.xp h1 { font-family: "Trebuchet MS", Tahoma, sans-serif; font-style: italic; color: #0a246a; }
+  body.xp .stat, body.xp .brief, body.xp .log, body.xp details, body.xp .fee, body.xp .avatar { border-radius: 3px; border: 1px solid var(--line); box-shadow: inset 1px 1px 0 #fff; }
+  body.xp .temper, body.xp .bubble { border-radius: 2px; }
+  body.xp .bubble.client { background: #eaf1fc; border: 1px solid #b7c9ea; }
+  body.xp .bubble.me { background: #fffbe0; color: #000; border: 1px solid #e2cf7a; }
+  body.xp .bubble.fail { background: #fff0f0; border: 1px solid #d99; }
+  body.xp .bar { height: 16px; border-radius: 2px; border: 1px solid #686868; background: #fff; padding: 1px; }
+  body.xp .bar i { border-radius: 0; background-image: repeating-linear-gradient(90deg, transparent 0 8px, #fff 8px 10px); }
+  body.xp #qBar { background-color: #2fc12f; }
+  body.xp button { border-radius: 3px; border: 1px solid #003c74; background: linear-gradient(#fff, #f0eee4 80%, #d6d0c0); color: #000; font-size: .95rem; padding: 11px; box-shadow: inset 0 0 0 1px #fff; }
+  body.xp button:not(:disabled):hover { filter: none; box-shadow: inset 0 0 0 2px #f8b636; }
+  body.xp .ship { color: #0b5a0b; }
+  body.xp .menuBtn { font-size: .8rem; padding: 6px 10px; }
+  body.xp .modal { padding: 0 24px 24px; border: 3px solid #0a3fd0; border-top: 0; border-radius: 9px 9px 3px 3px; background: var(--bg); }
+  body.xp .modal .choice button { padding: 9px; }
+  body.xp .modal .choice button.on { background: #fff; border-color: #0a3fd0; box-shadow: inset 0 0 0 1px #0a3fd0; }
+  body.xp .overlay { background: rgba(0, 30, 90, .35); }
+  body.xp .taskbar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; height: 36px; z-index: 20; align-items: stretch; color: #fff; font-size: .82rem;
+    background: linear-gradient(#3d86f2 0, #245edb 10%, #245edb 85%, #1a45a8 100%); }
+  .start { display: flex; align-items: center; padding: 0 22px 0 14px; background: linear-gradient(#5fbe55, #3a9a31 55%, #2e8a27); border-radius: 0 14px 14px 0; font-weight: 700; font-style: italic; font-size: 1.05rem; text-shadow: 1px 1px 2px #1b4d17; box-shadow: inset -2px 0 4px rgba(0,0,0,.25); }
+  .task { display: flex; align-items: center; margin: 3px 0 3px 10px; padding: 0 14px; background: #1e4fc2; border: 1px solid #0a2f8a; border-radius: 3px; box-shadow: inset 1px 1px 3px rgba(0,0,0,.4); }
+  .tray { margin-left: auto; display: flex; align-items: center; padding: 0 14px; background: linear-gradient(#0f8be8, #1290e4 50%, #0b77d0); border-left: 1px solid #0a4fa8; }
 </style>
 </head>
 <body>
 <main>
+  <div class="xp-bar"><span>🖥️ <span id="xpTitle">Ultima Revisione.exe</span></span><span class="xp-ctl"><i>_</i><i>□</i><i class="x">×</i></span></div>
   <header>
-    <h1>Ultima <span>Revisione</span></h1>
-    <p class="sub">La bozza è consegnata. Ancora un ritocco… o incassi adesso?</p>
+    <div>
+      <h1 id="h1">Ultima <span>Revisione</span></h1>
+      <p class="sub" id="sub">La bozza è consegnata. Ancora un ritocco… o incassi adesso?</p>
+    </div>
+    <button class="menuBtn" id="menuBtn">⚙️ Menu</button>
   </header>
 
   <section class="stats">
@@ -155,67 +204,117 @@
       <li>Ogni revisione alza la qualità di un valore casuale e quindi il compenso.</li>
       <li>Ma ogni revisione consuma la pazienza del cliente: prima di ogni ritocco c'è la probabilità mostrata che si stufi e butti via tutto. In quel caso il progetto vale zero.</li>
       <li>Ogni cliente ha un carattere diverso: alcuni sopportano molte revisioni, altri esplodono presto.</li>
-      <li>Consegna quando vuoi per incassare. Alla fine si conta il totale.</li>
+      <li>Consegna quando vuoi per incassare. Alla fine devi coprire le spese fisse: più alta è la difficoltà, più alte sono le spese e più nervosi i clienti.</li>
+      <li>Dal Menu scegli la modalità (Classica o Anni 2000 con Windows XP) e il livello di difficoltà. Il record è separato per ogni combinazione.</li>
     </ul>
   </details>
 </main>
 
 <div class="overlay" id="overlay">
   <div class="modal">
+    <div class="xp-bar"><span>Ultima Revisione</span><span class="xp-ctl"><i class="x">×</i></span></div>
     <h2 id="mTitle"></h2>
     <div class="big" id="mBig"></div>
     <p id="mText"></p>
     <div id="mExtra"></div>
     <button class="rev" id="mBtn"></button>
+    <button class="ghost" id="mBtn2" style="display:none"></button>
   </div>
 </div>
+
+<div class="overlay" id="menu">
+  <div class="modal">
+    <div class="xp-bar"><span>Nuova partita</span><span class="xp-ctl"><i class="x">×</i></span></div>
+    <h2>Nuova partita</h2>
+    <h3>Modalità</h3>
+    <div class="choice" id="modeChoice"></div>
+    <h3>Difficoltà</h3>
+    <div class="choice" id="diffChoice"></div>
+    <button class="rev" id="menuStart">Inizia la partita</button>
+    <button class="ghost" id="menuCancel">Torna al gioco</button>
+  </div>
+</div>
+
+<div class="taskbar"><div class="start">⊞ start</div><div class="task">🖥️&nbsp;Ultima Revisione.exe</div><div class="tray" id="clock"></div></div>
 
 <script>
 (() => {
   const ROUNDS = 5;
   const RATE = 100; // € per punto qualità
-  const COSTS = 5000; // spese fisse da coprire
 
-  const CLIENTS = [
-    { ico: "🍕", name: "Pizzeria Da Totò", job: "Nuovo menù e insegna", base: 0.06, step: 0.07, temper: "Alla mano" },
-    { ico: "⚖️", name: "Studio Legale Rossi & Figli", job: "Restyling del logo", base: 0.08, step: 0.09, temper: "Formale" },
-    { ico: "🚀", name: "Startup GreenChain", job: "Pitch deck per investitori", base: 0.04, step: 0.12, temper: "Frenetico" },
-    { ico: "🏛️", name: "Assessorato alla Cultura", job: "Identità di un festival", base: 0.03, step: 0.05, temper: "Paziente (e lento)" },
-    { ico: "🍷", name: "Cantina Etna Rosso", job: "Etichetta della nuova annata", base: 0.05, step: 0.08, temper: "Esigente" },
-    { ico: "🏠", name: "Immobiliare Prestige", job: "Sito vetrina", base: 0.10, step: 0.10, temper: "Impaziente" },
-    { ico: "💪", name: "Palestra IronFit", job: "Campagna social di settembre", base: 0.07, step: 0.08, temper: "Energico" },
-    { ico: "🖼️", name: "Museo Civico", job: "Allestimento e segnaletica", base: 0.04, step: 0.06, temper: "Riflessivo" }
-  ];
+  const DIFFS = {
+    facile:    { name: "Facile",    risk: 0.65, costs: 3500, gain: 1.15, luck: 0.14, blind: false, desc: "Clienti pazienti" },
+    normale:   { name: "Normale",   risk: 1,    costs: 5000, gain: 1,    luck: 0.10, blind: false, desc: "L'esperienza originale" },
+    difficile: { name: "Difficile", risk: 1.3,  costs: 6500, gain: 0.9,  luck: 0.08, blind: false, desc: "Clienti nervosi" },
+    incubo:    { name: "Incubo",    risk: 1.6,  costs: 8000, gain: 0.8,  luck: 0.06, blind: true,  desc: "Rischio solo stimato" }
+  };
 
-  const REQUESTS = [
-    "Possiamo fare il logo più grande?",
-    "Mi piace, ma proviamo in blu?",
-    "Mia nipote dice che il font è vecchio.",
-    "Si può rendere più… moderno?",
-    "Togliamo lo spazio bianco, sembra vuoto.",
-    "Il concorrente ha fatto una cosa simile, ma meglio.",
-    "Rimettiamo la versione di prima, ma diversa.",
-    "Deve 'spaccare' di più.",
-    "Il capo ha visto e vuole più colore.",
-    "Aggiungiamo anche il numero di telefono. E il fax.",
-    "Si può fare tutto ma più piccolo?",
-    "Ottimo! Solo una piccola cosa…",
-    "Proviamo con una foto di stock sorridente.",
-    "Ci serve per domani, ma senza fretta."
-  ];
-  const ANGRY = [
-    "Sa cosa? Lasciamo perdere. Lo fa mio cugino.",
-    "Basta, ci ho ripensato: niente progetto.",
-    "Abbiamo deciso di usare un template online.",
-    "Troppe versioni, non ci capiamo più. Chiudiamo qui.",
-    "Il budget è stato spostato su altro. Mi spiace."
-  ];
-  const HAPPY = [
-    "Perfetto, lo mandiamo in stampa!",
-    "Bellissimo, grazie. Mandi pure la fattura.",
-    "Esattamente quello che avevo in mente.",
-    "Ci piace. Pubblichiamo."
-  ];
+  const MODES = {
+    classic: {
+      icon: "🎨", label: "Classica", blurb: "Lo studio di oggi",
+      title: "Ultima Revisione", h1: "Ultima <span>Revisione</span>",
+      sub: "La bozza è consegnata. Ancora un ritocco… o incassi adesso?",
+      draft: q => `Ecco la bozza! (qualità ${q})`, greet: "Grazie, la guardo. Intanto… qualche ritocco?",
+      done: "Fatto, nuova versione.", lucky: " 💡 Intuizione!", boom: "💥 ",
+      clients: [
+        { ico: "🍕", name: "Pizzeria Da Totò", job: "Nuovo menù e insegna", base: 0.06, step: 0.07, temper: "Alla mano" },
+        { ico: "⚖️", name: "Studio Legale Rossi & Figli", job: "Restyling del logo", base: 0.08, step: 0.09, temper: "Formale" },
+        { ico: "🚀", name: "Startup GreenChain", job: "Pitch deck per investitori", base: 0.04, step: 0.12, temper: "Frenetico" },
+        { ico: "🏛️", name: "Assessorato alla Cultura", job: "Identità di un festival", base: 0.03, step: 0.05, temper: "Paziente (e lento)" },
+        { ico: "🍷", name: "Cantina Etna Rosso", job: "Etichetta della nuova annata", base: 0.05, step: 0.08, temper: "Esigente" },
+        { ico: "🏠", name: "Immobiliare Prestige", job: "Sito vetrina", base: 0.10, step: 0.10, temper: "Impaziente" },
+        { ico: "💪", name: "Palestra IronFit", job: "Campagna social di settembre", base: 0.07, step: 0.08, temper: "Energico" },
+        { ico: "🖼️", name: "Museo Civico", job: "Allestimento e segnaletica", base: 0.04, step: 0.06, temper: "Riflessivo" }
+      ],
+      req: [
+        ["Possiamo fare il logo più grande?", "Mi piace, ma proviamo in blu?", "Mia nipote dice che il font è vecchio.", "Si può rendere più… moderno?", "Togliamo lo spazio bianco, sembra vuoto.", "Deve 'spaccare' di più.", "Proviamo con una foto di stock sorridente.", "Ottimo! Solo una piccola cosa…", "Il capo ha visto e vuole più colore."],
+        ["Il concorrente ha fatto una cosa simile, ma meglio.", "Rimettiamo la versione di prima, ma diversa.", "Aggiungiamo anche il numero di telefono. E il fax.", "Si può fare tutto ma più piccolo?", "Mia moglie dice che le ricorda un cimitero.", "Può farlo più 'italiano'? Non so spiegarle come.", "Ho mostrato la bozza al barista: non lo convince.", "Il verde non mi parla. Provi un altro colore."],
+        ["Ci serve per domani, ma senza fretta.", "Ho riletto le mail: la prima versione era la migliore.", "Ho avuto un'illuminazione stanotte. Ricominci da capo?", "Non so cosa voglio, ma questo non è.", "Mio cognato ha un'idea: gliela inoltro, si prepari.", "Ne parlo col commercialista, intanto cambi tutto."]
+      ],
+      warn: ["Guardi, la mia pazienza ha un limite.", "Siamo all'ennesima versione, eh…", "Mi sa che stiamo girando in tondo.", "Ancora? Il tempo stringe, sa.", "Lo dico con affetto: mi sta venendo il mal di testa."],
+      small: ["Mmh, non vedo grande differenza.", "Ha cambiato qualcosa? Perché io no.", "Un filo meglio. Un filo.", "Ok, ma resto perplesso."],
+      big: ["Ecco, così sì! Mi piace.", "Wow, adesso ci siamo quasi.", "Questa sì che è un'altra cosa!", "Bravo, finalmente si vede la mano."],
+      happy: {
+        low: ["Beh, accontentiamoci. Mandi la fattura.", "Non è il massimo, ma va bene.", "Ok, basta così. Grazie lo stesso."],
+        mid: ["Perfetto, lo mandiamo in stampa!", "Bellissimo, grazie. Mandi pure la fattura.", "Esattamente quello che avevo in mente.", "Ci piace. Pubblichiamo."],
+        high: ["Fantastico, mai visto di meglio! Pubblichiamo subito.", "Un capolavoro. La consiglierò a tutti.", "Esattamente quello che avevo in mente, anzi meglio."],
+        zero: ["Già finito? Va bene, la prendo così.", "Senza ritocchi? Sospetto, ma ok.", "Mi fido, è pronta. Mandi la fattura."]
+      },
+      angry: ["Sa cosa? Lasciamo perdere. Lo fa mio cugino.", "Basta, ci ho ripensato: niente progetto.", "Abbiamo deciso di usare un template online.", "Troppe versioni, non ci capiamo più. Chiudiamo qui.", "Il budget è stato spostato su altro. Mi spiace.", "Ho trovato un'altra agenzia, più veloce di lei.", "Il socio ha detto basta: tutto annullato.", "Io non ci capisco più niente: arrivederci."]
+    },
+    xp: {
+      icon: "🖥️", label: "Anni 2000", blurb: "Windows XP, MSN e modem 56k",
+      title: "Ultima Revisione 2003", h1: "Ultima <span>Revisione</span> 2003",
+      sub: "La bozza è su floppy. Ancora un ritocco… o fatturi adesso?",
+      draft: q => `Bozza salvata su floppy! (qualità ${q})`, greet: "Grazie, la apro con Internet Explorer. Intanto… qualche ritocco?",
+      done: "Fatto, versione inviata via e-mail.", lucky: " ✨ Illuminazione!", boom: "⚠️ Errore: ",
+      clients: [
+        { ico: "🌐", name: "Cyber Caffè Planet", job: "Volantino per la serata chat", base: 0.06, step: 0.07, temper: "Alla mano" },
+        { ico: "📱", name: "Telefonia Nokia Point", job: "Banner con le suonerie polifoniche", base: 0.04, step: 0.12, temper: "Frenetico" },
+        { ico: "📼", name: "Videonoleggio Star", job: "Sito con il contatore di visite", base: 0.08, step: 0.09, temper: "Nostalgico" },
+        { ico: "🎓", name: "Facoltà di Informatica", job: "Pagina del corso in FrontPage", base: 0.03, step: 0.05, temper: "Paziente (e lento)" },
+        { ico: "🏦", name: "Banca Popolare del Corso", job: "Homepage 'ottimizzata per 800x600'", base: 0.08, step: 0.09, temper: "Formale" },
+        { ico: "📻", name: "Radio Onda Libera FM", job: "Sito con player e guestbook", base: 0.07, step: 0.08, temper: "Energico" },
+        { ico: "🏨", name: "Hotel Vista Mare", job: "Intro in Flash con 'Skip intro'", base: 0.05, step: 0.08, temper: "Esigente" },
+        { ico: "💽", name: "Computer Shop Pentium 4", job: "Catalogo su CD-ROM", base: 0.10, step: 0.10, temper: "Impaziente" }
+      ],
+      req: [
+        ["Possiamo mettere un'intro in Flash?", "Il logo deve girare. Tipo GIF animata.", "Mio nipote dice che serve il contatore di visite.", "Mettiamo lo sfondo con le stelline.", "Lo vorrei col WordArt, quello arcobaleno.", "Si legge male con Internet Explorer 6.", "Aggiungiamo un'ombra: in Photoshop si fa in un clic, no?", "Mi mandi tutto anche su MSN, grazie."],
+        ["Il guestbook non funziona. E la musichetta MIDI?", "Ho stampato tutto e l'ho passato via fax: controlli.", "Sul mio monitor da 14 pollici è tagliato.", "Mia cugina ha Word XP e dice che è diverso.", "Lo salvi su floppy, il CD-R mi si è rovinato.", "Ci vuole il banner 'Sito in costruzione' con l'omino col casco.", "Il mio Pentium fatica: si può alleggerire?", "Mio cognato ha Dreamweaver e dice che lo farebbe meglio."],
+        ["Col mio modem 56k ci mette un'ora a caricare.", "Ho cambiato idea: tutto trasparente, come Windows XP.", "Il computer in ufficio si è bloccato e ho perso la versione buona. Rifaccia.", "Ho letto su una rivista che oggi si usano i frame.", "Non so cosa voglio, ma questo no.", "Ricominci da zero, ma tenga il contatore."]
+      ],
+      warn: ["Ho il telefono che squilla… e la pazienza pure.", "Un'altra versione e stacco il modem.", "Mi sta venendo la schermata blu.", "Siamo alla versione 7… 'definitiva_finale_ok.doc'.", "Il tempo stringe, devo scaricare i nuovi driver."],
+      small: ["Sul mio CRT non cambia niente.", "Ho ricaricato la pagina ma sembra uguale.", "Un filo meglio. Un filo.", "Mmh, anche l'anteprima dice la stessa cosa."],
+      big: ["Wow, sembra fatto con Dreamweaver MX!", "Ecco, così sì! Lo stampo e lo appendo.", "Mamma mia, fa quasi 3D!", "Adesso sì che sembra professionale."],
+      happy: {
+        low: ["Va bene, accontentiamoci. Mandi la fattura.", "Non è il massimo, ma il browser lo apre.", "Ok, basta così. Salvo su floppy."],
+        mid: ["Perfetto, lo masterizzo e lo mando in stampa!", "Bellissimo, grazie. Mi mandi la fattura per e-mail.", "Esattamente quello che avevo in mente.", "Ci piace. Lo carico sul server via FTP."],
+        high: ["Fantastico! Lo mostro a tutti su MSN.", "Un capolavoro: lo metto come sfondo del desktop.", "Meglio di così solo con Flash!"],
+        zero: ["Già finito? Va bene, la prendo così.", "Senza ritocchi? Boh, mi fido.", "Perfetto subito, che strano. Fatturi pure."]
+      },
+      angry: ["Basta, lo faccio fare a mio nipote che 'sa fare i siti'.", "Ho scaricato un template gratuito da Tripod.", "Si è bloccato tutto: schermata blu. Chiudiamo qui.", "Abbiamo passato tutto a un'agenzia che fa Flash.", "Troppe versioni, non ci capiamo più. Chiudiamo.", "Faccio una pagina con Word e la salvo come HTML.", "Il budget è finito in ricariche telefoniche. Mi spiace.", "Il socio ha detto basta: tutto annullato."]
+    }
+  };
 
   const $ = id => document.getElementById(id);
   const el = {
@@ -223,20 +322,69 @@
     avatar: $("avatar"), client: $("client"), job: $("job"), temper: $("temper"),
     qTxt: $("qTxt"), qBar: $("qBar"), rTxt: $("rTxt"), rBar: $("rBar"), fee: $("fee"), loss: $("loss"),
     log: $("log"), rev: $("revBtn"), ship: $("shipBtn"), brief: $("brief"),
-    overlay: $("overlay"), mTitle: $("mTitle"), mBig: $("mBig"), mText: $("mText"), mExtra: $("mExtra"), mBtn: $("mBtn")
+    overlay: $("overlay"), mTitle: $("mTitle"), mBtn2: $("mBtn2"), mBig: $("mBig"), mText: $("mText"), mExtra: $("mExtra"), mBtn: $("mBtn")
   };
 
   const eur = n => n.toLocaleString("it-IT") + " €";
   const pick = a => a[Math.floor(Math.random() * a.length)];
   const rand = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
 
+  let cfg = { mode: "classic", diff: "normale" };
+  let M, D, draft;
   let best = 0;
-  try { best = parseInt(localStorage.getItem("revisione-best") || "0", 10) || 0; } catch (e) {}
+  const bestKey = () => `revisione-best-${cfg.mode}-${cfg.diff}`;
+  function loadBest() {
+    best = 0;
+    try {
+      const old = cfg.mode === "classic" && cfg.diff === "normale" ? localStorage.getItem("revisione-best") : null;
+      best = parseInt(localStorage.getItem(bestKey()) || old || "0", 10) || 0;
+    } catch (e) {}
+  }
+  function applyCfg() {
+    M = MODES[cfg.mode]; D = DIFFS[cfg.diff];
+    document.body.classList.toggle("xp", cfg.mode === "xp");
+    document.title = M.title;
+    $("h1").innerHTML = M.h1;
+    $("sub").textContent = M.sub;
+    $("xpTitle").textContent = M.title + ".exe";
+    loadBest();
+  }
+  const happyPool = () => s.revs === 0 ? M.happy.zero : s.quality >= 45 ? M.happy.high : s.quality < 25 ? M.happy.low : M.happy.mid;
+
+  const menuEl = $("menu");
+  function buildMenu() {
+    document.body.classList.toggle("xp", draft.mode === "xp");
+    $("modeChoice").innerHTML = Object.entries(MODES).map(([k, m]) =>
+      `<button data-mode="${k}" class="${k === draft.mode ? "on" : ""}">${m.icon} ${m.label}<small>${m.blurb}</small></button>`).join("");
+    $("diffChoice").innerHTML = Object.entries(DIFFS).map(([k, d]) =>
+      `<button data-diff="${k}" class="${k === draft.diff ? "on" : ""}">${d.name}<small>${d.desc} · spese ${eur(d.costs)}</small></button>`).join("");
+  }
+  function openMenu(cancelable) {
+    draft = { ...cfg };
+    $("menuCancel").style.display = cancelable ? "block" : "none";
+    buildMenu();
+    menuEl.classList.add("show");
+  }
+  menuEl.addEventListener("click", e => {
+    const b = e.target.closest("button");
+    if (!b) return;
+    if (b.dataset.mode) { draft.mode = b.dataset.mode; buildMenu(); }
+    else if (b.dataset.diff) { draft.diff = b.dataset.diff; buildMenu(); }
+  });
+  $("menuStart").onclick = () => {
+    cfg = { ...draft }; applyCfg(); menuEl.classList.remove("show");
+    if (document.activeElement) document.activeElement.blur();
+    newGame();
+  };
+  $("menuCancel").onclick = () => { document.body.classList.toggle("xp", cfg.mode === "xp"); menuEl.classList.remove("show"); };
+  $("menuBtn").onclick = () => openMenu(true);
+  const tick = () => { $("clock").textContent = new Date().toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" }); };
+  tick(); setInterval(tick, 20000);
 
   let s;
 
   function newGame() {
-    const pool = CLIENTS.slice();
+    const pool = M.clients.slice();
     for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [pool[i], pool[j]] = [pool[j], pool[i]]; }
     s = { round: 1, bank: 0, clients: pool.slice(0, ROUNDS), history: [] };
     startProject();
@@ -249,8 +397,8 @@
     s.over = false;
     el.log.innerHTML = "";
     say("sys", `Nuovo incarico: ${s.c.job}`);
-    say("me", `Ecco la bozza! (qualità ${s.quality})`);
-    say("client", "Grazie, la guardo. Intanto… qualche ritocco?");
+    say("me", M.draft(s.quality));
+    say("client", M.greet);
     render();
   }
 
@@ -259,18 +407,19 @@
   // client lands at 45–60% on the 5th revision and above 75% on the 7th.
   const risk = () => {
     const stepQ = 0.027 + 0.06 * (s.c.step - 0.05);
-    return Math.min(0.95, s.c.base + stepQ * s.revs * s.revs);
+    return Math.min(0.95, D.risk * (s.c.base + stepQ * s.revs * s.revs));
   };
 
   function revise() {
     if (s.over) return;
     const p = risk();
     s.revs++;
-    say("client", pick(REQUESTS));
+    say("client", pick(M.req[s.revs <= 2 ? 0 : s.revs <= 4 ? 1 : 2]));
+    if (p >= 0.35 && Math.random() < 0.5) say("client", pick(M.warn));
     if (Math.random() < p) {
       s.over = true;
       const lost = s.quality;
-      say("fail", "💥 " + pick(ANGRY));
+      say("fail", M.boom + pick(M.angry));
       el.brief.classList.remove("shake"); void el.brief.offsetWidth; el.brief.classList.add("shake");
       s.quality = 0;
       s.history.push({ c: s.c, got: 0, revs: s.revs, fail: true });
@@ -278,29 +427,32 @@
       setTimeout(() => endProject(false, lost), 1100);
       return;
     }
-    // Diminishing returns: revision n is worth 1 / (1 + 0.25·(n−1)) of the roll (5th ≈ half)
-    let gain = Math.max(1, Math.round(rand(2, 12) / (1 + 0.25 * (s.revs - 1))));
+    // Diminishing returns: revision n is worth 1 / (1 + 0.25·(n−1)) of the roll, scaled by difficulty
+    let gain = Math.max(1, Math.round(rand(2, 12) / (1 + 0.25 * (s.revs - 1)) * D.gain));
     let note = "";
-    if (Math.random() < 0.1) { gain += rand(8, 14); note = " 💡 Intuizione!"; }
+    const lucky = Math.random() < D.luck;
+    if (lucky) { gain += rand(8, 14); note = M.lucky; }
     s.quality += gain;
-    say("me", `Fatto, nuova versione.<span class="gain"> +${gain} qualità${note}</span>`);
+    say("me", `${M.done}<span class="gain"> +${gain} qualità${note}</span>`);
+    if (lucky || gain >= 10) say("client", pick(M.big));
+    else if (gain <= 3 && Math.random() < 0.7) say("client", pick(M.small));
     render();
   }
 
-  function deliver() {
+    function deliver() {
     if (s.over) return;
     s.over = true;
     const got = s.quality * RATE;
     s.bank += got;
     s.history.push({ c: s.c, got, revs: s.revs, fail: false });
-    say("client", pick(HAPPY));
+    say("client", pick(happyPool()));
     render();
     setTimeout(() => endProject(true, got), 600);
   }
 
   function endProject(ok, value) {
     const last = s.round >= ROUNDS;
-    el.mExtra.innerHTML = "";
+    el.mExtra.innerHTML = ""; el.mBtn2.style.display = "none";
     if (ok) {
       el.mTitle.textContent = "Progetto consegnato ✅";
       el.mBig.style.color = "var(--good)";
@@ -326,12 +478,12 @@
 
   function finalScreen() {
     const record = s.bank > best;
-    if (record) { best = s.bank; try { localStorage.setItem("revisione-best", String(best)); } catch (e) {} }
-    if (s.bank < COSTS) {
+    if (record) { best = s.bank; try { localStorage.setItem(bestKey(), String(best)); } catch (e) {} }
+    if (s.bank < D.costs) {
       el.mTitle.textContent = "📉 Studio in rosso";
       el.mBig.style.color = "var(--bad)";
       el.mBig.textContent = eur(s.bank);
-      el.mText.textContent = `Le spese fisse erano ${eur(COSTS)}: mancano ${eur(COSTS - s.bank)}. Lo studio chiude. Partita persa.`;
+      el.mText.textContent = `Le spese fisse erano ${eur(D.costs)}: mancano ${eur(D.costs - s.bank)}. Lo studio chiude. Partita persa.`;
     } else {
       el.mTitle.textContent = record ? "🏆 Anno record!" : "Bilancio dell'anno";
       el.mBig.style.color = "var(--ink)";
@@ -343,15 +495,19 @@
     ).join("") + "</div>";
     el.mBtn.textContent = "Riapri lo studio";
     el.mBtn.onclick = () => { hide(); newGame(); };
+    el.mBtn2.textContent = "Cambia modalità o difficoltà";
+    el.mBtn2.style.display = "block";
+    el.mBtn2.onclick = () => { hide(); openMenu(true); };
     render();
     show();
   }
 
   function verdict(n) {
-    if (n >= 20000) return "Agenzia di grido: i clienti fanno la fila.";
-    if (n >= 14000) return "Ottimo anno, lo studio cresce.";
-    if (n >= 9000) return "Anno solido, bollette pagate.";
-    if (n >= 5000) return "Si tira avanti. Magari meno revisioni?";
+    const r = n / D.costs;
+    if (r >= 4) return "Agenzia di grido: i clienti fanno la fila.";
+    if (r >= 2.8) return "Ottimo anno, lo studio cresce.";
+    if (r >= 1.8) return "Anno solido, bollette pagate.";
+    if (r >= 1) return "Si tira avanti. Magari meno revisioni?";
     return "Forse era meglio il posto fisso.";
   }
 
@@ -371,6 +527,7 @@
     el.revs.textContent = s.revs;
     el.bank.textContent = eur(s.bank);
     el.best.textContent = eur(best);
+    $("costs").textContent = eur(D.costs);
     el.avatar.textContent = s.c.ico;
     el.client.textContent = s.c.name;
     el.job.textContent = s.c.job;
@@ -380,7 +537,7 @@
     el.qBar.style.width = Math.min(100, s.quality / 1.2) + "%";
 
     const pct = s.over ? 0 : Math.round(risk() * 100);
-    el.rTxt.textContent = s.over ? "—" : pct + "%";
+    el.rTxt.textContent = s.over ? "—" : (D.blind ? "~" + Math.round(pct / 10) * 10 : pct) + "%";
     const col = pct >= 40 ? "var(--bad)" : pct >= 20 ? "var(--warn)" : "var(--good)";
     el.rTxt.style.color = col;
     el.rBar.style.width = Math.max(pct, 2) + "%";
@@ -395,6 +552,7 @@
   el.rev.addEventListener("click", revise);
   el.ship.addEventListener("click", deliver);
   document.addEventListener("keydown", e => {
+    if (menuEl.classList.contains("show")) return;
     if (el.overlay.classList.contains("show")) {
       if (e.key === "Enter" || e.key === " ") { e.preventDefault(); el.mBtn.click(); }
       return;
@@ -403,7 +561,9 @@
     else if (e.key.toLowerCase() === "c") { deliver(); }
   });
 
+  applyCfg();
   newGame();
+  openMenu(false);
 })();
 </script>
 </body>
