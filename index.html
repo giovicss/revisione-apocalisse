@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Revisione Apocalittica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
 :root{--ink:#0b0e15;--st1:#2c3850;--st2:#121926;--sil:#e6ebf3;--sil2:#a3aebf;--red:#e8372c;--cy:#2bb8ee;--yel:#ffd23f;--lil:#cdbcf2;--grn:#35c777;--blu:#3a7bd5;
 --ff:"Segoe UI","Helvetica Neue",Arial,sans-serif;--fd:"Arial Black","Segoe UI Black","Helvetica Neue",Arial,sans-serif}
@@ -137,6 +138,78 @@ th,td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.2);text-align:l
 
 @media(max-width:600px){.nav{padding:10px}.tk{padding:8px 13px 7px;font-size:13px}.menub{left:10px;bottom:12px}.hud{right:10px;bottom:10px}.main{padding-top:84px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* ===== JRPG 16-bit ===== */
+:root{--ink:#04051f;--sil2:#a9b4ee;--red:#ff6b6b;--cy:#8fc0ff;--yel:#ffd23f;--lil:#d6c8ff;--grn:#7dff9a;--blu:#8fc0ff;--ff:"DotGothic16","Courier New",monospace;--fd:"Press Start 2P","Courier New",monospace;--w1:#2f3ed8;--w2:#0a0e5c;--wb:#e4e9ff}
+*{font-weight:400!important;font-style:normal!important;-webkit-text-stroke:0!important}
+body{font-size:17px;text-shadow:2px 2px 0 #000}
+.pxb{position:relative;display:block}
+.pxc{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;pointer-events:none}
+svg.px{position:relative}svg.px>*{visibility:hidden}svg.px>.mk{visibility:visible}
+#stage .pxb{position:absolute;inset:0}#stage .pxc{object-fit:cover;object-position:50% 100%}
+#stage::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(rgba(0,0,0,.2) 0 1px,transparent 1px 3px)}
+body[data-v=panel] #stage .veil{background:rgba(4,5,31,.7);backdrop-filter:none}
+.ov{backdrop-filter:none;background:rgba(0,0,20,.74)}
+.pn{background:linear-gradient(var(--w1),var(--w2));border:3px solid var(--wb);border-radius:8px;box-shadow:0 0 0 2px #000,inset 0 0 0 2px rgba(0,0,0,.55),5px 5px 0 2px rgba(0,0,0,.5)}
+.pn::before{display:none}
+.ph{background:none;color:var(--yel);border-bottom:2px solid rgba(228,233,255,.4);font:400 .7rem/1.4 var(--fd);padding:12px 14px;text-shadow:2px 2px 0 #000}
+.ph em{background:none;border:2px solid rgba(255,255,255,.45);border-radius:4px;color:#fff;font:400 .55rem var(--fd);padding:4px 8px}
+.chip{width:12px;height:12px;transform:none;border:2px solid #000;border-radius:0}
+.tk,.btn{font:400 .6rem/1.5 var(--fd);color:var(--c)!important;text-shadow:2px 2px 0 #000;transform:none!important;position:relative;padding:11px 14px 11px 28px;
+ background:linear-gradient(var(--w1),var(--w2));border:3px solid var(--wb);border-radius:8px;box-shadow:0 0 0 2px #000,4px 4px 0 2px rgba(0,0,0,.5)}
+.tk span{transform:none}.tk.red{color:#fff!important}
+.tk::before,.btn::before{content:"▶";position:absolute;left:10px;top:50%;margin-top:-.7em;color:var(--yel);opacity:0}
+.tk:hover::before,.tk.on::before,.btn:hover:not(:disabled)::before{opacity:1;animation:nudge2 .5s steps(2) infinite}
+@keyframes nudge2{50%{transform:translateX(4px)}}
+.tk:hover,.tk.on,.btn:hover:not(:disabled){border-color:var(--yel);filter:none;box-shadow:0 0 0 2px #000,4px 4px 0 2px rgba(0,0,0,.5)}
+.btn:active{margin:2px 0 0 2px}
+.btn.sm{font-size:.52rem;padding:8px 10px 8px 22px}.btn.sm::before{left:6px}.btn.big{font-size:.78rem;padding:14px 20px 14px 32px}
+.btn:disabled{--c:#6b7390;opacity:.6;filter:grayscale(1)}
+.dot{transform:none;border-radius:0}
+.st{transform:none;border-radius:3px;font:400 .5rem var(--fd);padding:5px 8px;border:2px solid #000}
+.n,.cb{border-radius:4px;font-family:var(--fd);font-size:.6rem}
+.est .big{font:400 1.4rem var(--fd);text-shadow:3px 3px 0 #000}
+.logo{font:400 clamp(1.1rem,5vw,1.9rem)/1.6 var(--fd);transform:none;color:var(--yel);text-shadow:3px 3px 0 #1a1fa0,0 0 14px var(--cy)}
+.steps li::before{border-radius:4px;font:400 .6rem var(--fd)}
+.stamp .s1{font:400 .8rem var(--fd);border-radius:4px}.stamp .s2{font:400 clamp(1rem,5.5vw,1.9rem)/1.5 var(--fd);transform:none;border-radius:6px;border-color:var(--wb)}
+.bubble{border-radius:8px;background:linear-gradient(var(--w1),var(--w2));color:#fff;border:3px solid var(--wb);box-shadow:0 0 0 2px #000,4px 4px 0 2px rgba(0,0,0,.5);font:400 clamp(13px,1.6vw,17px)/1.4 var(--ff);text-align:left;text-shadow:2px 2px 0 #000;padding:12px 28px 12px 14px}
+.bubble::after{content:"▼";left:auto;right:10px;bottom:4px;width:auto;height:auto;background:none;border:0;transform:none;color:var(--yel);animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.plate,.sc-pl{transform:none;font:400 .7rem var(--fd);background:linear-gradient(var(--w1),var(--w2));border:3px solid var(--wb);border-radius:8px;box-shadow:0 0 0 2px #000,4px 4px 0 2px rgba(0,0,0,.5)}
+.plate span{transform:none}.sc-pl{color:var(--yel);font-size:.62rem;animation:blink 1.2s steps(2) infinite}
+.blob{border-radius:6px;background:rgba(0,0,0,.4);color:var(--yel);border:3px solid var(--wb);box-shadow:none;transform:none}.blob.rep{background:rgba(0,0,0,.4)}
+.blob b{font:400 .8rem var(--fd)}.blob small{margin-top:8px;color:#fff}
+.die{border-color:#000;border-radius:10px}
+.gauge{border-color:var(--wb);background:#000}
+.msg h4{transform:none;border-radius:3px;border-color:#000;font:400 .55rem var(--fd)}
+
+/* ===== fix ombre testo scuro su fondo chiaro ===== */
+body{text-shadow:1px 1px 0 rgba(0,0,0,.85)}
+.st,.n,.cb,.msg h4,.stamp .s2,.steps li::before,.blob.rep,.die,.tot b{text-shadow:none}
+.st.bad,.st.fix{text-shadow:1px 1px 0 rgba(0,0,0,.55)}
+.dif{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:10px 0}
+.dh{font:400 .65rem var(--fd);color:var(--yel);margin:18px 0 4px}.dd{font-size:.95rem;color:var(--sil2);margin:6px 0}
+.lore{position:fixed;inset:0;z-index:4;display:flex;align-items:flex-end;justify-content:center;padding:20px 16px 40px;cursor:pointer}
+.lbox{width:min(760px,100%);padding:28px 22px 22px;min-height:160px;overflow:visible;text-align:left}
+.who{position:absolute;top:-18px;left:18px;padding:7px 14px;font:400 .62rem var(--fd);color:var(--yel);background:linear-gradient(var(--w1),var(--w2));border:3px solid var(--wb);border-radius:6px;box-shadow:0 0 0 2px #000}
+.lbox p{margin:0;font-size:1.15rem;line-height:1.55;min-height:4.6em;text-align:left;max-width:none}
+.more{position:absolute;right:16px;bottom:10px;color:var(--yel);animation:blink 1s steps(2) infinite}
+.skip{position:absolute;top:18px;right:18px}
+
+.mg .bd,.md .bd{padding:14px 18px 0}
+.g2{position:relative;height:30px;background:#000;border:3px solid var(--wb);border-radius:4px;margin:14px 0 6px;overflow:hidden}
+.g2 i{position:absolute;left:0;top:0;bottom:0;width:0;background-image:repeating-linear-gradient(90deg,transparent 0 8px,rgba(0,0,0,.35) 8px 10px),linear-gradient(rgba(255,255,255,.3),transparent 55%)}
+.g2 u{position:absolute;top:0;bottom:0;width:4px;background:#fff;box-shadow:0 0 0 2px #000;transform:translateX(-2px)}
+.g2 b{position:absolute;top:0;bottom:0;background:rgba(125,255,154,.4)}
+.fv{font:400 .8rem var(--fd);color:var(--yel);margin:8px 0}
+.mgbtn{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:14px 0}
+.mgbtn .btn{width:auto;user-select:none;touch-action:none}
+.nuts{position:relative;width:210px;height:210px;margin:10px auto;border-radius:50%;background:radial-gradient(#3a3f4f 0 38%,#14141a 40% 100%);border:4px solid #000}
+.nut{position:absolute;width:44px;height:44px;margin:-22px;background:#cfd6e2;clip-path:polygon(25% 5%,75% 5%,100% 50%,75% 95%,25% 95%,0 50%);cursor:pointer;display:grid;place-items:center;transition:transform .25s,opacity .25s}
+.nut::after{content:"";width:16px;height:16px;border-radius:50%;background:#555}
+.nut.done{transform:rotate(180deg) scale(.1);opacity:0;pointer-events:none}.nut.hint{background:var(--yel)}
+.cal{margin:14px 0;text-align:left}.cal label{display:flex;justify-content:space-between;font-size:.95rem}.cal input{width:100%;accent-color:#ffd23f}.cal b{font:400 .7rem var(--fd);color:var(--yel)}
+.cb.on{background:var(--grn);border-color:#fff;box-shadow:0 0 0 2px #000}.cb svg{width:20px;height:20px}
+.md.wide{width:min(640px,96vw)}.md .keys{padding:0 8px}
 </style></head><body data-v="title">
 <div id="stage"></div>
 <div id="app"></div><div id="menu"></div><div id="modal"></div>
@@ -144,77 +217,310 @@ th,td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.2);text-align:l
 const $=s=>document.querySelector(s),rnd=n=>Math.floor(Math.random()*n);
 
 /* ======================= DATI ======================= */
-const PARTS=[{n:'Motore',h:2,x:490,y:150},{n:'Batteria',h:1,x:415,y:160},{n:'Fari',h:1,x:548,y:170},{n:'Freni',h:1,x:470,y:208},{n:'Gomme',h:1,x:140,y:208},{n:'Sospensioni',h:2,x:305,y:216},{n:'Marmitta',h:1,x:62,y:186}];
+const PARTS=[{n:'Motore',h:2,x:490,y:150,z:'Cofano e sotto il motore',mg:'Rabbocca l\'olio'},{n:'Radiatore',h:1,x:415,y:160,z:'Zona anteriore, sotto il cofano',mg:'Rabbocca il refrigerante'},{n:'Fari',h:1,x:548,y:170,z:'Fanale anteriore',mg:'Regola il fascio'},{n:'Freni',h:1.5,x:470,y:208,z:'Ruota anteriore',mg:'Rabbocca il liquido freni'},{n:'Gomme',h:1.5,x:140,y:208,z:'Ruote',mg:'Svita i dadi e gonfia'},{n:'Sospensioni',h:2,x:305,y:216,z:'Assetto dell\'auto',mg:'Tara l\'assetto'},{n:'Marmitta',h:1,x:62,y:186,z:'Scarico, parte posteriore',mg:'Svita le fascette'}];
 const CARS=[
-{m:'Fiat Panda',y:1998,km:212430,f:'Benzina',c:'#ffd23f',lim:13,n:3,own:{nome:'Paolo Muro',eta:33,job:'Tecnico',dest:'Città del Capo'},
+{m:'Fiat Panda',y:1998,km:212430,f:'Benzina',c:'#ffd23f',lim:8,n:3,own:{nome:'Paolo Muro',eta:33,job:'Tecnico',dest:'Città del Capo'},
  say:'Ripara la mia auto, che devo scappare!!!',note:'Il proprietario ha due gatti sul sedile e nessuna voglia di aspettare.'},
-{m:'Alfa Romeo 147',y:2004,km:187900,f:'Diesel',c:'#e8372c',lim:15,n:4,own:{nome:'Giulia Ferrante',eta:41,job:'Infermiera',dest:'Durban'},
+{m:'Alfa Romeo 147',y:2004,km:187900,f:'Diesel',c:'#e8372c',lim:10,n:4,own:{nome:'Giulia Ferrante',eta:41,job:'Infermiera',dest:'Durban'},
  say:'I cancelli chiudono all\'alba! Sbrigati!',note:'«I cancelli della città chiudono all\'alba. Fai in fretta.»'},
-{m:'Land Rover Defender',y:2001,km:305120,f:'Diesel',c:'#43b86a',lim:17,n:5,own:{nome:'Marco Benedetti',eta:52,job:'Guida alpina',dest:'Windhoek'},
+{m:'Land Rover Defender',y:2001,km:305120,f:'Diesel',c:'#43b86a',lim:12,n:5,own:{nome:'Marco Benedetti',eta:52,job:'Guida alpina',dest:'Windhoek'},
  say:'Il bagagliaio è pieno di scatolette. Muoviti!',note:'Bagagliaio pieno di scatolette. Il tizio guarda fuori dalla finestra ogni minuto.'}];
 const FACES=[[],[4],[0,8],[0,4,8],[0,2,6,8],[0,2,4,6,8],[0,2,3,5,6,8]];
 let G={screen:'menu'};
+const LV={easy:{n:'Facile',hm:1.3,tol:1.7,err:2,mg:3,so:1,hint:true,col:'cy',d:'Più tempo (+30%) · fino a 2 errori nel check-up · tolleranze larghe e aiuti'},
+ norm:{n:'Normale',hm:1,tol:1,err:1,mg:2,so:.9,hint:false,col:'yl',d:'Ore standard · 1 errore ammesso nel check-up · tolleranze medie'},
+ hard:{n:'Difficile',hm:.85,tol:.6,err:0,mg:1,so:.7,hint:false,col:'red',d:'Meno tempo (-15%) · nessun errore nel check-up · tolleranze strette, segnali più tenui'}};
+let DIFF='norm';const lv=()=>LV[DIFF];
+const rng=(a,b)=>a>=b?''+b:a+'-'+b;
+function rules(buy){const b=lv().bad,g=lv().gen;return buy?`${rng(1,b)}: i predoni rubano il pezzo (-1h) · ${rng(b+1,6)}: acquisto riuscito (-1h)`:`${rng(1,b)}: imprevisto, +1h e ricambio perso · ${rng(b+1,g-1)}: riparato · ${rng(g,6)}: colpo di genio, -1h`}
+function setDiff(k){DIFF=k;render()}
+/* ---------- lore ---------- */
+const LORE=[['Radio','📻','…bollettino straordinario. Il virus Z-9 ha superato il cordone sanitario. Da questa notte la città è dichiarata zona perduta.'],
+['Radio','📻','Il Corridoio Sud, l\'unica via ancora aperta verso l\'Africa australe, chiuderà i cancelli all\'alba. Chi non passa… resta qui.'],
+['Narratore','📖','Sei l\'ultimo meccanico con le luci ancora accese. L\'officina «Revisioni Rapide» era di tuo padre: oggi è l\'unico posto dove si può ottenere il bollino.'],
+['Narratore','📖','Senza bollino di revisione, ai posti di blocco non si passa. Ogni auto va controllata, riparata e timbrata prima che il proprietario perda la pazienza.'],
+['Vecchio Tonino','👴','Guarda bene l\'auto prima di toccarla: fumo, perdite, gomme a terra… ogni segno parla. Segna tutto sul foglio di check-up.'],
+['Vecchio Tonino','👴','Se sbagli troppe voci, il bollino non lo do. Poi in officina: olio, liquidi, pressione e assetto… ogni errore costa tempo. Forza, tre auto in coda!']];
+let TW=null;
+function startLore(){G={screen:'lore',li:0};render()}
+function typeLore(){clearInterval(TW);const el=$('#lt');if(!el)return;const t=LORE[G.li][2];let i=0;G.full=false;el.textContent='';TW=setInterval(()=>{el.textContent=t.slice(0,++i);if(i>=t.length){clearInterval(TW);G.full=true}},22)}
+function loreNext(){if(G.screen!=='lore')return;if(!G.full){clearInterval(TW);$('#lt').textContent=LORE[G.li][2];G.full=true;return}
+ if(++G.li>=LORE.length){clearInterval(TW);return newGame()}render()}
+function toTitle(){G={screen:'menu'};closeMenu();render()}
+
 const cur=()=>G.cars[G.i];
 const fmt=x=>(+x).toFixed(1).replace('.0','').replace('.',',');
 
 /* ======================= LOGICA ======================= */
+const kind=c=>c.m.includes('Panda')?0:c.m.includes('147')?1:2;
+const SPEC=[{oil:3,cool:4.5,fl:.5,bar:2.1},{oil:4.2,cool:6,fl:.5,bar:2.3},{oil:6,cool:9,fl:.6,bar:2.2}];
+const fx=(v,st)=>(+v).toFixed(st.dec||0).replace('.',',');
 function newGame(){
- G={screen:'game',i:0,phase:0,tab:'home',menuOpen:false,log:[],logN:0,seenN:0,roll:null,timeout:false,res:[],
- cars:CARS.map(c=>{const ids=[0,1,2,3,4,5,6].sort(()=>Math.random()-.5).slice(0,c.n);
-  return{...c,left:c.lim,st:PARTS.map((p,k)=>({insp:false,fault:ids.includes(k),has:false,fixed:false}))}})};
- log('Entra la prima auto. Il proprietario è nervoso.');closeMenu();render();
-}
+ G={screen:'game',i:0,tab:'home',menuOpen:false,log:[],logN:0,seenN:0,mg:null,vr:null,checked:false,note:'',timeout:false,res:[],
+ cars:CARS.map(c=>{const ids=[0,1,2,3,4,5,6].sort(()=>Math.random()-.5).slice(0,c.n),lim=Math.round(c.lim*lv().hm);
+  return{...c,lim,left:lim,marks:Array(7).fill(false),st:PARTS.map((p,k)=>({insp:false,fault:ids.includes(k),has:false,fixed:false}))}})};
+ cancelAnimationFrame(MGRAF);$('#modal').innerHTML='';log('Entra la prima auto. Il proprietario è nervoso.');closeMenu();render()}
 function log(t){G.log.unshift(t);G.log=G.log.slice(0,8);G.logN++}
 function spend(h){const c=cur();c.left=Math.max(0,+(c.left-h).toFixed(1));if(c.left<=0)G.timeout=true}
-function lose(why){G.screen='end';G.win=false;G.why=why;render()}
-function setTab(t){if(G.screen!=='game'||G.roll)return;G.tab=t;if(typeof t==='number')G.phase=t;if(t==='msg')G.seenN=G.logN;render();scrollTo(0,0)}
-function act(k){
- if(G.screen!=='game'||G.roll||G.tab!==G.phase)return;const c=cur(),s=c.st[k],p=PARTS[k];
- if(G.phase===0){if(s.insp)return;s.insp=true; /* l'ispezione non consuma più tempo */
-  log(s.fault?`${p.n}: GUASTO! Riparazione stimata ${p.h}h.`:`${p.n}: tutto a posto.`);render()}
- else if(G.phase===1){if(s.insp&&s.fault&&!s.has&&!s.fixed)openRoll('buy',k)}
- else if(s.has&&!s.fixed)openRoll('rep',k);
-}
-function openRoll(kind,k){G.roll={kind,k,v:0,done:false,rolling:false,txt:''};showRoll()}
-function dieHTML(n){return'<div class="die">'+[...Array(9)].map((_,i)=>`<i class="${FACES[n].includes(i)?'on':''}"></i>`).join('')+'</div>'}
-function showRoll(){const r=G.roll;if(!r){$('#modal').innerHTML='';return}
- const p=PARTS[r.k],buy=r.kind==='buy';
- $('#modal').innerHTML=`<div class="ov"><div class="pn md"><div class="ph"><i class="chip ${buy?'':'yl'}"></i><span>${p.n}</span></div><div class="bd">
- <div class="blob ${buy?'':'rep'}"><b>${buy?'TEST PREDONI':'RIPARA'}</b><small>${buy?'Tira il dado (d6)':'Tira il dado e ripara'}</small></div>
- <div id="dz">${dieHTML(r.v||6)}</div><div class="res">${r.txt||(buy?'Riuscirai a passare tra i predoni?':'Le mani sporche di olio. Si monta!')}</div>
- <button class="btn big" onclick="rollKey()">${r.done?'Continua':'Tira il d6'}</button>
- <div class="keys">${buy?'1-2: i predoni rubano il pezzo (-1h) · 3-6: acquisto riuscito (-1h)':'1-2: imprevisto, +1h e ricambio perso · 3-5: riparato · 6: colpo di genio, -1h'}<br>Spazio o Invio per tirare</div></div></div></div>`}
-function rollKey(){const r=G.roll;if(!r||r.rolling)return;
- if(r.done){G.roll=null;showRoll();if(G.timeout)return lose('Il tempo è finito: il proprietario è scappato a piedi.');return render()}
- r.rolling=true;let t=0;const iv=setInterval(()=>{$('#dz').innerHTML=dieHTML(1+rnd(6));
-  if(++t>10){clearInterval(iv);r.rolling=false;r.v=1+rnd(6);resolve();showRoll()}},70)}
-function resolve(){const r=G.roll,c=cur(),s=c.st[r.k],p=PARTS[r.k],d=r.v;r.done=true;
- if(r.kind==='buy'){spend(1);
-  if(d<=2){r.txt=`Hai fatto ${d}: i predoni ti rubano il ${p.n.toLowerCase()}! Perdi 1h, dovrai riprovare.`}
-  else{s.has=true;r.txt=`Hai fatto ${d}: ricambio in tasca! (-1h)`}}
- else{
-  if(d<=2){spend(p.h+1);s.has=false;r.txt=`Hai fatto ${d}: imprevisto! +1h di malus e ricambio perso (${fmt(p.h+1)}h totali).`}
-  else if(d<=5){spend(p.h);s.fixed=true;r.txt=`Hai fatto ${d}: riparazione riuscita in ${fmt(p.h)}h.`}
-  else{const h=Math.max(0,p.h-1);spend(h);s.fixed=true;r.txt=`Hai fatto 6: colpo di genio! Finito in ${fmt(h)}h.`}}
- log(r.txt);}
-function deliver(){const c=cur();if(G.screen!=='game'||G.roll)return;
- const allFixed=c.st.every(s=>!s.fault||s.fixed);
- if(!allFixed)return lose('Revisione bocciata: avevi lasciato guasti non trovati. Il proprietario è partito comunque… e non è arrivato lontano.');
- G.res.push({m:c.m,left:c.left});G.screen='inter';render()}
+function lose(why){cancelAnimationFrame(MGRAF);G.screen='end';G.win=false;G.why=why;G.mg=null;G.vr=null;$('#modal').innerHTML='';render()}
+function setTab(t){if(G.screen!=='game'||G.mg||G.vr)return;if(t===1&&!G.checked){G.note='Prima compila il foglio e premi Verifica.';t=0}G.tab=t;if(t==='msg')G.seenN=G.logN;render();scrollTo(0,0)}
+function act(k){if(G.screen!=='game'||G.mg||G.vr)return;if(G.tab===0)mark(k);else if(G.tab===1)startRepair(k)}
+/* --- check-up --- */
+function mark(k){const c=cur();if(G.checked)return;c.marks[k]=!c.marks[k];render()}
+function verify(){const c=cur();if(G.checked||G.mg||G.vr)return;
+ const rows=PARTS.map((p,k)=>({p,mk:!!c.marks[k],f:c.st[k].fault})),errs=rows.filter(r=>r.mk!==r.f).length;
+ G.vr={rows,errs,ok:errs<=lv().err};showVr()}
+function showVr(){const v=G.vr;if(!v){$('#modal').innerHTML='';return}
+ $('#modal').innerHTML=`<div class="ov"><div class="pn md"><div class="ph"><i class="chip ${v.ok?'cy':''}"></i><span>Esito check-up</span></div><div class="bd">${v.rows.map(r=>{const ok=r.mk===r.f;return`<div class="row"><div class="t">${r.p.n}</div><span class="st ${ok?'good':'bad'}">${ok?'CORRETTO':r.f?'GUASTO NON SEGNATO':'FALSO ALLARME'}</span></div>`}).join('')}
+ <div class="res">${v.ok?`Errori: ${v.errs} (massimo ${lv().err}). Check-up superato!`:`Errori: ${v.errs}, troppi (massimo ${lv().err}).`}</div><button class="btn big ${v.ok?'ok':''}" onclick="vrNext()">${v.ok?'Vai in officina':'Continua'}</button></div></div></div>`}
+function vrNext(){const v=G.vr;if(!v)return;G.vr=null;showVr();
+ if(!v.ok)return lose(`Revisione bocciata: hai sbagliato ${v.errs} voci del check-up (massimo ${lv().err}). Il proprietario ha cambiato officina.`);
+ const c=cur();G.checked=true;G.note='';c.st.forEach(x=>x.insp=true);log(`Check-up superato con ${v.errs} errori. Guasti da riparare: ${c.st.filter(x=>x.fault).length}.`);setTab(1)}
+/* --- minigiochi --- */
+let MGRAF=0,MGT=0;
+function mkSteps(k,c){const sp=SPEC[kind(c)],t=lv().tol,rn=(a,b)=>a+rnd(b-a+1),cl=(v,a,b)=>Math.max(a,Math.min(b,v));
+ const fill=o=>Object.assign({t:'fill',fast:.28,slow:.08,dec:1},o,{v:o.s0});
+ if(k===0){const w=rn(20,26)+(t>1?10:t<1?-4:0),mn=rn(34,44);return[{t:'oil',dyn:1,title:'Rabbocca l\'olio a occhio',sub:'Versa senza vedere il livello, poi controlla con l\'astina',l0:rn(12,30),mn,mx:mn+w,rate:rn(55,80)/10,ph:Math.random()*6.28}]}
+ if(k===1){const h=.08*t,c=rn(48,72)/100;return[{t:'cool',dyn:1,title:'Rabbocca il refrigerante',sub:'Fai scoppiare le bolle d\'aria che bloccano il flusso',lo:c-h,hi:c+h,t0:rn(8,18)/100,sr:t>1?1.3:t<1?.8:1}]}
+ if(k===3)return[{t:'brake',dyn:1,title:'Spurgo e liquido freni',sub:'Pompa a ritmo il pedale mentre versi il liquido nuovo',beat:rn(62,92)/100,safe:rn(30,40)/100,r0:rn(55,70)/100}];
+ if(k===2){const tg=(rn(0,20)-10)/10;return[{t:'calib',title:'Regola il fascio dei fari',dec:1,items:[{lab:'Inclinazione',unit:'°',min:-3,max:3,step:.1,target:tg,tol:.3*t,s0:cl(tg+(rnd(2)?2:-2),-3,3)}]}]}
+ if(k===5){const f=rn(150,190),r=f+rn(0,12);return[{t:'calib',title:'Tara l\'assetto',dec:0,items:[{lab:'Altezza anteriore',unit:' mm',min:120,max:220,step:1,target:f,tol:4*t,s0:f+(rnd(2)?28:-28)},{lab:'Altezza posteriore',unit:' mm',min:120,max:220,step:1,target:r,tol:4*t,s0:r+(rnd(2)?-30:30)}]}]}
+ if(k===4)return[{t:'bolts',title:'Svita i dadi a stella',n:5,order:[0,2,4,1,3],next:0,mist:0,done:[]},fill({title:'Gonfia lo pneumatico',unit:'bar',max:4,target:sp.bar,tol:.1*t,s0:.3,col:'#9fd0ff',dec:2,fast:.3,slow:.1})];
+ if(k===6)return[rnd(2)?{t:'weld',dyn:1,title:'Salda la crepa della marmitta',sub:'Mantieni una velocità costante: né troppo lenta né troppo veloce',amp:rn(8,22),f:.02+rnd(20)/1000,ph:Math.random()*6.28}:{t:'tape',dyn:1,title:'Fascia la marmitta arrugginita',sub:'Ruota il tubo e guida il rocchetto: giri leggermente sovrapposti, nessun buco',wt:rn(40,52)}];
+ return[]}
+function startRepair(k){const c=cur(),s=c.st[k];if(!G.checked||!s.fault||s.fixed)return;
+ const steps=mkSteps(k,c);steps.forEach(st=>{st.m0=JSON.stringify(st)});G.mg={k,steps,i:0,hold:0,msg:''};showMg()}
+function resetStep(st){const o=JSON.parse(st.m0);Object.keys(o).forEach(x=>{if(x!=='m0')st[x]=o[x]})}
+function showMg(){GEN++;const m=G.mg;if(!m){$('#modal').innerHTML='';cancelAnimationFrame(MGRAF);return}
+ if(m.steps[m.i].dyn){showDyn(m,m.steps[m.i],PARTS[m.k]);return}
+ const st=m.steps[m.i],p=PARTS[m.k];let body='',btn='';
+ if(st.t==='fill'){body=`<div class="g2"><i id="fb" style="background-color:${st.col}"></i>${lv().hint?`<b style="left:${(st.target-st.tol)/st.max*100}%;width:${2*st.tol/st.max*100}%"></b>`:''}<u style="left:${st.target/st.max*100}%"></u></div><div class="fv" id="fv"></div>`;
+  btn=`<button class="btn" onpointerdown="mgHold(1)" onpointerup="mgHold(0)" onpointerleave="mgHold(0)" onpointercancel="mgHold(0)">${m.k===4?'Gonfia':'Versa'}</button><button class="btn cy" onpointerdown="mgHold(-1)" onpointerup="mgHold(0)" onpointerleave="mgHold(0)" onpointercancel="mgHold(0)">${m.k===4?'Sgonfia':'Scarica'}</button><button class="btn ok" onclick="mgConfirm()">Conferma</button>`}
+ else if(st.t==='calib'){body=st.items.map((x,j)=>`<div class="cal"><label><span>${x.lab}</span><b id="cv${j}"></b></label><input type="range" min="${x.min}" max="${x.max}" step="${x.step}" value="${x.v??x.s0}" oninput="mgSlide(${j},this.value)"></div>`).join('');btn=`<button class="btn ok" onclick="mgConfirm()">Conferma</button>`}
+ else{body=`<div class="nuts">${[...Array(st.n)].map((_,i)=>{const a=-Math.PI/2+i*2*Math.PI/st.n;return`<div class="nut ${st.done.includes(i)?'done':''} ${lv().hint&&i===st.order[st.next]?'hint':''}" style="left:${50+38*Math.cos(a)}%;top:${50+38*Math.sin(a)}%" onclick="mgNut(${i})"></div>`}).join('')}</div>`}
+ const note=st.t==='fill'?`Libretto: ${fx(st.target,st)} ${st.unit} · tieni premuto, rilascia, poi conferma`:st.t==='calib'?'Libretto: '+st.items.map(x=>`${x.lab.toLowerCase()} ${fx(x.target,st)}${x.unit}`).join(' · '):'Segui lo schema a stella: salta un dado ogni volta';
+ $('#modal').innerHTML=`<div class="ov"><div class="pn md mg"><div class="ph"><i class="chip yl"></i><span>${p.n}${m.steps.length>1?` · ${m.i+1}/${m.steps.length}`:''}</span></div><div class="bd"><div class="blob rep"><b>${st.title}</b><small>${note}</small></div>${body}<div class="res">${m.msg||''}</div><div class="mgbtn">${btn}</div><div class="keys">Tempo residuo: ${fmt(cur().left)}h · Spazio: versa · Invio: conferma</div></div></div></div>`;
+ mgUpd();cancelAnimationFrame(MGRAF);MGT=performance.now();MGRAF=requestAnimationFrame(mgLoop)}
+function mgUpd(){const m=G.mg;if(!m)return;const st=m.steps[m.i];
+ if(st.t==='fill'){const b=$('#fb'),v=$('#fv');if(b)b.style.width=st.v/st.max*100+'%';if(v)v.textContent=`${fx(st.v,st)} ${st.unit}`}
+ else if(st.t==='calib')st.items.forEach((x,j)=>{const e=$('#cv'+j);if(e){const v=x.v??x.s0;e.textContent=fx(v,st)+x.unit+(lv().hint&&Math.abs(v-x.target)<=x.tol?' ✓':'')}})}
+function mgLoop(t){const m=G.mg;if(!m)return;const st=m.steps[m.i],dt=Math.min(.05,(t-MGT)/1000);
+ if(st.dyn&&X.d){const g=GEN;X.d.upd(dt);if(g!==GEN)return;X.d.draw()}
+ else if(st.t==='fill'&&m.hold){st.v=Math.max(0,Math.min(st.max,st.v+m.hold*(m.hold>0?st.fast:st.slow)*st.max*dt));mgUpd()}
+ MGT=t;MGRAF=requestAnimationFrame(mgLoop)}
+function mgHold(v){if(G&&G.mg)G.mg.hold=v}
+function mgSlide(j,v){const st=G.mg.steps[G.mg.i];st.items[j].v=+v;mgUpd()}
+function mgNut(i){const m=G.mg,st=m.steps[m.i];if(i===st.order[st.next]){st.done.push(i);st.next++;if(st.next>=st.n)return mgPass();m.msg='';showMg()}
+ else{st.mist++;if(st.mist>lv().mg)return mgFail('Troppi dadi svitati nell\'ordine sbagliato.');m.msg=`Ordine sbagliato! (${st.mist}/${lv().mg+1})`;showMg()}}
+function mgConfirm(){const m=G.mg;if(!m)return;const st=m.steps[m.i];let ok;
+ if(st.t==='fill')ok=Math.abs(st.v-st.target)<=st.tol;else if(st.t==='calib')ok=st.items.every(x=>Math.abs((x.v??x.s0)-x.target)<=x.tol);else return;
+ ok?mgPass():mgFail(st.t==='fill'?`Hai messo ${fx(st.v,st)} ${st.unit}: il libretto dice ${fx(st.target,st)}.`:'Valori fuori tolleranza.')}
+function mgPass(){const m=G.mg;if(!m)return;m.hold=0;m.i++;m.msg='';if(m.i>=m.steps.length)return mgDone();showMg()}
+function mgFail(msg){const m=G.mg;if(!m)return;m.hold=0;spend(1);log(`${PARTS[m.k].n}: errore, +1h persa.`);
+ if(G.timeout)return lose('Il tempo è finito: il proprietario è scappato a piedi.');
+ resetStep(m.steps[m.i]);m.msg=msg+' Perdi 1h: riprova.';showMg()}
+function mgDone(){const m=G.mg;if(!m)return;const c=cur(),p=PARTS[m.k];spend(p.h);c.st[m.k].fixed=true;log(`${p.n}: riparato (${fmt(p.h)}h).`);G.mg=null;showMg();
+ if(G.timeout)return lose('Il tempo è finito: il proprietario è scappato a piedi.');render()}
+function mgKey(e,k){if(G.vr){if(k==='enter'||k===' '){e.preventDefault();vrNext()}return}
+ const st=G.mg&&G.mg.steps[G.mg.i];if(!st)return;if(st.dyn){if(k.startsWith('arrow')||k===' '||k==='enter')e.preventDefault();X.k[k]=true;if(!e.repeat&&X.d.press)X.d.press(k);return}
+ if(k==='enter'){e.preventDefault();mgConfirm()}else if(k===' '&&st.t==='fill'){e.preventDefault();G.mg.hold=1}}
+addEventListener('focusin',e=>{if(G.mg&&e.target.tagName==='BUTTON'&&e.target.closest('#modal'))e.target.blur()});
+addEventListener('keyup',e=>{if(e.key===' '&&G.mg)G.mg.hold=0;if(X&&X.k)X.k[e.key.toLowerCase()]=false});
+function deliver(){const c=cur();if(G.screen!=='game'||G.mg||G.vr||!G.checked)return;if(!c.st.every(s=>!s.fault||s.fixed))return;G.res.push({m:c.m,left:c.left});G.screen='inter';render()}
 function next(){if(G.i+1>=G.cars.length){G.screen='end';G.win=true;return render()}
- G.i++;G.phase=0;G.tab='home';G.timeout=false;log(`Entra: ${cur().m}.`);G.screen='game';render()}
+ G.i++;G.tab='home';G.checked=false;G.note='';G.timeout=false;log(`Entra: ${cur().m}.`);G.screen='game';render()}
+
+/* ======================= MINIGIOCHI DINAMICI ======================= */
+let X={k:{}},GEN=0;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),lerp=(a,b,t)=>a+(b-a)*t,TAU=Math.PI*2;
+const cvHTML='<canvas id="cv" width="560" height="250" style="width:100%;display:block;border:3px solid #e4e9ff;border-radius:6px;background:#0b0e1c;touch-action:none;cursor:crosshair"></canvas>';
+const say=s=>{const e=$('#rs');if(e)e.textContent=s};
+const T_=(c,s,x,y,col,sz,al)=>{c.fillStyle=col||'#fff';c.font=(sz||13)+'px DotGothic16,monospace';c.textAlign=al||'left';c.fillText(s,x,y)};
+const bar=(c,x,y,w,h,f,col)=>{c.fillStyle='#000';c.fillRect(x-2,y-2,w+4,h+4);c.fillStyle='#1b2038';c.fillRect(x,y,w,h);c.fillStyle=col;c.fillRect(x,y,w*clamp(f,0,1),h)};
+const holdBtn=l=>`<button class="btn" onpointerdown="X.btnp=1" onpointerup="X.btnp=0" onpointerleave="X.btnp=0" onpointercancel="X.btnp=0">${l}</button>`;
+const MGX={};
+
+/* ---- saldatura ---- */
+MGX.weld={hint:'Mouse: tieni il cursore davanti alla fiamma (più è lontano, più va veloce) · Tastiera: → accelera, ← frena',
+ init(){Object.assign(X,{x:40,v:0,kv:0,heat:0,go:0,pi:-1,sg:Array(48).fill(0),ag:[],sp:[]})},
+ cy(s,x){return 125+s.amp*Math.sin(x*s.f+s.ph)},
+ upd(dt){const x=X,s=x.st,tl=lv().tol,lo=70-25*tl,hi=70+25*tl;x.t+=dt;
+  if(x.over&&x.mx!=null){x.v=lerp(x.v,clamp((x.mx-x.x)*3,0,220),Math.min(1,dt*8));x.kv=x.v}
+  else{if(x.k.arrowright||x.k.d)x.kv=Math.min(220,x.kv+110*dt);if(x.k.arrowleft||x.k.a)x.kv=Math.max(0,x.kv-220*dt);x.v=x.kv}
+  if(x.v>3)x.go=1;x.x=Math.min(520,x.x+x.v*dt);
+  const b=Math.min(47,Math.floor((x.x-40)/10));
+  for(let i=x.pi+1;i<=b;i++){x.sg[i]=x.v>hi?2:1;x.ag[i]=x.t}x.pi=Math.max(x.pi,b);
+  if(x.go){if(x.v<lo)x.heat+=(1-x.v/lo)*55*dt;else x.heat=Math.max(0,x.heat-18*dt)}
+  if(x.v>3&&Math.random()<dt*40)x.sp.push({x:x.x,y:this.cy(s,x.x),vx:(Math.random()-.5)*90,vy:-30-Math.random()*70,l:.5});
+  x.sp.forEach(p=>{p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=260*dt;p.l-=dt});x.sp=x.sp.filter(p=>p.l>0);
+  if(x.heat>=100)return mgFail('Troppo lento: il metallo si è fuso e il tubo è surriscaldato.');
+  if(x.pi>=47){const bad=x.sg.filter(v=>v===2).length;if(bad<=Math.ceil(48*.12*tl))return mgPass();return mgFail(`La saldatura non ha attaccato in ${bad} punti: troppo veloce.`)}},
+ draw(){const c=X.c,s=X.st,x=X,tl=lv().tol,lo=70-25*tl,hi=70+25*tl;c.clearRect(0,0,560,250);
+  const g=c.createLinearGradient(0,50,0,200);g.addColorStop(0,'#cfd6e2');g.addColorStop(.5,'#8a94a6');g.addColorStop(1,'#4b5366');c.fillStyle=g;c.fillRect(25,50,510,150);c.strokeStyle='#000';c.lineWidth=4;c.strokeRect(25,50,510,150);
+  c.lineCap='round';c.lineJoin='round';
+  for(let i=0;i<48;i++){const a=40+i*10,b=a+10,st=x.sg[i];c.beginPath();c.moveTo(a,this.cy(s,a));c.lineTo(b,this.cy(s,b));
+   if(st===1){const k=clamp((x.t-x.ag[i])/1.6,0,1);c.strokeStyle=`rgb(${Math.round(lerp(255,205,k))},${Math.round(lerp(130,214,k))},${Math.round(lerp(20,226,k))})`;c.lineWidth=lerp(11,8,k);c.shadowColor='#ff8a1f';c.shadowBlur=(1-k)*14}
+   else{c.strokeStyle=st===2?'#7a2222':'#0a0a12';c.lineWidth=5;c.shadowBlur=0}c.stroke()}
+  c.shadowBlur=0;const tx=x.x,ty=this.cy(s,tx);
+  c.fillStyle=`rgba(255,${Math.round(170-x.heat*1.2)},40,${.12+x.heat/150})`;c.beginPath();c.arc(tx,ty,24+x.heat*.35,0,TAU);c.fill();
+  c.lineWidth=16;c.strokeStyle='#000';c.beginPath();c.moveTo(tx-24,ty-42);c.lineTo(tx-84,ty-90);c.stroke();c.lineWidth=10;c.strokeStyle='#d4d9e4';c.stroke();
+  c.fillStyle='#6cf';c.beginPath();c.moveTo(tx,ty);c.lineTo(tx-30-Math.random()*6,ty-36);c.lineTo(tx-18,ty-44);c.closePath();c.fill();
+  c.fillStyle='#fff';c.beginPath();c.moveTo(tx,ty);c.lineTo(tx-16,ty-20);c.lineTo(tx-9,ty-26);c.closePath();c.fill();
+  c.fillStyle='#ffd23f';x.sp.forEach(p=>c.fillRect(p.x,p.y,3,3));
+  T_(c,'CALORE',30,216,'#fff',13);bar(c,30,222,200,14,x.heat/100,x.heat<60?'#ffd23f':'#ff5a4a');
+  T_(c,'VELOCITÀ',300,216,'#fff',13);bar(c,300,222,230,14,0,'#000');c.fillStyle='#35c777';c.fillRect(300+lo/220*230,222,(hi-lo)/220*230,14);c.fillStyle='#fff';c.fillRect(300+x.v/220*230-2,218,4,22);
+  T_(c,x.v<lo&&x.go?'troppo lento!':x.v>hi?'troppo veloce!':'',530,216,'#ff8a8a',13,'right')}};
+
+/* ---- nastro termico ---- */
+MGX.tape={hint:'Mouse: tieni premuto per ruotare il tubo e muovi per guidare il rocchetto · Tastiera: ↑ ruota, ←/→ sposta · Invio: conferma',
+ init(){Object.assign(X,{th:0,rx:280,cov:new Uint8Array(1320),tn:new Uint8Array(1320),sp0:100})},
+ btns(){return`<button class="btn ok" onclick="MGX.tape.ok()">Conferma</button>`},
+ pct(){let n=0;for(const v of X.cov)if(v)n++;return n/1320},
+ ok(){const p=this.pct(),need=1-.035*lv().tol;p>=need?mgPass():mgFail(`Restano zone scoperte: copertura ${Math.round(p*100)}% su ${Math.round(need*100)}% richiesto.`)},
+ press(k){if(k==='enter')this.ok()},
+ upd(dt){const x=X,wt=x.st.wt;x.t+=dt;
+  if(x.over&&x.mx!=null)x.rx=lerp(x.rx,clamp(x.mx,60,500),Math.min(1,dt*10));
+  else x.rx=clamp(x.rx+((x.k.arrowright||x.k.d?1:0)-(x.k.arrowleft||x.k.a?1:0))*45*dt,60,500);
+  if(x.down||x.k.arrowup||x.k.w||x.k.arrowdown||x.k.s||x.k[' ']){const d=2.4*dt,dl=TAU/24,f=t=>Math.floor((((-Math.PI/2-t)%TAU)+TAU)%TAU/dl),turn=Math.floor(x.th/TAU)+1,
+    c0=Math.max(0,Math.floor((x.rx-wt/2-60)/8)),c1=Math.min(54,Math.floor((x.rx+wt/2-60)/8));
+   for(const j of new Set([f(x.th),f(x.th+d)]))for(let i=c0;i<=c1;i++){const id=j*55+i;x.cov[id]=x.cov[id]&&x.tn[id]!==turn?2:Math.max(1,x.cov[id]);x.tn[id]=turn}
+   x.th+=d;x.sp0-=100*wt*d/(440*TAU)/1.55;
+   if(x.sp0<=0)return mgFail('Il nastro è finito: troppe sovrapposizioni.')}},
+ draw(){const c=X.c,x=X,cy=125,R=62,dl=TAU/24;c.clearRect(0,0,560,250);
+  for(let j=0;j<24;j++){const p=((j*dl+x.th+Math.PI)%TAU+TAU)%TAU-Math.PI,p0=Math.max(p,-Math.PI/2),p1=Math.min(p+dl,Math.PI/2);if(p1<=p0)continue;
+   const y1=cy+R*Math.sin(p0),y2=cy+R*Math.sin(p1);
+   for(let i=0;i<55;i++){const v=x.cov[j*55+i];c.fillStyle=v===0?((i+j)%3?'#9c5a31':'#7d4524'):v===1?((i+j)%2?'#c3ccd9':'#b2bccb'):'#76849a';c.fillRect(60+i*8,y1,8,y2-y1+1)}}
+  const g=c.createLinearGradient(0,cy-R,0,cy+R);g.addColorStop(0,'rgba(0,0,0,.55)');g.addColorStop(.35,'rgba(255,255,255,.12)');g.addColorStop(1,'rgba(0,0,0,.6)');c.fillStyle=g;c.fillRect(60,cy-R,440,2*R);
+  c.fillStyle='#3a3f4f';c.fillRect(46,cy-R-6,14,2*R+12);c.fillRect(500,cy-R-6,14,2*R+12);c.strokeStyle='#000';c.lineWidth=4;c.strokeRect(60,cy-R,440,2*R);
+  const wt=x.st.wt;c.fillStyle='#d6dde8';c.fillRect(x.rx-wt/2,cy-R-8,wt,10);c.strokeRect(x.rx-wt/2,cy-R-8,wt,10);
+  c.beginPath();c.arc(x.rx,cy-R-30,22,0,TAU);c.fillStyle='#b8c2d1';c.fill();c.stroke();c.beginPath();c.arc(x.rx,cy-R-30,8,0,TAU);c.fillStyle='#0b0e1c';c.fill();
+  T_(c,'NASTRO',30,216,'#fff',13);bar(c,30,222,200,14,x.sp0/100,x.sp0>30?'#8fc0ff':'#ff5a4a');
+  const p=this.pct(),need=1-.035*lv().tol;T_(c,`COPERTURA ${Math.round(p*100)}% (serve ${Math.round(need*100)}%)`,300,216,'#fff',13);bar(c,300,222,230,14,p,p>=need?'#35c777':'#ffd23f')}};
+
+/* ---- olio: versamento cieco + astina ---- */
+MGX.oil={hint:'Spazio: versa (tieni) · C: estrai / reinserisci l\'astina · ←/→ o trascina: pulisci · Invio: conferma',
+ init(s){Object.assign(X,{L:s.l0,ph:'pour',w:0,sm:20+rnd(15)})},
+ btns(){const p=X.ph;return p==='pour'?holdBtn('Versa (tieni)')+`<button class="btn cy" onclick="MGX.oil.ctl()">Controlla astina</button>`:p==='clean'?`<button class="btn cy" onclick="MGX.oil.ctl()">Reinserisci e leggi</button>`:p==='read'?`<button class="btn" onclick="MGX.oil.ctl()">Versa ancora</button><button class="btn ok" onclick="MGX.oil.ok()">Conferma livello</button>`:''},
+ ctl(){const x=X;if(x.ph==='pour'){x.ph='dirty';x.w=0;spend(.1);const e=$('#tm');if(e)e.textContent=fmt(cur().left);if(G.timeout)return lose('Il tempo è finito: il proprietario è scappato a piedi.');say('Astina estratta e sporca di olio: pulisci con lo straccio (trascina sull\'astina o premi ←/→). Ogni controllo costa 0,1h.')}
+  else if(x.ph==='clean'){x.ph='read';say('Leggi: il livello deve stare tra MIN e MAX.')}
+  else if(x.ph==='read'){x.ph='pour';say('Versa ancora a occhio, poi ricontrolla.')}
+  $('#mb').innerHTML=this.btns()},
+ chk(){if(X.w>=1&&X.ph==='dirty'){X.w=1;X.ph='clean';say('Astina pulita! Reinseriscila e rileggi.');$('#mb').innerHTML=this.btns()}},
+ ok(){const x=X,s=x.st;if(x.ph!=='read')return say('Prima controlla il livello con l\'astina pulita.');x.L>=s.mn&&x.L<=s.mx?mgPass():mgFail(x.L<s.mn?'Livello sotto MIN: il motore resta a secco.':'Livello sopra MAX: troppo olio.')},
+ press(k){if(k==='c')this.ctl();else if(k==='enter')this.ok();else if(X.ph==='dirty'&&(k==='arrowleft'||k==='arrowright')){X.w+=.12;this.chk()}},
+ ptr(e,a,b){const x=X;if(x.ph==='dirty'&&e==='m'&&x.down&&x.lx!=null&&a>320&&a<480&&b>10&&b<240){x.w+=(Math.abs(a-x.lx)+Math.abs(b-x.ly))/650;this.chk()}x.lx=a;x.ly=b},
+ upd(dt){const x=X,s=x.st;x.t+=dt;x.pr=x.ph==='pour'&&(x.k[' ']||x.btnp);if(x.pr)x.L+=s.rate*(1+.4*Math.sin(x.t*1.7+s.ph))*dt;
+  if(x.L>=100)return mgFail('L\'olio è traboccato dal bocchettone.')},
+ draw(){const c=X.c,x=X,s=x.st,yy=v=>220-v*1.9;c.clearRect(0,0,560,250);
+  c.fillStyle='#4a5266';c.fillRect(40,110,220,110);c.fillStyle='#6b7690';c.fillRect(60,92,70,18);c.fillRect(150,92,90,18);c.fillStyle='#d12a2a';c.fillRect(84,74,26,18);c.strokeStyle='#000';c.lineWidth=4;c.strokeRect(40,110,220,110);c.strokeRect(84,74,26,18);
+  T_(c,'MOTORE',150,160,'#fff',16,'center');T_(c,'livello: ???',150,190,'#ffd23f',14,'center');
+  if(x.pr){c.save();c.translate(122,34);c.rotate(-.8);c.fillStyle='#e8372c';c.fillRect(-24,-18,48,36);c.strokeRect(-24,-18,48,36);c.restore();c.strokeStyle='#d9972a';c.lineWidth=5;c.beginPath();c.moveTo(97,56);c.lineTo(97,90);c.setLineDash([5,5]);c.stroke();c.setLineDash([])}
+  else{c.fillStyle='#e8372c';c.fillRect(180,30,48,36);c.strokeStyle='#000';c.lineWidth=4;c.strokeRect(180,30,48,36)}
+  c.fillStyle='#fff';T_(c,'ASTINA',400,14,'#fff',13,'center');
+  if(x.ph==='pour'){c.fillStyle='#e8892b';c.fillRect(388,22,24,26);c.strokeStyle='#000';c.strokeRect(388,22,24,26);T_(c,'inserita',400,76,'#a9b4ee',13,'center');T_(c,x.pr?'versi...':'ferma, controlla ogni tanto',400,96,'#ffd23f',12,'center');return}
+  c.fillStyle='#e8892b';c.fillRect(388,18,24,16);c.fillStyle='#cfd6e2';c.fillRect(380,34,40,186);
+  const h=Math.min(100,x.L+x.sm);
+  if(x.ph==='dirty'||x.ph==='clean'){if(x.ph==='dirty'){c.fillStyle=`rgba(120,70,15,${1-x.w})`;c.fillRect(380,yy(h),40,220-yy(h))}}
+  else{c.fillStyle='#d9972a';c.fillRect(380,yy(x.L),40,220-yy(x.L));c.fillStyle='#ffe08a';c.fillRect(380,yy(x.L),40,3)}
+  c.fillStyle='#35c777';c.fillRect(424,yy(s.mx),6,yy(s.mn)-yy(s.mx));c.fillStyle='#000';c.fillRect(376,yy(s.mx)-1,48,3);c.fillRect(376,yy(s.mn)-1,48,3);
+  T_(c,'MAX',436,yy(s.mx)+5,'#fff',13);T_(c,'MIN',436,yy(s.mn)+5,'#fff',13);c.strokeStyle='#000';c.lineWidth=4;c.strokeRect(380,34,40,186);
+  if(x.ph==='dirty'){bar(c,340,232,120,8,x.w,'#fff');if(x.down&&x.mx!=null){c.fillStyle='#eee';c.fillRect(x.mx-26,x.my-14,52,28);c.strokeRect(x.mx-26,x.my-14,52,28);T_(c,'straccio',x.mx,x.my+4,'#222',11,'center')}}
+  if(x.ph==='clean')T_(c,'pulita!',400,240,'#35c777',13,'center')}};
+
+/* ---- refrigerante: bolle d'aria ---- */
+MGX.cool={hint:'Spazio: versa (tieni) · ↓ o S: schiaccia il manicotto · clic: scoppia le bolle · Invio: conferma',
+ init(s){Object.assign(X,{F:0,T:s.t0,bub:[],spw:.8,cd:0,pops:[]})},
+ btns(){return holdBtn('Versa (tieni)')+`<button class="btn cy" onclick="MGX.cool.sq()">Schiaccia manicotto</button><button class="btn ok" onclick="MGX.cool.ok()">Conferma</button>`},
+ py(f){return 78+f*148},
+ pop(b){X.bub=X.bub.filter(q=>q!==b);X.pops.push({y:this.py(b.y),r:b.r,l:.35})},
+ sq(){const x=X;if(x.cd>0)return;x.cd=.9;x.sqz=.25;x.bub.sort((a,b)=>a.y-b.y);if(x.bub[0])this.pop(x.bub[0])},
+ ok(){const x=X,s=x.st;x.T>=s.lo&&x.T<=s.hi?mgPass():mgFail(x.T<s.lo?'Livello nel vaso sotto MIN.':'Livello nel vaso sopra MAX.')},
+ press(k){if(k==='s'||k==='arrowdown')this.sq();else if(k==='enter')this.ok()},
+ ptr(e,a,b){if(e!=='d')return;const bu=X.bub.find(q=>Math.hypot(a-230,b-this.py(q.y))<q.r+8);if(bu)this.pop(bu);else if(Math.abs(a-230)<24&&b>78&&b<226)this.sq()},
+ upd(dt){const x=X,s=x.st;x.t+=dt;x.cd=Math.max(0,x.cd-dt);x.sqz=Math.max(0,(x.sqz||0)-dt);
+  if(x.k[' ']||x.btnp)x.F+=.42*dt;
+  x.spw-=dt;if(x.spw<=0){x.bub.push({y:1,r:9+rnd(10),v:.25+Math.random()*.3,w:Math.random()*6});x.spw=(.9+Math.random()*1.8)*s.sr}
+  x.bub.sort((a,b)=>a.y-b.y);x.bub.forEach((b,i)=>b.y=Math.max(.08+.13*i,b.y-b.v*dt));
+  x.fl=!x.bub.some(b=>b.y<=.22)&&x.F>0;if(x.fl){const f=Math.min(x.F,.3*dt);x.F-=f;x.T+=f*.28}
+  x.pops.forEach(p=>p.l-=dt);x.pops=x.pops.filter(p=>p.l>0);
+  if(x.F>=1)return mgFail('Il liquido è traboccato dall\'imbuto: le bolle bloccavano il flusso.');
+  if(x.T>=1)return mgFail('Il vaso di espansione è pieno fino all\'orlo.')},
+ draw(){const c=X.c,x=X,s=x.st,ty=v=>225-v*135;c.clearRect(0,0,560,250);
+  c.lineCap='round';c.lineJoin='round';c.beginPath();c.moveTo(60,226);c.lineTo(230,226);c.lineTo(230,78);c.lineTo(306,78);
+  c.strokeStyle='#000';c.lineWidth=(x.sqz>0?20:32);c.stroke();c.strokeStyle='#2fd37a';c.lineWidth=(x.sqz>0?10:22);c.stroke();
+  c.setLineDash([6,5]);c.strokeStyle='#ffd23f';c.lineWidth=2;c.strokeRect(210,110,40,90);c.setLineDash([]);T_(c,'manicotto',230,208,'#ffd23f',11,'center');
+  c.fillStyle='#4a5266';c.fillRect(14,206,50,38);c.strokeStyle='#000';c.lineWidth=4;c.strokeRect(14,206,50,38);T_(c,'MOTORE',39,230,'#fff',10,'center');
+  x.bub.forEach(b=>{const bx=230+Math.sin(x.t*3+b.w)*3,by=this.py(b.y);c.beginPath();c.arc(bx,by,b.r,0,TAU);c.fillStyle='rgba(220,245,255,.85)';c.fill();c.lineWidth=3;c.strokeStyle='#000';c.stroke();c.fillStyle='#fff';c.fillRect(bx-b.r*.45,by-b.r*.5,b.r*.3,b.r*.3)});
+  x.pops.forEach(p=>{c.beginPath();c.arc(230,p.y,p.r+(.35-p.l)*90,0,TAU);c.strokeStyle=`rgba(255,255,255,${p.l*2.5})`;c.lineWidth=3;c.stroke()});
+  c.fillStyle='#9aa0a8';c.fillRect(306,70,28,20);c.strokeRect(306,70,28,20);
+  c.save();c.beginPath();c.moveTo(270,18);c.lineTo(370,18);c.lineTo(334,70);c.lineTo(306,70);c.closePath();c.fillStyle='#1b2038';c.fill();c.clip();c.fillStyle=x.F>.8?'#ff5a4a':'#2fd37a';c.fillRect(260,70-x.F*52,120,60);c.restore();
+  c.beginPath();c.moveTo(270,18);c.lineTo(370,18);c.lineTo(334,70);c.lineTo(306,70);c.closePath();c.stroke();T_(c,'imbuto',320,12,'#fff',11,'center');
+  if(x.fl){c.fillStyle='#2fd37a';c.fillRect(318,72+(x.t*120)%16,4,5)}
+  c.fillStyle='#1b2038';c.fillRect(270,90,100,135);c.fillStyle='#2fd37a';c.fillRect(270,ty(x.T),100,225-ty(x.T));c.strokeRect(270,90,100,135);
+  c.fillStyle='#000';c.fillRect(264,ty(s.hi)-1,112,3);c.fillRect(264,ty(s.lo)-1,112,3);T_(c,'MAX',382,ty(s.hi)+5,'#fff',13);T_(c,'MIN',382,ty(s.lo)+5,'#fff',13);
+  T_(c,x.bub.some(b=>b.y<=.22)?'FLUSSO BLOCCATO!':'',470,120,'#ff8a8a',14,'center');
+  bar(c,440,170,100,10,x.F,x.F>.8?'#ff5a4a':'#2fd37a');T_(c,'imbuto',440,164,'#fff',12)}};
+
+/* ---- freni: spurgo + rabbocco ---- */
+MGX.brake={hint:'Spazio: versa (tieni) o pulsante ON/OFF · ↓ / P / clic sul quadro: pompa il pedale a tempo',
+ init(s){Object.assign(X,{R:s.r0,O:1,air:0,pd:0,tog:0})},
+ rb(){$('#mb').innerHTML=this.btns()},
+ btns(){return`<button class="btn ${X.tog?'ok':''}" onclick="X.tog^=1;MGX.brake.rb()">Versa: ${X.tog?'ON':'OFF'}</button><button class="btn cy" onpointerdown="MGX.brake.pump()">Pompa pedale (↓)</button>`},
+ press(k){if(k==='arrowdown'||k==='p')this.pump()},
+ ptr(e){if(e==='d')this.pump()},
+ pump(){const x=X,s=x.st;if(!x.st)return;const w=.08+.1*lv().tol,ph=(x.t%s.beat)/s.beat,good=ph<w||ph>1-w;x.pd=1;
+  if(x.R<s.safe){x.air++;say('Aria nel circuito! Versa subito liquido.');if(x.air>=3)return mgFail('Il livello è sceso sotto la linea di sicurezza: aria nell\'impianto.')}
+  else say(good?'A tempo!':'Fuori tempo: esce poco liquido.');
+  x.O=Math.max(0,x.O-(good?.075:.025));x.R=Math.max(0,x.R-(good?.05:.025))},
+ upd(dt){const x=X,s=x.st;x.t+=dt;x.pr=x.k[' ']||x.tog;if(x.pr)x.R+=.2*dt;x.pd=Math.max(0,x.pd-dt*5);
+  if(x.R>=1)return mgFail('La vaschetta è traboccata: hai versato senza pompare.');
+  if(x.O<=0&&x.R>=s.safe)return mgPass()},
+ draw(){const c=X.c,x=X,s=x.st,ry=v=>170-v*130,ph=(x.t%s.beat)/s.beat;c.clearRect(0,0,560,250);
+  c.fillStyle='#1b2038';c.fillRect(40,40,90,130);c.fillStyle=x.R<s.safe?'#c98a2b':'#e8c24a';c.fillRect(40,ry(x.R),90,170-ry(x.R));c.strokeStyle='#000';c.lineWidth=4;c.strokeRect(40,40,90,130);
+  c.setLineDash([6,4]);c.strokeStyle='#ff5a4a';c.beginPath();c.moveTo(34,ry(s.safe));c.lineTo(136,ry(s.safe));c.stroke();c.setLineDash([]);T_(c,'SICUREZZA',140,ry(s.safe)+4,'#ff8a8a',11);
+  if(x.pr){c.save();c.translate(100,16);c.rotate(-.7);c.fillStyle='#e8372c';c.fillRect(-20,-14,40,28);c.restore();c.strokeStyle='#e8c24a';c.lineWidth=4;c.beginPath();c.moveTo(78,28);c.lineTo(78,ry(x.R));c.stroke()}
+  c.fillStyle='#3a3f4f';c.fillRect(230,150+x.pd*18,70,22);c.strokeStyle='#000';c.lineWidth=4;c.strokeRect(230,150+x.pd*18,70,22);c.fillStyle='#777';c.fillRect(260,100,10,50+x.pd*18);T_(c,'PEDALE',265,192,'#fff',12,'center');
+  c.beginPath();c.arc(420,95,34,0,TAU);c.strokeStyle='#35c777';c.lineWidth=5;c.stroke();c.beginPath();c.arc(420,95,34+(1-ph)*38,0,TAU);c.strokeStyle='#fff';c.lineWidth=3;c.stroke();T_(c,ph<.2||ph>.8?'POMPA!':'',420,100,'#35c777',14,'center');
+  const f=x.O;c.fillStyle='#2a1a10';c.fillRect(60,214,460,18);c.fillStyle='#e8c24a';c.fillRect(60,214,460*(1-f),18);c.strokeStyle='#000';c.strokeRect(60,214,460,18);
+  T_(c,`liquido vecchio nel circuito: ${Math.round(f*100)}%`,60,208,'#fff',13);T_(c,'ARIA: '+x.air+'/3',520,208,x.air?'#ff8a8a':'#a9b4ee',13,'right')}};
+function bindCv(){const cv=X.cv,q=e=>{const r=cv.getBoundingClientRect();return[(e.clientX-r.left)*cv.width/r.width,(e.clientY-r.top)*cv.height/r.height]};
+ cv.onpointerdown=e=>{e.preventDefault();try{cv.setPointerCapture(e.pointerId)}catch(_){}const[a,b]=q(e);X.down=1;X.over=1;X.mx=a;X.my=b;X.d.ptr&&X.d.ptr('d',a,b)};
+ cv.onpointermove=e=>{const[a,b]=q(e);X.over=1;X.mx=a;X.my=b;X.d.ptr&&X.d.ptr('m',a,b)};
+ cv.onpointerup=cv.onpointercancel=()=>{X.down=0;X.d.ptr&&X.d.ptr('u')};
+ cv.onpointerleave=()=>{if(!X.down)X.over=0}}
+function showDyn(m,st,p){const D=MGX[st.t];
+ $('#modal').innerHTML=`<div class="ov"><div class="pn md mg wide"><div class="ph"><i class="chip yl"></i><span>${p.n}</span></div><div class="bd"><div class="blob rep"><b>${st.title}</b><small>${st.sub}</small></div>${cvHTML}<div class="res" id="rs">${m.msg||''}</div><div class="mgbtn" id="mb"></div><div class="keys">${D.hint}<br>Tempo residuo: <span id="tm">${fmt(cur().left)}</span>h</div></div></div></div>`;
+ X={k:{},t:0,st,d:D};D.init(st);X.cv=$('#cv');X.c=X.cv.getContext('2d');bindCv();$('#mb').innerHTML=D.btns?D.btns():'';
+ cancelAnimationFrame(MGRAF);MGT=performance.now();MGRAF=requestAnimationFrame(mgLoop)}
 
 /* ======================= MENU ======================= */
-function openMenu(){if(G.roll||G.screen==='menu')return;G.menuOpen=true;
+function openMenu(){if((G.mg||G.vr)||G.screen==='menu')return;G.menuOpen=true;
  $('#menu').innerHTML=`<div class="ov" onclick="if(event.target===this)closeMenu()"><div class="pn md"><div class="ph"><i class="chip"></i><span>Menu</span></div>
  <div class="menulist" style="padding-top:18px"><button class="btn cy" onclick="closeMenu()">Riprendi</button>
  ${G.screen==='game'?`<button class="btn" style="--c:var(--yel);color:var(--ink);-webkit-text-stroke:0" onclick="closeMenu();setTab('home')">Torna al garage</button>`:''}
  <button class="btn" onclick="newGame()">Ricomincia partita</button></div>
- <div class="help"><b style="color:#fff">Tasti</b><br>C, M, O: scheda veicolo, ricambi, officina · 1-7: scegli il pezzo · D: consegna l'auto · Spazio: tira il dado · H: garage · Esc: menu</div></div></div>`}
+ <div class="help"><b style="color:#fff">Tasti</b><br>C: check-up · O: officina · M: messaggi · 1-7: segna/ripara il pezzo · D: consegna l'auto · Spazio: tieni premuto per versare · Invio: conferma · H: garage · Esc: menu</div></div></div>`}
 function closeMenu(){G.menuOpen=false;$('#menu').innerHTML=''}
 
 /* ======================= GRAFICA ======================= */
-const INK='#0b0e15';
+const INK='#04051f';/* ===== pixelatura: rasterizza gli SVG a bassa risoluzione ===== */
+const PXC=new Map();
+function pix(svg,div,k){
+ if(svg.classList.contains('px'))return;
+ const vb=svg.viewBox.baseVal,W=Math.round(vb.width/div),H=Math.round(vb.height/div);
+ const cl=svg.cloneNode(true);cl.querySelectorAll('.mk').forEach(n=>n.remove());
+ cl.querySelectorAll('[stroke-width]').forEach(n=>n.setAttribute('stroke-width',n.getAttribute('stroke-width')*k));
+ cl.setAttribute('width',W);cl.setAttribute('height',H);
+ const xml=new XMLSerializer().serializeToString(cl),cv=document.createElement('canvas');cv.width=W;cv.height=H;cv.className='pxc';
+ const w=document.createElement('span');w.className='pxb';svg.parentNode.insertBefore(w,svg);w.append(cv,svg);svg.classList.add('px');
+ const draw=im=>{const x=cv.getContext('2d');x.imageSmoothingEnabled=false;x.drawImage(im,0,0,W,H)};
+ if(PXC.has(xml))return draw(PXC.get(xml));
+ const im=new Image();im.onload=()=>{PXC.set(xml,im);draw(im)};
+ im.onerror=()=>{svg.classList.remove('px');cv.remove()};
+ im.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(xml)}
+function pixAll(){const s=document.querySelector('#stage>svg');if(s)pix(s,5,.7);
+ document.querySelectorAll('.cw svg,.show svg').forEach(v=>pix(v,2.5,.5));document.querySelectorAll('.hero .own svg').forEach(v=>pix(v,2.5,.5))}
+
 function mini(x,y,s,col){const w=(4/s).toFixed(1);
  return`<g transform="translate(${x} ${y}) scale(${s})" stroke="${INK}" stroke-width="${w}" stroke-linejoin="round"><path d="M0 0V-16Q3-26 18-28L36-30L50-48H92Q100-48 106-40L116-30L140-27Q152-24 154-14V0Z" fill="${col}"/><path d="M54-44H90L104-32H42Z" fill="#8fd6ea"/><circle cx="34" cy="0" r="12" fill="#23262d"/><circle cx="122" cy="0" r="12" fill="#23262d"/></g>`}
 function plume(x,y,k){return`<g fill="#3d3b47" stroke="${INK}" stroke-width="4" opacity=".92"><circle cx="${x}" cy="${y}" r="${26*k}"/><circle cx="${x+26*k}" cy="${y-18*k}" r="${32*k}"/><circle cx="${x-24*k}" cy="${y-30*k}" r="${24*k}"/><circle cx="${x+4*k}" cy="${y-52*k}" r="${28*k}"/></g>`}
@@ -303,45 +609,75 @@ function figSVG(){
 <circle cx="64" cy="42" r="26" fill="#f2c9a0"/><path d="M38 40Q40 14 66 14Q92 14 90 42Q80 28 64 30Q48 30 38 40Z" fill="#14110f"/>
 <path d="M52 44v6M76 44v6" stroke-width="5"/><path d="M54 58Q64 52 74 58" stroke-width="4" fill="none"/></g></svg>`}
 
+const CD=[
+{d:'M40 206V72Q40 38 64 30H342L430 112L548 122Q568 126 570 150V206Z',wr:43,wy:206,rim:'#c9cfd8',sp:0,tr:0,mk:{2:[552,140]},
+ clip:`<rect x="0" y="182" width="620" height="30" fill="#2a2d36"/><rect x="0" y="150" width="620" height="60" fill="#000" opacity=".18"/><path d="M72 38H330" stroke="#fff" stroke-width="5" opacity=".5"/>`,
+ det:`<path d="M68 52H338L418 110H68Z" fill="#8fd6ea" stroke="${INK}" stroke-width="4" stroke-linejoin="round"/><path d="M84 56H120L96 106H72Z" fill="#fff" opacity=".5"/><path d="M205 52V110" stroke="${INK}" stroke-width="8"/><path d="M196 112V196M330 112V196" stroke="${INK}" stroke-width="3" opacity=".5"/><rect x="292" y="126" width="22" height="6" rx="2" fill="#222"/>
+ <rect x="548" y="168" width="24" height="38" rx="6" fill="#3a3e48" stroke="${INK}" stroke-width="4"/><rect x="34" y="168" width="22" height="38" rx="6" fill="#3a3e48" stroke="${INK}" stroke-width="4"/>
+ <path d="M538 124L566 130V152H540Z" fill="#fff6a8" stroke="${INK}" stroke-width="3"/><rect x="540" y="156" width="26" height="8" fill="#ffa63d" stroke="${INK}" stroke-width="2"/><rect x="38" y="92" width="14" height="48" rx="3" fill="#d12a2a" stroke="${INK}" stroke-width="3"/><path d="M418 112l16-4 3 12-16 3z" fill="#2a2d36" stroke="${INK}" stroke-width="3"/>`},
+{d:'M38 208V160Q40 140 60 128L104 110Q158 70 214 66H330Q372 68 404 100L440 128L534 138Q564 144 570 168V208Z',wr:42,wy:207,rim:'#cfd6e2',sp:5,tr:0,mk:{2:[528,150]},
+ clip:`<rect x="0" y="190" width="620" height="22" fill="#2a2d36"/><rect x="0" y="160" width="620" height="60" fill="#000" opacity=".2"/><path d="M60 148Q300 138 534 152" stroke="#fff" stroke-width="4" opacity=".45" fill="none"/>`,
+ det:`<path d="M118 120Q160 82 214 76H328Q358 78 382 102L410 124H118Z" fill="#8fd6ea" stroke="${INK}" stroke-width="4" stroke-linejoin="round"/><path d="M140 112Q168 88 200 84L176 118Z" fill="#fff" opacity=".5"/><path d="M216 76V122" stroke="${INK}" stroke-width="7"/>
+ <path d="M218 126V198M384 130V198" stroke="${INK}" stroke-width="3" opacity=".5"/><rect x="236" y="134" width="22" height="5" rx="2" fill="#111"/><path d="M404 112l18-2 4 12-18 3z" fill="#2a2d36" stroke="${INK}" stroke-width="3"/>
+ <path d="M498 138L548 144Q560 150 556 160L500 154Z" fill="#fff6a8" stroke="${INK}" stroke-width="3"/><circle cx="542" cy="184" r="6" fill="#e8e0b0" stroke="${INK}" stroke-width="3"/>
+ <path d="M558 152H570V172L564 178L558 172Z" fill="#c8102e" stroke="${INK}" stroke-width="3"/><path d="M38 138H54L56 158H38Z" fill="#d12a2a" stroke="${INK}" stroke-width="3"/>`},
+{d:'M52 222V-2Q52 -10 62 -10H404L426 98H548Q566 98 568 112V222Z',wr:52,wy:197,rim:'#e8e8e0',sp:0,tr:1,mk:{2:[556,128],3:[470,197],4:[140,197],5:[305,234],6:[72,230]},
+ clip:`<rect x="0" y="-20" width="440" height="30" fill="#f1f1ea"/><rect x="0" y="130" width="620" height="100" fill="#000" opacity=".18"/><path d="M52 64H426" stroke="#000" stroke-width="3" opacity=".4"/>`,
+ det:`<path d="M96 12H290V58H96Z M302 12H408L417 58H302Z" fill="#8fd6ea" stroke="${INK}" stroke-width="4" stroke-linejoin="round"/><path d="M296 12V60" stroke="${INK}" stroke-width="8"/><path d="M296 62V218M414 100V218" stroke="${INK}" stroke-width="3" opacity=".5"/><rect x="378" y="74" width="20" height="6" rx="2" fill="#222"/>
+ <rect x="22" y="60" width="30" height="86" rx="9" fill="#23262d" stroke="${INK}" stroke-width="5"/><rect x="190" y="206" width="190" height="14" fill="#9aa0a8" stroke="${INK}" stroke-width="4"/>
+ <rect x="552" y="118" width="16" height="56" fill="#777f8a" stroke="${INK}" stroke-width="4"/><path d="M556 128H568M556 138H568M556 148H568M556 158H568" stroke="${INK}" stroke-width="2"/><circle cx="560" cy="106" r="11" fill="#fff6a8" stroke="${INK}" stroke-width="4"/>
+ <rect x="546" y="196" width="28" height="26" fill="#9aa0a8" stroke="${INK}" stroke-width="4"/><rect x="30" y="200" width="30" height="22" fill="#9aa0a8" stroke="${INK}" stroke-width="4"/><rect x="46" y="150" width="8" height="30" fill="#d12a2a" stroke="${INK}" stroke-width="2"/><rect x="420" y="40" width="10" height="26" rx="3" fill="#222" stroke="${INK}" stroke-width="3"/>`}];
+const ANCH=[{hx:470,hy:122,hl:[552,140]},{hx:470,hy:138,hl:[530,150]},{hx:480,hy:98,hl:[560,106]}];
+function wheel(x,y,r,rim,sp,tr){let q='';for(let i=0;i<sp;i++){const t=i*6.2832/sp-1.57;q+=`M${x} ${y}L${(x+Math.cos(t)*r*.6).toFixed(1)} ${(y+Math.sin(t)*r*.6).toFixed(1)}`}
+ return`<g><circle cx="${x}" cy="${y}" r="${r+7}" fill="#0a0a14"/><circle cx="${x}" cy="${y}" r="${r}" fill="#2b2622" stroke="${INK}" stroke-width="6"/>${tr?`<circle cx="${x}" cy="${y}" r="${r-5}" fill="none" stroke="#000" stroke-width="5" stroke-dasharray="7 6" opacity=".7"/>`:''}<circle cx="${x}" cy="${y}" r="${(r*.58).toFixed(1)}" fill="${rim}" stroke="${INK}" stroke-width="4"/>${q?`<path d="${q}" stroke="${INK}" stroke-width="5" stroke-linecap="round"/>`:''}<circle cx="${x}" cy="${y}" r="${(r*.16).toFixed(1)}" fill="${INK}"/></g>`}
 function carSVG(c,mode){
- const mk=mode==='home'?'':PARTS.map((p,k)=>{const s=c.st[k],col=!s.insp?'#ffd23f':s.fixed?'#3a7bd5':s.fault?'#e8372c':'#35c777';
-  return`<g class="mk" onclick="act(${k})"><title>${p.n}</title><circle cx="${p.x}" cy="${p.y}" r="15" fill="${col}" stroke="${INK}" stroke-width="4"/><text x="${p.x}" y="${p.y+6}" text-anchor="middle" font-size="17" fill="${s.fixed||(s.insp&&s.fault)?'#fff':INK}" font-family="Arial Black">${k+1}</text></g>`}).join('');
- const smoke=mode==='home'?`<g fill="#4a4a55" stroke="${INK}" stroke-width="4" opacity=".9"><circle cx="500" cy="52" r="12"/><circle cx="520" cy="30" r="16"/><circle cx="502" cy="4" r="12"/></g>`:'';
- const wheel=x=>`<g><circle cx="${x}" cy="205" r="44" fill="#2b2622" stroke="${INK}" stroke-width="6"/><path d="M${x-44} 205a44 44 0 0 0 88 0z" fill="#000" opacity=".35"/><circle cx="${x}" cy="205" r="22" fill="#cfcfcf" stroke="${INK}" stroke-width="5"/><circle cx="${x}" cy="205" r="7" fill="${INK}"/><path d="M${x-30} 188a34 34 0 0 1 22-14" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" opacity=".6"/></g>`;
- return`<svg viewBox="0 0 620 270"><defs><path id="bd" d="M38 205V165Q42 142 80 138L150 132L198 82Q208 72 232 72H372Q392 72 406 86L442 130L522 140Q566 148 570 175V205Z"/><clipPath id="cp"><use href="#bd"/></clipPath><pattern id="ht" width="8" height="8" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.7" fill="${INK}" opacity=".4"/></pattern>
- <linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".5"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>
- <ellipse cx="310" cy="250" rx="290" ry="12" fill="${INK}" opacity=".45"/>
- <use href="#bd" fill="${c.c}" stroke="${INK}" stroke-width="7" stroke-linejoin="round"/>
- <g clip-path="url(#cp)"><rect x="0" y="168" width="620" height="60" fill="#000" opacity=".26"/><rect x="0" y="168" width="620" height="60" fill="url(#ht)"/><path d="M205 80H395L380 90H200Z" fill="#fff" opacity=".55"/><rect x="0" y="70" width="620" height="70" fill="url(#cg)"/><path d="M60 152H540" stroke="#fff" stroke-width="3" opacity=".4"/></g>
- <path d="M224 94H368L404 130H210Z" fill="#8fd6ea" stroke="${INK}" stroke-width="5" stroke-linejoin="round"/><path d="M236 98H262L238 128H218Z M276 98H292L268 128H252Z" fill="#fff" opacity=".6"/><path d="M296 94V130" stroke="${INK}" stroke-width="5"/>
- <rect x="552" y="158" width="20" height="24" rx="5" fill="#fff6a8" stroke="${INK}" stroke-width="4"/><path d="M38 192h532" stroke="${INK}" stroke-width="3" opacity=".4"/>
- ${wheel(140)}${wheel(470)}${smoke}${mk}</svg>`}
+ const D=CD[c.m.includes('Panda')?0:c.m.includes('147')?1:2];
+ const A0=ANCH[CD.indexOf(D)],MP=[[430,-40],[512,-40],[598,40],[470,292],[140,292],[305,292],[40,292]],TG=[[A0.hx,A0.hy],[A0.hx+58,A0.hy],A0.hl,[470,D.wy],[140,D.wy],[305,D.mk[5]?D.mk[5][1]-6:218],D.mk[6]?[D.mk[6][0],D.mk[6][1]-6]:[62,186]];
+ const mk=mode==='home'?'':PARTS.map((p,k)=>{const s=c.st[k],q=MP[k],g=TG[k],col=G.checked?(s.fixed?'#3a7bd5':s.fault?'#e8372c':'#35c777'):(c.marks[k]?'#e8372c':'#ffd23f'),ln=`M${q[0]} ${q[1]}L${g[0]} ${g[1]}`;
+  return`<g class="mk" onclick="act(${k})"><title>${p.n}</title><path d="${ln}" stroke="${INK}" stroke-width="7" stroke-linecap="round"/><path d="${ln}" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="${g[0]}" cy="${g[1]}" r="7" fill="${col}" stroke="${INK}" stroke-width="4"/><circle cx="${q[0]}" cy="${q[1]}" r="15" fill="${col}" stroke="${INK}" stroke-width="4"/><text x="${q[0]}" y="${q[1]+6}" text-anchor="middle" font-size="17" fill="${col==='#ffd23f'||col==='#35c777'?INK:'#fff'}" font-family="Arial Black">${k+1}</text></g>`}).join('');
+ const A=ANCH[CD.indexOf(D)],f=k=>c.st[k].fault&&!c.st[k].fixed,pf=(x,y,r)=>`<circle cx="${x}" cy="${y}" r="${r}"/>`;
+ const tilt=f(5)?' transform="rotate(-2.8 305 225)"':'',flat=f(4)?' transform="translate(140 249) scale(1.14 .8) translate(-140 -249)"':'';
+ let sg='';
+ if(f(0))sg+=`<g fill="#5a5a66" opacity=".85">${pf(A.hx,A.hy-12,13)}${pf(A.hx+20,A.hy-34,17)}${pf(A.hx-4,A.hy-58,14)}</g><path d="M${A.hx-95} 212V242" stroke="${INK}" stroke-width="10" stroke-linecap="round"/><path d="M${A.hx-95} 212V242" stroke="#ffb400" stroke-width="5" stroke-linecap="round" stroke-dasharray="6 7"/><ellipse cx="${A.hx-95}" cy="252" rx="26" ry="7" fill="#3b2410" stroke="#ffb400" stroke-width="3"/><ellipse cx="${A.hx-100}" cy="250" rx="10" ry="2" fill="#ffd54a"/>`;
+ if(f(1))sg+=`<g fill="#fff" opacity=".8">${pf(A.hx+58,A.hy-12,12)}${pf(A.hx+72,A.hy-32,15)}${pf(A.hx+56,A.hy-54,12)}</g><ellipse cx="540" cy="250" rx="30" ry="6" fill="#2fd37a" stroke="${INK}" stroke-width="3"/><path d="M538 214V240" stroke="#2fd37a" stroke-width="5" stroke-linecap="round" stroke-dasharray="6 7"/>`;
+ if(f(2))sg+=`<ellipse cx="${A.hl[0]}" cy="${A.hl[1]}" rx="13" ry="12" fill="#4b4f5a" opacity=".8"/><path d="M${A.hl[0]-8} ${A.hl[1]-10}l6 8-5 5 7 9" stroke="#fff" stroke-width="2.5" fill="none"/>`;
+ if(f(3))sg+=`<circle cx="470" cy="${D.wy}" r="${D.wr*.55}" fill="#ff7a1a" opacity=".75" stroke="#ffd23f" stroke-width="3"/><g fill="#777" opacity=".8">${pf(470,D.wy-D.wr-12,10)}${pf(486,D.wy-D.wr-30,13)}</g>`;
+ if(f(6))sg+=`<g fill="#14141a" opacity=".9">${pf(30,238,11)}${pf(14,222,13)}${pf(30,204,12)}${pf(12,186,10)}</g>`;
+ sg=`<g opacity="${lv().so}">${sg}</g>`;
+ const smoke=mode==='home'&&0?`<g fill="#4a4a55" stroke="${INK}" stroke-width="4" opacity=".9"><circle cx="500" cy="52" r="12"/><circle cx="520" cy="30" r="16"/><circle cx="502" cy="4" r="12"/></g>`:'';
+ return`<svg viewBox="${mode==='home'?'0 -30 620 300':'0 -62 620 372'}"><defs><path id="bd" d="${D.d}"/><clipPath id="cp"><use href="#bd"/></clipPath><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".45"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>
+ <ellipse cx="310" cy="251" rx="290" ry="10" fill="${INK}" opacity=".45"/>
+ <g${tilt}><use href="#bd" fill="${c.c}" stroke="${INK}" stroke-width="7" stroke-linejoin="round"/><g clip-path="url(#cp)">${D.clip}<rect x="0" y="-30" width="620" height="110" fill="url(#cg)"/></g>${D.det}</g>
+ <g${flat}>${wheel(140,D.wy,D.wr,D.rim,D.sp,D.tr)}</g>${wheel(470,D.wy,D.wr,D.rim,D.sp,D.tr)}${sg}${mk}</svg>`}
 
 /* ======================= RENDER ======================= */
 function nav(){
  const T=(id,label,cls)=>{const a=typeof id==='number'?id:`'${id}'`;
   return`<button class="tk ${cls} ${G.tab===id?'on':''}" onclick="setTab(${a})"><span>${label}</span>${id==='msg'&&G.logN>G.seenN&&G.tab!=='msg'?'<i class="dot"></i>':''}</button>`};
- return`<nav class="nav"><div>${T(0,'Scheda veicolo','')}${T(1,'Ricambi','cy')}${T(2,'Officina','yl')}</div><div>${T('msg','Messaggi','li')}</div></nav>`}
+ return`<nav class="nav"><div>${T(0,'Check-up','')}${T(1,'Officina','yl')}</div><div>${T('msg','Messaggi','li')}</div></nav>`}
 function hud(c){const pct=c.left/c.lim*100,col=pct>50?'#35c777':pct>25?'#ffd23f':'#e8372c';
- return`<div class="hud pn"><div class="hr"><span>Auto ${G.i+1}/${G.cars.length}</span><span>${c.m}</span></div><div class="gauge"><i style="width:${pct}%;background:${col}"></i></div><div class="hr"><span style="color:var(--sil2);font-weight:600">Tempo residuo</span><b>${fmt(c.left)}h / ${c.lim}h</b></div></div>`}
+ return`<div class="hud pn"><div class="hr"><span>Auto ${G.i+1}/${G.cars.length} · ${lv().n}</span><span>${c.m}</span></div><div class="gauge"><i style="width:${pct}%;background:${col}"></i></div><div class="hr"><span style="color:var(--sil2);font-weight:600">Tempo residuo</span><b>${fmt(c.left)}h / ${c.lim}h</b></div></div>`}
 const menuBtn='<button class="tk red menub" onclick="openMenu()"><span>Menù</span></button>';
+const CK='<svg viewBox="0 0 24 24"><path d="M3 13l6 6L21 5" fill="none" stroke="#04051f" stroke-width="5" stroke-linecap="square"/></svg>';
 const pill=(s)=>`<span class="st ${s.fixed?'fix':s.fault?'bad':'good'}">${s.fixed?'RIPARATO':s.fault?'GUASTO':'OK'}</span>`;
 
-function render(){
+function render(){render0();pixAll();if(G.screen==='lore')typeLore()}
+function render0(){
  const A=$('#app');
  document.body.dataset.v=G.screen==='game'?(G.tab==='home'?'home':'panel'):(G.screen==='menu'?'title':'title');
 
+ if(G.screen==='lore'){const l=LORE[G.li];A.innerHTML=`<div class="lore" onclick="loreNext()"><div class="pn lbox"><div class="who">${l[1]} ${l[0]}</div><p id="lt"></p><span class="more">▼</span></div><button class="btn sm skip" onclick="event.stopPropagation();clearInterval(TW);newGame()">Salta</button></div>`;return}
  if(G.screen==='menu'){A.innerHTML=`<div class="ttl"><div class="pn"><h1 class="logo">REVISIONE<br>APOCALITTICA</h1>
  <p>Una pandemia sta facendo crollare tutto. Sei l'ultimo meccanico ancora aperto e la fila di chi scappa si allunga.</p>
- <ol class="steps"><li>Apri la scheda veicolo e ispeziona i pezzi: il controllo non costa tempo.</li><li>Compra i ricambi senza farteli rubare dai predoni.</li><li>Ripara ogni guasto in officina: i dadi decidono tra colpo di genio e disastro.</li></ol>
- <p>Finisci prima che il proprietario scappi. Tre auto in coda.</p><button class="btn big" onclick="newGame()">Inizia</button><div class="keys">Premi Invio per iniziare</div></div></div>`+menuBtn;return}
+ <ol class="steps"><li>Osserva l'auto: fumo, perdite, gomme a terra… segna le parti guaste sul foglio e premi Verifica.</li><li>Se sbagli troppe voci, la revisione è bocciata.</li><li>Ripara ogni guasto con i minigiochi: dadi, liquidi, pressione, assetto.</li></ol>
+ <p>Finisci prima che il proprietario scappi. Tre auto in coda.</p><h3 class="dh">Difficoltà</h3><div class="dif">${Object.entries(LV).map(([k,v])=>`<button class="tk ${v.col} ${k===DIFF?'on':''}" onclick="setDiff('${k}')"><span>${v.n}</span></button>`).join('')}</div><p class="dd">${lv().d}</p><button class="btn big" onclick="startLore()">Inizia</button><div class="keys">Premi Invio per iniziare</div></div></div>`+menuBtn;return}
 
  if(G.screen==='inter'){const r=G.res[G.res.length-1];A.innerHTML=`<div class="ttl"><div class="pn"><div class="stamp"><span class="s1">REVISIONE</span><span class="s2">PASSATA</span></div>
  <p>Hai riparato la macchina in tempo. ${r.m}: timbro sul libretto con ${fmt(r.left)}h di anticipo. Il proprietario parte sgommando.</p><button class="btn big ok" onclick="next()">Prossima auto</button><div class="keys">Premi Invio per continuare</div></div></div>`+menuBtn;return}
 
  if(G.screen==='end'){A.innerHTML=(G.win?`<div class="ttl"><div class="pn"><h1 class="logo">FATTO!</h1><p>Tutte le auto in coda hanno passato la revisione. Poi spegni le luci e chiudi l'officina.</p>
- <table><tr><th>Auto</th><th>Ore avanzate</th></tr>${G.res.map(r=>`<tr><td>${r.m}</td><td>${fmt(r.left)}h</td></tr>`).join('')}</table><button class="btn big" onclick="newGame()">Rigioca</button><div class="keys">Premi Invio per rigiocare</div></div></div>`
- :`<div class="ttl"><div class="pn"><div class="stamp bad"><span class="s1">REVISIONE</span><span class="s2">FALLITA</span></div><p>${G.why}</p><p>Il cliente è scappato a piedi. Auto superate: ${G.res.length} su ${CARS.length}.</p><button class="btn big" onclick="newGame()">Rigioca</button><div class="keys">Premi Invio per rigiocare</div></div></div>`)+menuBtn;return}
+ <table><tr><th>Auto</th><th>Ore avanzate</th></tr>${G.res.map(r=>`<tr><td>${r.m}</td><td>${fmt(r.left)}h</td></tr>`).join('')}</table><button class="btn big" onclick="toTitle()">Rigioca</button><div class="keys">Premi Invio per rigiocare</div></div></div>`
+ :`<div class="ttl"><div class="pn"><div class="stamp bad"><span class="s1">REVISIONE</span><span class="s2">FALLITA</span></div><p>${G.why}</p><p>Il cliente è scappato a piedi. Auto superate: ${G.res.length} su ${CARS.length}.</p><button class="btn big" onclick="toTitle()">Rigioca</button><div class="keys">Premi Invio per rigiocare</div></div></div>`)+menuBtn;return}
 
  const c=cur(),o=c.own;
  /* ---------- garage (home) ---------- */
@@ -351,34 +687,22 @@ function render(){
   <div class="scroll"><div class="sc-pl">SCORRI PER INIZIARE</div><svg class="chev" viewBox="0 0 28 14"><path d="M2 2l12 10L26 2" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="chev" viewBox="0 0 28 14"><path d="M2 2l12 10L26 2" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>`+menuBtn+hud(c);return}
 
  /* ---------- schede ---------- */
- const done=c.st.filter(s=>s.insp).length,allFixed=c.st.every(s=>!s.fault||s.fixed),anyFix=c.st.some(s=>s.fixed);
- const known=PARTS.map((p,k)=>({p,k,s:c.st[k]})).filter(x=>x.s.insp&&x.s.fault);
- const todo=known.filter(x=>!x.s.fixed);
- const estH=todo.reduce((a,x)=>a+x.p.h+(x.s.has?0:1),0),toBuy=todo.filter(x=>!x.s.has).length,workH=todo.reduce((a,x)=>a+x.p.h,0);
-
+ const faults=PARTS.map((p,k)=>({p,k,s:c.st[k]})).filter(x=>x.s.fault),todo=faults.filter(x=>!x.s.fixed),workH=todo.reduce((a,x)=>a+x.p.h,0),allFixed=G.checked&&!todo.length,nm=c.marks.filter(Boolean).length;
  const left=`<div class="col"><section class="pn"><header class="ph"><i class="chip"></i><span>${c.m}</span><em>${c.y}</em></header>
  <div class="show ${G.tab==='msg'?'lock':''}">${carSVG(c,'tab')}</div>
- <div class="spec"><div><span>Km</span><b>${c.km.toLocaleString('it-IT')}</b></div><div><span>Carburante</span><b>${c.f}</b></div><div><span>Ispezionati</span><b>${done}/7</b></div><div><span>Guasti noti</span><b>${known.length}</b></div></div></section>
+ <div class="spec"><div><span>Km</span><b>${c.km.toLocaleString('it-IT')}</b></div><div><span>Carburante</span><b>${c.f}</b></div><div><span>Segnati</span><b>${nm}/7</b></div><div><span>Guasti</span><b>${G.checked?faults.length:'?'}</b></div></div></section>
  <div class="two"><section class="pn"><header class="ph"><i class="chip cy"></i><span>Proprietario</span></header><div class="own"><div class="av"></div><div><b>${o.nome}</b><small>${o.eta} anni · ${o.job}</small><small>Destinazione: ${o.dest}</small></div></div></section>
- <section class="pn"><header class="ph"><i class="chip yl"></i><span>Stima lavori</span></header><div class="est"><div class="big">${known.length?fmt(estH)+'h':'—'}</div><small>${known.length?`${toBuy} ricambi da comprare`:'Ispeziona i pezzi per la stima'}${done<7&&known.length?` · ${7-done} pezzi da controllare`:''}</small></div></section></div></div>`;
-
+ <section class="pn"><header class="ph"><i class="chip yl"></i><span>Stima lavori</span></header><div class="est"><div class="big">${G.checked?fmt(workH)+'h':'—'}</div><small>${G.checked?`${todo.length} riparazioni da fare`:'Compila il check-up'}</small></div></section></div></div>`;
  let title,chip,body,foot='';
- if(G.tab===0){title='Scheda veicolo · Resoconto check';chip='';
-  body=PARTS.map((p,k)=>{const s=c.st[k];const sub=s.insp?(s.fault?`Guasto · riparazione ${fmt(p.h)}h`:'Nessun problema'):'Non ispezionato';
-   return`<div class="row"><div class="n">${k+1}</div><div class="t">${p.n}<small>${sub}</small></div>${s.insp?pill(s):`<button class="btn sm" onclick="act(${k})">Ispeziona</button>`}</div>`}).join('');
-  foot=`<button class="btn cy" onclick="setTab(1)">Vai ai ricambi</button><button class="btn" onclick="setTab(2)">Ripara</button>`}
- else if(G.tab===1){title='Mercato ricambi';chip='cy';
-  body=known.length?known.map(({p,k,s})=>`<div class="row"><div class="n">${k+1}</div><div class="t">${p.n}<small>Montaggio ${fmt(p.h)}h</small></div>${s.fixed?'<span class="st fix">RIPARATO</span>':s.has?'<span class="st good">RICAMBIO OK</span>':`<button class="btn sm" onclick="act(${k})">Compra · 1h</button>`}</div>`).join('')
-   :'<div class="empty">Nessun guasto noto. Torna alla scheda veicolo e ispeziona i pezzi.</div>';
-  foot=`<button class="btn cy" onclick="setTab(0)">Scheda veicolo</button><button class="btn" style="--c:var(--yel);color:var(--ink);-webkit-text-stroke:0" onclick="setTab(2)">Officina</button>`}
- else if(G.tab===2){title='Officina · Seleziona intervento';chip='yl';
-  body=(known.length?known.map(({p,k,s})=>`<div class="row"><div class="cb">${s.fixed?'✓':''}</div><div class="t">${p.n}<small>Costo ${fmt(p.h)}h</small></div>${s.fixed?'<span class="st fix">RIPARATO</span>':s.has?`<button class="btn sm ok" onclick="act(${k})">Monta · ${fmt(p.h)}h</button>`:'<span class="st bad">SERVE RICAMBIO</span>'}</div>`).join('')
-   :'<div class="empty">Nessun guasto noto. Torna alla scheda veicolo e ispeziona i pezzi.</div>')+
-   (known.length?`<div class="tot"><span>Totale lavori</span><b>${fmt(workH)}h / ${fmt(c.left)}h</b></div>`:'');
-  foot=`<button class="btn cy" onclick="setTab(1)">Ricambi</button><button class="btn ok" ${anyFix&&allFixed?'':'disabled'} onclick="deliver()">Consegna auto</button>`}
+ if(G.tab===0){title='Foglio di check-up';chip='';
+  body=`<div class="empty">${G.checked?'Check-up superato. Ora vai in officina a riparare.':G.note||'Osserva l\'auto: fumo, perdite, gomme a terra, fari e assetto. Segna le parti che sembrano guaste (anche cliccando i numeri sull\'auto), poi premi Verifica.'}</div>`+
+   PARTS.map((p,k)=>`<div class="row" style="cursor:pointer" onclick="act(${k})"><div class="n">${k+1}</div><div class="t">${p.n}<small>${p.z}</small></div>${G.checked?pill(c.st[k]):`<div class="cb ${c.marks[k]?'on':''}">${c.marks[k]?CK:''}</div>`}</div>`).join('');
+  foot=G.checked?`<button class="btn" style="--c:var(--yel)" onclick="setTab(1)">Vai in officina</button>`:`<button class="btn ok" onclick="verify()">Verifica</button>`}
+ else if(G.tab===1){title='Officina · Riparazioni';chip='yl';
+  body=G.checked?(faults.length?faults.map(({p,k,s})=>`<div class="row"><div class="cb ${s.fixed?'on':''}">${s.fixed?CK:''}</div><div class="t">${p.n}<small>${p.mg} · ${fmt(p.h)}h</small></div>${s.fixed?'<span class="st fix">RIPARATO</span>':`<button class="btn sm ok" onclick="act(${k})">Ripara</button>`}</div>`).join('')+`<div class="tot"><span>Lavori residui</span><b>${fmt(workH)}h / ${fmt(c.left)}h</b></div>`:'<div class="empty">Nessun guasto.</div>'):'<div class="empty">Compila e verifica prima il check-up.</div>';
+  foot=`<button class="btn cy" onclick="setTab(0)">Check-up</button><button class="btn ok" ${allFixed?'':'disabled'} onclick="deliver()">Consegna auto</button>`}
  else{title='Messaggi';chip='li';
   body=`<div class="msg"><h4>${o.nome}</h4><p>${c.note}</p></div>`+G.log.map(l=>`<div class="msg sys"><h4>Officina</h4><p>${l}</p></div>`).join('')}
-
  A.innerHTML=nav()+`<div class="main">${left}<section class="pn"><header class="ph"><i class="chip ${chip}"></i><span>${title}</span></header>${body}${foot?`<div class="foot">${foot}</div>`:''}</section></div>`+menuBtn+hud(c);
 }
 
@@ -386,18 +710,20 @@ function render(){
 addEventListener('keydown',e=>{const k=e.key.toLowerCase();
  if(k==='escape'){if(G.menuOpen)closeMenu();else openMenu();return}
  if(G.menuOpen)return;
- if(G.roll){if(k===' '||k==='enter'){e.preventDefault();rollKey()}return}
- if(G.screen==='menu'||G.screen==='end'){if(k==='enter')newGame();return}
+ if(G.mg||G.vr){mgKey(e,k);return}
+
+ if(G.screen==='lore'){if(k==='enter'||k===' '){e.preventDefault();loreNext()}return}
+ if(G.screen==='menu'||G.screen==='end'){if(k==='enter')G.screen==='menu'?startLore():toTitle();return}
  if(G.screen==='inter'){if(k==='enter')next();return}
- if(G.tab==='home'){if(k==='enter'||k===' '||k==='arrowdown'){e.preventDefault();setTab(0)}else if(k==='c'||k==='m'||k==='o')setTab('cmo'.indexOf(k));return}
- if(k==='c'||k==='m'||k==='o')setTab('cmo'.indexOf(k));
+ if(G.tab==='home'){if(k==='enter'||k===' '||k==='arrowdown'){e.preventDefault();setTab(0)}else if(k==='c'||k==='m'||k==='o')setTab(({c:0,o:1,m:'msg'})[k]);return}
+ if(k==='c'||k==='m'||k==='o')setTab(({c:0,o:1,m:'msg'})[k]);
  else if(k==='h')setTab('home');
  else if(k==='d')deliver();
  else if(/^[1-7]$/.test(k))act(+k-1)});
 let wheelLock=0,ty=null;
-addEventListener('wheel',e=>{if(G.screen==='game'&&G.tab==='home'&&!G.roll&&!G.menuOpen&&e.deltaY>10&&Date.now()>wheelLock){wheelLock=Date.now()+600;setTab(0)}},{passive:true});
+addEventListener('wheel',e=>{if(G.screen==='game'&&G.tab==='home'&&!(G.mg||G.vr)&&!G.menuOpen&&e.deltaY>10&&Date.now()>wheelLock){wheelLock=Date.now()+600;setTab(0)}},{passive:true});
 addEventListener('touchstart',e=>{ty=e.touches[0].clientY},{passive:true});
-addEventListener('touchend',e=>{if(ty!==null&&G.screen==='game'&&G.tab==='home'&&!G.roll&&!G.menuOpen&&ty-e.changedTouches[0].clientY>40)setTab(0);ty=null},{passive:true});
+addEventListener('touchend',e=>{if(ty!==null&&G.screen==='game'&&G.tab==='home'&&!(G.mg||G.vr)&&!G.menuOpen&&ty-e.changedTouches[0].clientY>40)setTab(0);ty=null},{passive:true});
 
 $('#stage').innerHTML=bgSVG()+'<div class="veil"></div>';
 render();
